@@ -36,3 +36,57 @@
     transform: rotate(360deg);
   }
 }
+
+#my-component {
+  font-family: Arial, sans-serif;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+select {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Make select element look like a button on hover */
+select:hover {
+  cursor: pointer;
+  background-color: #eee;
+}
+
+/* Style the arrow of the select element */
+select::before {
+  content: '\25BC';
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  pointer-events: none;
+}
+
+/* Style the arrow of the select element when it is focused */
+select:focus::before {
+  content: '\25B2';
+}
+
+/* Style the options of the select element */
+option {
+  font-weight: normal;
+}
+
+/* Style the selected option of the select element */
+option:checked {
+  font-weight: bold;
+}
+
+/* Style the disabled option of the select element */
+option:disabled {
+  color: #999;
+}
