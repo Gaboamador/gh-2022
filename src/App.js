@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import ContarPalabras from './contarPalabras'
 
 function App() {
   return (
@@ -18,8 +19,8 @@ function App() {
           Learn React
         </a>
       </header>
+      <ContarPalabras/>
     </div>
   );
 }
-
 export default App;
