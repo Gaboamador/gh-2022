@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Button, Row, Col, Container} from 'react-bootstrap';
 
 const countWords = words => {
   const counts = {};
@@ -12,18 +13,60 @@ const countWords = words => {
   return counts;
 }
 
-const ListaJugadores = ({ words: initialWords }) => {
+export const ListaJugadores = ({ words: initialWords }) => {
   const [words, setWords] = useState(initialWords);
+  const [names, setNames] = useState([]);
   const [newWord, setNewWord] = useState('Agustín');
+  const [newName, setNewName] = useState('Agustín');
+  const [addExtraOccurrence, setAddExtraOccurrence] = useState(false);
+  const [extraOccurrenceCount, setExtraOccurrenceCount] = useState(0);
 
-  const handleChange = event => {
+  const handleWordChange = event => {
     setNewWord(event.target.value);
   }
 
-  const handleSubmit = event => {
+  const handleNameChange = event => {
+    setNewName(event.target.value);
+  }
+
+  const handleSubmitOne = event => {
     event.preventDefault();
-    setWords([...words, newWord]);
-    setNewWord('Agustín');
+    if (newWord && newName) {
+      setWords([...words, newWord]);
+      setNames([...names, newName]);
+      setNewWord(event.target.value);
+      setNewName(event.target.value);
+      if (addExtraOccurrence && extraOccurrenceCount < 2) {
+        setWords([...words, newWord]);
+        setNames([...names, newName]);
+        setExtraOccurrenceCount(extraOccurrenceCount + 1);
+      }
+    }
+  }
+
+  const handleSubmitTwo = event => {
+    event.preventDefault();
+    if (newWord && newName) {
+      setWords([...words, newWord, newWord]);
+      setNames([...names, newName, newName]);
+      setNewWord(event.target.value);
+      setNewName(event.target.value);
+      if (addExtraOccurrence && extraOccurrenceCount < 2) {
+        setWords([...words, newWord]);
+        setNames([...names, newName]);
+        setExtraOccurrenceCount(extraOccurrenceCount + 1);
+      }
+    }
+  }
+
+  const handleUndo = () => {
+    setWords(words.slice(0, -1));
+    setNames(names.slice(0, -1));
+  }
+
+
+  const toggleExtraOccurrence = () => {
+    setAddExtraOccurrence(!addExtraOccurrence);
   }
 
   const wordCounts = countWords(words);
@@ -31,11 +74,10 @@ const ListaJugadores = ({ words: initialWords }) => {
   const fourthWordCount = sortedWords.length > 3 ? wordCounts[sortedWords[3]] : 0;
 
   return (
-    <div>
-      {/*FORMULARIO PRIMER LUGAR - 2 VOTOS*/}
-      <form onSubmit={handleSubmit}>
-        <label>
-        <select value={newWord} onChange={handleChange}>
+    <div style={{ justifyContent: 'space-between' }}>
+      <form onSubmit={handleSubmitTwo}>
+      <label>Jugador
+          <select value={newName} onChange={handleNameChange}>
             <option value="Agustín">Agustín</option>
             <option value="Alexis">Alexis</option>
             <option value="Ariel">Ariel</option>
@@ -51,13 +93,8 @@ const ListaJugadores = ({ words: initialWords }) => {
             <option value="Walter">Walter</option>
           </select>
         </label>
-        <button type="submit">Confirmar Voto</button>
-      </form>
-
-      {/*FORMULARIO SEGUNDO LUGAR - 1 VOTO*/}
-      <form onSubmit={handleSubmit}>
-        <label>
-        <select value={newWord} onChange={handleChange}>
+        <label>Votado
+        <select value={newWord} onChange={handleWordChange}>
             <option value="Agustín">Agustín</option>
             <option value="Alexis">Alexis</option>
             <option value="Ariel">Ariel</option>
@@ -73,10 +110,24 @@ const ListaJugadores = ({ words: initialWords }) => {
             <option value="Walter">Walter</option>
           </select>
         </label>
-        <button type="submit">Confirmar Voto</button>
+        <Button type="submit" className="btn btn-primary">Primer Lugar</Button>
       </form>
-
+      <p></p>
+      <form onSubmit={handleSubmitOne}>
+        <Button type="submit" className="btn btn-secondary">Segundo Lugar</Button>
+      </form>
+      <p></p>
+      <Button onClick={handleUndo} className="btn btn-light">Deshacer</Button>
+      <p></p>
       <div>
+        <label>
+        <input type="checkbox" checked={addExtraOccurrence} onChange={toggleExtraOccurrence} disabled={extraOccurrenceCount >= 2}/>
+        Espontánea
+        </label>
+      </div>
+      
+      <div>
+        <h2>Words:</h2>
         {sortedWords.map((word, index) => (
           <div
             key={word}
@@ -87,8 +138,19 @@ const ListaJugadores = ({ words: initialWords }) => {
         ))}
       </div>
 
+      <div>
+        <h2>Names:</h2>
+        {names.map((name, index) => (
+          <div key={name}>
+            {name}: {names[index]}
+            </div>
+        ))}
+        </div>
+
+
     </div>
   );
 };
+
 
 export default ListaJugadores;

@@ -14,11 +14,13 @@ const countWords = words => {
   return counts;
 }
 
-const ContadorDoble = ({ words: initialWords }) => {
-  const [words, setWords] = useState(initialWords);
-  const [newWord, setNewWord] = useState('');
-  const [addExtraOccurrence, setAddExtraOccurrence] = useState(false);
-  const [extraOccurrenceCount, setExtraOccurrenceCount] = useState(0);
+const NuevaLista3 = ({ words: initialWords }) => {
+    const [words, setWords] = useState(initialWords);
+    const [newWord, setNewWord] = useState('');
+    const [newName, setNewName] = useState('');
+    const [names, setNames] = useState([]);
+    const [addExtraOccurrence, setAddExtraOccurrence] = useState(false);
+    const [extraOccurrenceCount, setExtraOccurrenceCount] = useState(0);
 
   const namesOptions = ['Agustín', 'Alexis', 'Ariel', 'Camila', 'Daniela', 'Julieta', 'Lucila', 'Marcos', 'Maximiliano', 'Nacho', 'Romina', 'Thiago', 'Walter'];
 
@@ -26,11 +28,15 @@ const ContadorDoble = ({ words: initialWords }) => {
     setNewWord(event.target.value);
   }
 
+
+
   const handleSubmitOne = event => {
     event.preventDefault();
-    if (newWord) {
+    if (newWord && newName) {
       setWords([...words, newWord, ...(addExtraOccurrence && extraOccurrenceCount < 2 ? [newWord] : [])]);
-      setNewWord(event.target.value);
+      setNames([...names, newName, ...(addExtraOccurrence && extraOccurrenceCount < 2 ? [newName] : [])]);
+      setNewWord('');
+      setNewName('');
       if (addExtraOccurrence && extraOccurrenceCount < 2) {
         setExtraOccurrenceCount(extraOccurrenceCount + 1);
       }
@@ -39,9 +45,11 @@ const ContadorDoble = ({ words: initialWords }) => {
 
   const handleSubmitTwo = event => {
     event.preventDefault();
-    if (newWord) {
+    if (newWord && newName) {
       setWords([...words, newWord, newWord, ...(addExtraOccurrence && extraOccurrenceCount < 2 ? [newWord] : [])]);
-      setNewWord(event.target.value);
+      setNames([...names, newName, newName, ...(addExtraOccurrence && extraOccurrenceCount < 2 ? [newName] : [])]);
+      setNewWord('');
+      setNewName('');
       if (addExtraOccurrence && extraOccurrenceCount < 2) {
         setExtraOccurrenceCount(extraOccurrenceCount + 1);
       }
@@ -60,8 +68,18 @@ const ContadorDoble = ({ words: initialWords }) => {
   const sortedWords = Object.keys(wordCounts).sort((a, b) => wordCounts[b] - wordCounts[a]);
   const fourthWordCount = sortedWords.length > 3 ? wordCounts[sortedWords[3]] : 0;
 
+  
   return (
     <div>
+
+        <Form.Select value={newName} onChange={event => setNewName(event.target.value)}>
+      <option>Votante</option>
+      {namesOptions.map(option => (
+              <option key={option} value={option}>{option}</option>
+            ))}      
+      </Form.Select>
+
+        <p></p>
 
       <Form.Select value={newWord} onChange={handleChange}>
       <option>Seleccionar jugador</option>
@@ -105,7 +123,7 @@ const ContadorDoble = ({ words: initialWords }) => {
       <p></p>
       
       <div>
-        <h4>Placa Nominados</h4>
+        <h4 className="titulo">Placa Nominados</h4>
       {sortedWords.map((word, index) => (
             <div
             key={word}
@@ -115,9 +133,18 @@ const ContadorDoble = ({ words: initialWords }) => {
           </div>
         ))}
       </div>   
-    
+        <p></p>
+      <h5>Votaciones</h5>
+      <ul>
+        {names.map((name, index) => (
+          /*<li key={index}>{name}: {words[index]}</li>*/
+          <li key={index}>{name}: {words[index]}</li>
+        ))}
+      </ul>
+
     </div>
   );
 };
 
-export default ContadorDoble;
+export default NuevaLista3;
+

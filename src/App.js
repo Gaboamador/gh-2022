@@ -2,6 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import ListaJugadores from './ListaJugadores';
 import ContadorDoble from './ContadorDoble';
+import NuevaLista from './NuevaLista';
+import NuevaLista2 from './NuevaLista2';
+import NuevaLista3 from './NuevaLista3';
 
 import {Button, Row, Col, Container} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
@@ -46,24 +49,26 @@ function App() {
     return () => window.removeEventListener("beforeunload", unloadCallback);
   }, []);
 
+
+
+  
 /*CONTENEDOR CON LAS OPCIONES*/
   return (  
     <div className="container py-4">  
-      <h1 className="text-center text-uppercase">  
-        Welcome to react app development
-      </h1>  
-      <div>  
-        <h3>Bootstrap 4 Buttons</h3>
+      <h2 className="titulo">GRAN HERMANO 2022</h2>
+      <h3 className="titulo2">NOMINACIONES</h3>
+      <div>
+        <p></p>
+        <p></p>
         <Container>
           <Row>
-            <Col xs lg="2">{/*ListaJugadores words={[]} */}Acá va a ir la lista de votantes</Col>
-            <Col xs lg="2"><ContadorDoble words={[]} /></Col>
+            <Col xs lg="2"><NuevaLista3 words={[]} /></Col>
           </Row>
-        </Container> 
-        
+        </Container>
 
       </div>
     </div>  
   );  
 }  
 export default App;  
+
