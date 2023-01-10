@@ -5,6 +5,7 @@ import ContadorDoble from './ContadorDoble';
 import NuevaLista from './NuevaLista';
 import NuevaLista2 from './NuevaLista2';
 import NuevaLista3 from './NuevaLista3';
+import NuevaLista4 from './NuevaLista4';
 
 import {Button, Row, Col, Container} from 'react-bootstrap';
 import {useEffect, useState} from 'react';
@@ -38,6 +39,7 @@ export default App; */
 function App() {  
 
   /*AVISA ANTES DE ACTUALIZAR LA PÁGINA*/
+/*
   useEffect(() => {
     const unloadCallback = (event) => {
       event.preventDefault();
@@ -48,21 +50,21 @@ function App() {
     window.addEventListener("beforeunload", unloadCallback);
     return () => window.removeEventListener("beforeunload", unloadCallback);
   }, []);
-
+*/
 
 
   
 /*CONTENEDOR CON LAS OPCIONES*/
   return (  
     <div className="container py-4">  
-      <h2 className="titulo">GRAN HERMANO 2022</h2>
+      <h2 className="tituloPrincipal">GRAN HERMANO 2022</h2>
       <h3 className="titulo2">NOMINACIONES</h3>
       <div>
         <p></p>
-        <p></p>
+        
         <Container>
           <Row>
-            <Col xs lg="2"><NuevaLista3 words={[]} /></Col>
+            <Col><NuevaLista4 words={[]} /></Col>
           </Row>
         </Container>
 

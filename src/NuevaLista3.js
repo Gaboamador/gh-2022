@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Button, Row, Col, Container} from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 
@@ -21,13 +21,14 @@ const NuevaLista3 = ({ words: initialWords }) => {
     const [names, setNames] = useState([]);
     const [addExtraOccurrence, setAddExtraOccurrence] = useState(false);
     const [extraOccurrenceCount, setExtraOccurrenceCount] = useState(0);
+    const [lastClicked, setLastClicked] = useState("");
+  
 
   const namesOptions = ['Agustín', 'Alexis', 'Ariel', 'Camila', 'Daniela', 'Julieta', 'Lucila', 'Marcos', 'Maximiliano', 'Nacho', 'Romina', 'Thiago', 'Walter'];
 
   const handleChange = event => {
     setNewWord(event.target.value);
   }
-
 
 
   const handleSubmitOne = event => {
@@ -37,6 +38,7 @@ const NuevaLista3 = ({ words: initialWords }) => {
       setNames([...names, newName, ...(addExtraOccurrence && extraOccurrenceCount < 2 ? [newName] : [])]);
       setNewWord('');
       setNewName('');
+      setLastClicked('One');
       if (addExtraOccurrence && extraOccurrenceCount < 2) {
         setExtraOccurrenceCount(extraOccurrenceCount + 1);
       }
@@ -50,19 +52,28 @@ const NuevaLista3 = ({ words: initialWords }) => {
       setNames([...names, newName, newName, ...(addExtraOccurrence && extraOccurrenceCount < 2 ? [newName] : [])]);
       setNewWord('');
       setNewName('');
+      setLastClicked('Two');
       if (addExtraOccurrence && extraOccurrenceCount < 2) {
         setExtraOccurrenceCount(extraOccurrenceCount + 1);
       }
     }
   }
 
-  const handleUndo = () => {
+
+const handleUndo = () => {
+  if (lastClicked === 'One') {
     setWords(words.slice(0, -1));
+    setNames(names.slice(0, -1));
+  } else if (lastClicked === 'Two') {
+    setWords(words.slice(0, -2));
+    setNames(names.slice(0, -2));
   }
+}
 
   const toggleExtraOccurrence = () => {
     setAddExtraOccurrence(!addExtraOccurrence);
   }
+
 
   const wordCounts = countWords(words);
   const sortedWords = Object.keys(wordCounts).sort((a, b) => wordCounts[b] - wordCounts[a]);
@@ -72,7 +83,7 @@ const NuevaLista3 = ({ words: initialWords }) => {
   return (
     <div>
 
-        <Form.Select value={newName} onChange={event => setNewName(event.target.value)}>
+      <Form.Select id='newName' value={newName} onChange={event => setNewName(event.target.value)} defaultValue={newName}>
       <option>Votante</option>
       {namesOptions.map(option => (
               <option key={option} value={option}>{option}</option>
