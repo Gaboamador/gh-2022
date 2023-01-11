@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+
+
 .App {
-  text-align: center;
+  border:#ab34bf;
+  
 }
 
 .App-logo {
@@ -14,57 +18,45 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  min-height:40px;
+  background-image: linear-gradient(to right, #ab34bf, #2426d4);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 10px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.tituloPrincipal{
-  color:#0d6efd;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+.title-word {
+  color:white;
+  font-family: 'Michroma', sans-serif;
+  font-size:x-large;
   text-align:center;
- }
+  justify-content:center;
+}
+.second-word {
+  font-weight: bold;
+}
 
-.titulo{
- color:#0d6efd;
- font-family:Verdana, Geneva, Tahoma, sans-serif;
+.title-word-class {
+  margin: 0px 0px 0px !important;
+}
+.col10-class{
+  padding: 0px 0px 0px !important;
 }
 
 
 
-.titulo2{
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  text-align:center;
- }
+.seleccionarVotante{
+  color:#4a2ace;
+}
 
+.placaNominados{
+  color:#a934c0;
+}
 
- .titulo3{
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align:center;
-  font-weight:bold;
- }
- 
-
-#my-component {
-  font-family: Arial, sans-serif;
+.fueraDePlaca{
+  color:#1680CE;
 }
 
 label {
@@ -72,47 +64,7 @@ label {
   margin-bottom: 0.5em;
 }
 
-select {
-  width: 100%;
-  padding: 0.5em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-/* Make select element look like a button on hover */
-select:hover {
-  cursor: pointer;
-  background-color: #eee;
-}
-
-/* Style the arrow of the select element */
-select::before {
-  content: '\25BC';
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  pointer-events: none;
-}
-
-/* Style the arrow of the select element when it is focused */
-select:focus::before {
-  content: '\25B2';
-}
-
-/* Style the options of the select element */
-option {
-  font-weight: normal;
-}
-
-/* Style the selected option of the select element */
-option:checked {
-  font-weight: bold;
-}
-
-/* Style the disabled option of the select element */
-option:disabled {
-  color: #999;
+.precaucion{
+  color:red;
+  text-align:center;
 }
