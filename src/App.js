@@ -1,9 +1,25 @@
 import gh from './logo.png';
 import './App.css';
 import ContadorFinal from './ContadorFinal';
+import ModeloNuevo from './ModeloNuevo';
 import {Row, Col, Container} from 'react-bootstrap';
 
 function App() {  
+  
+/*LÍNEA DIVISORIA PARA DIFERENCIAR LOS DOS ELEMENTOS*/
+  const ColoredLine = ({ color }) => (
+    <hr
+        style={{
+            color: color,
+            backgroundColor: color,
+            height: 5,
+            marginTop: "20px",
+            marginBottom: "20px"
+        }}
+    />
+);
+/*LÍNEA DIVISORIA PARA DIFERENCIAR LOS DOS ELEMENTOS*/
+
   return (  
 
 <div>
@@ -29,6 +45,14 @@ function App() {
     <Container>
       <Row>
         <Col><ContadorFinal words={[]} /></Col>
+      </Row>
+    </Container>
+    <Container> {/*LÍNEA DIVISORIA PARA DIFERENCIAR LOS DOS ELEMENTOS*/}
+    <ColoredLine color= "RED" />
+    </Container> {/*LÍNEA DIVISORIA PARA DIFERENCIAR LOS DOS ELEMENTOS*/}
+    <Container>
+      <Row>
+        <Col><ModeloNuevo words={[]}/></Col>
       </Row>
     </Container>
   </div>
