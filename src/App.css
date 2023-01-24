@@ -1,9 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant&family=Michroma&display=swap');
 
+
+.GeneralFont {
+/*  font-family: 'Roboto', sans-serif;*/
+font-family: 'Assistant', sans-serif;
+}
 
 .App {
   border:#ab34bf;
-  
 }
 
 .App-logo {
@@ -45,18 +49,31 @@
   padding: 0px 0px 0px !important;
 }
 
-
-
 .seleccionarVotante{
   color:#4a2ace;
+  font-weight:bold;
 }
 
 .placaNominados{
   color:#a934c0;
+  font-weight:bold;
 }
 
 .fueraDePlaca{
   color:#1680CE;
+  font-weight:bold;
+}
+
+.detalleDeVotos {
+  background-image: linear-gradient(to left, #ab34bf, #2426d4);
+  font-family: 'Michroma', sans-serif;
+  color:white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+  /*font-weight:bold;*/
 }
 
 label {
@@ -97,4 +114,32 @@ label {
   background-color: #56EAFA !important;
   color: #2426d4 !important;
   border-color: #ab34bf !important;
+}
+
+
+.rounded-borders {
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+  padding: 1px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.tituloTablaDetalleVotosJugador {
+  font-weight:bold;
+  
+}
+
+.tituloTablaDetalleVotos1erLugar {
+  font-weight:bold;
+  color: #2426d4;
+}
+
+.tituloTablaDetalleVotos2doLugar {
+  font-weight:bold;
+  color: #ab34bf;
+}
+
+.highlight-bg {
+  background-color: #aa34bf4d;  
 }

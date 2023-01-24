@@ -148,7 +148,7 @@ const estiloFueraDePlaca = {
   marginBottom: "10px"
 }
 const estiloEspontanea = {
-  marginTop: "10px",
+  marginBotton: "10px",
 }
 const estiloBotonesYSelecJug = {
   marginTop: "10px",
@@ -158,13 +158,11 @@ const estiloBotones1y2Lugar = {
   marginTop: "20px",
   marginBottom: "10px",
 }
-const estiloBotones = {
-  marginRight: "10px",
-  marginLeft: "10px"
+const estiloBotonesDeshacerYFulminante = {
+  marginTop: "20px",
+  marginBottom: "30px",
 }
-const estiloDetalleDeVotos = {
-  marginTop: "10px",
-  marginBottom: "10px",
+const estiloBotones = {
   marginRight: "10px",
   marginLeft: "10px"
 }
@@ -185,9 +183,45 @@ const ColoredLine = ({ color }) => (
     />
 );
 
+const namesData = {};
+names.forEach((name, index) => {
+    if (!namesData[name]) {
+        namesData[name] = {
+            name: name,
+            words: {
+                [words[index]]: 1
+            }
+        }
+    } else {
+        if (!namesData[name]['words'][words[index]]) {
+            namesData[name]['words'][words[index]] = 1
+        } else {
+            namesData[name]['words'][words[index]] += 1
+        }
+    }
+});
+
+const rows = Object.keys(namesData).map(name => {
+    return (
+        <Row key={name}>
+            <Col>{name}</Col>
+            {Object.keys(namesData[name]['words']).map(word => {
+                return (
+                    <Col key={word}>
+                        {word} ({namesData[name]['words'][word]})
+                    </Col>
+                )
+            })}
+        </Row>
+    );
+});
+
+const containerClass = "container";
+const rowClass = "row rounded-borders";
+const colClass = "col";
   
 return (
-<div>
+<div className="GeneralFont">
 
 <Container>
   <Row>
@@ -292,33 +326,58 @@ return (
   </Row>      
 </Container>
 
-<Container style={estiloBotones1y2Lugar}> {/*BOTONES 1 y 2 LUGAR*/}
+<Container style={estiloBotonesDeshacerYFulminante}> {/*BOTONES DESHACER Y FULMINANTE*/}
   <Row>
-    <Col xs={6} className="d-flex justify-content-center"> {/*DESHACER Y FULMINANTE*/}  
+    <Col xs={6} className="d-flex justify-content-center"> {/*DESHACER*/}  
       <Button style={estiloBotones} onClick={handleUndo} className="custom-class-deshacer">Deshacer</Button>
     </Col>
-    <Col xs={6} className="d-flex justify-content-center"> {/*DESHACER Y FULMINANTE*/}  
+    <Col xs={6} className="d-flex justify-content-center"> {/*FULMINANTE*/}  
       <Button style={estiloBotones} onClick={() => {handleFulminado(newWord); handleFulminador(newName);}} className="custom-class-fulminante">Fulminante</Button>
     </Col>
   </Row>
 </Container>
 
-<ColoredLine color= "#C338DD" />
+<Container className={containerClass}> {/*LISTA DETALLE VOTOS*/}
+      <Row>
+        <Col className="detalleDeVotos">DETALLE &nbsp; &nbsp; DE &nbsp; &nbsp; VOTOS</Col>
+      </Row>
+      
+      <Row>
+        <Col className='tituloTablaDetalleVotosJugador' xs={4}>JUGADOR</Col>
+        <Col className='tituloTablaDetalleVotos1erLugar' xs={4}>PRIMER LUG.</Col>
+        <Col className='tituloTablaDetalleVotos2doLugar' xs={4}>SEGUNDO LUG.</Col>
+      </Row>
+      
+      <Row className={rowClass}>
+      {fulminado === '' ? null : fulminador === '' ? (
+      <>
+        <Col xs={4}></Col>
+        <Col>{fulminado} (Fulm.)</Col>
+        <Col>-</Col>
+      </>
+      ) : (
+      <>
+        <Col xs={4}>{fulminador}</Col>
+        <Col>{fulminado} (Fulm.)</Col>
+        <Col>-</Col>
+      </>
+      )}
+      </Row>
 
-<Container> {/*LISTA DETALLE VOTOS*/}
-  <Row>
-    <ListGroup className="col10-class">
-      <h6 style={estiloDetalleDeVotos}>DETALLE DE VOTOS</h6>
-        <ListGroup.Item>
-          <dl>
-            {fulminado === '' ? null : <li>{fulminador}: {fulminado} (Fulminante)</li>}
-            {names.map((name, index) => (
-            <li key={index}>{name}: {words[index]}</li>
-            ))}
-          </dl>
-        </ListGroup.Item>
-    </ListGroup>
-  </Row>
+      {Object.keys(namesData).map(name => {
+            return (
+                <Row key={name} className={`${rowClass} ${Object.keys(namesData[name]['words']).map(word => namesData[name]['words'][word]).includes(3) ? 'highlight-bg' : ''}`}>
+                    <Col xs={4} className={colClass}>{name}</Col>
+                    {Object.keys(namesData[name]['words']).map((word, index) => {
+                        return (
+                            <Col key={word} className={colClass}>
+                                {word} {/* *esto comentado muestra entre paréntesis la cantidad de votos ->* ({namesData[name]['words'][word]}) */}
+                            </Col>
+                        )
+                    })}
+                </Row>
+            );
+        })}
 </Container>
 
 <Container> {/*BOTÓN REINICIAR*/}
