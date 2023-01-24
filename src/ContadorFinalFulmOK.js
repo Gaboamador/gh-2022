@@ -5,7 +5,7 @@ import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Form from 'react-bootstrap/Form';
 
-const ContadorFinal = ({ words: initialWords }) => {
+const ContadorFinalFulmOK = ({ words: initialWords }) => {
 
 const countWords = words => {
         const counts = {};
@@ -26,15 +26,19 @@ const countWords = words => {
     const [addExtraOccurrence, setAddExtraOccurrence] = useState(false);
     const [extraOccurrenceCount, setExtraOccurrenceCount] = useState(localStorage.getItem('extraOccurrenceCount') || '');
     const [lastClicked, setLastClicked] = useState(localStorage.getItem('lastClicked') || '');
+    const [fulminado, setFulminado] = useState(localStorage.getItem('fulminado') || '');
+    const [fulminador, setFulminador] = useState(localStorage.getItem('fulminador') || '');
 
 useEffect(() => {
         localStorage.setItem('words', JSON.stringify(words));
         localStorage.setItem('names', JSON.stringify(names));
         localStorage.setItem('lastClicked', lastClicked);
         localStorage.setItem('extraOccurrenceCount', extraOccurrenceCount);
-}, [words, names, lastClicked, extraOccurrenceCount]);
+        localStorage.setItem('fulminado', fulminado);
+        localStorage.setItem('fulminador', fulminador);
+}, [words, names, lastClicked, extraOccurrenceCount, fulminado, fulminador]);
 
-    const namesOptions = ['Agustín', 'Ariel', 'Camila', 'Daniela', 'Julieta', 'Lucila', 'Marcos', 'Maximiliano', 'Nacho', 'Romina', 'Thiago', 'Walter'];
+    const namesOptions = ['Agustín', 'Ariel', 'Camila', 'Daniela', 'Julieta', 'Lucila', 'Marcos', 'Nacho', 'Romina', 'Walter'];
 
     const namesCount = countWords(names);
     const wordCounts = countWords(words);
@@ -72,6 +76,7 @@ const handleSubmitTwo = event => {
       }
     }
   }
+  
 
 const handleUndo = () => {
   if (lastClicked === 'One') {
@@ -80,6 +85,9 @@ const handleUndo = () => {
   } else if (lastClicked === 'Two') {
     setWords(words.slice(0, -2));
     setNames(names.slice(0, -2));
+  } else if (lastClicked === 'Fulminante') {
+    setFulminado('');
+    setFulminador('');
   }
 }
 
@@ -87,16 +95,32 @@ const toggleExtraOccurrence = () => {
     setAddExtraOccurrence(!addExtraOccurrence);
   }
 
+  const handleFulminado = (jugadorFulminado) => {
+    setFulminado(jugadorFulminado);
+    setLastClicked('Fulminante');
+}
+
+const handleFulminador = newName => {
+  if (newWord && newName) {
+  setFulminador([newName]);
+  }
+  };
+  
+
 const [isConfirming, setIsConfirming] = useState(false);
   const handleReset = () => {
     setWords([]);
     setNames([]);
     setLastClicked('');
     setExtraOccurrenceCount('');
+    setFulminado('');
+    setFulminador('');
     localStorage.removeItem("words");
     localStorage.removeItem("names");
     localStorage.removeItem("lastClicked");
     localStorage.removeItem("extraOccurrenceCount");
+    localStorage.removeItem("fulminado");
+    localStorage.removeItem("fulminador");
   }
 
 const estiloSeleccionarVotanteGroupItem = {
@@ -125,11 +149,18 @@ const estiloFueraDePlaca = {
 }
 const estiloEspontanea = {
   marginTop: "10px",
-  
 }
 const estiloBotonesYSelecJug = {
   marginTop: "10px",
   marginBottom: "10px",
+}
+const estiloBotones1y2Lugar = {
+  marginTop: "20px",
+  marginBottom: "10px",
+}
+const estiloBotones = {
+  marginRight: "10px",
+  marginLeft: "10px"
 }
 const estiloDetalleDeVotos = {
   marginTop: "10px",
@@ -172,7 +203,7 @@ return (
                     value={option}
                     name={option}
                     label={option}
-                    disabled={namesCount[option]>=3}
+                    disabled={namesCount[option]>=3 || fulminador.includes(option)}
                     checked={newName === option}
                     onClick={() => setNewName(option)}
                 />
@@ -187,6 +218,7 @@ return (
         <h6 className="placaNominados" style={estiloPlacaDeNominados}>PLACA DE NOMINADOS</h6>
           <ListGroup.Item>
             <div>
+            {fulminado === '' ? null : fulminado + " (Fulm.)"}
             {sortedWords.map((word, index) => {
             const count = wordCounts[word];
             return (
@@ -235,26 +267,40 @@ return (
 
 <Container style={estiloBotonesYSelecJug}> {/*BOTONES + SELECCIONAR JUGADOR*/}
   <Row>
-    <Col xs={6}> {/*BOTONES*/}
-      <ButtonToolbar aria-label="Toolbar with button groups">
-        <ButtonGroup className="me-2" aria-label="First group">
-          <Button onClick={handleSubmitTwo} type="submit" className="btn btn-primary">1°</Button>
-          <Button onClick={handleSubmitOne} type="submit" className="btn btn-secondary">2°</Button>
-        </ButtonGroup>
-        <ButtonGroup className="me-2" aria-label="Second group">
-          <Button onClick={handleUndo} className="btn btn-warning">⎌</Button>
-        </ButtonGroup>
-      </ButtonToolbar>
-    </Col>
-    <Col xs={6}> {/*SELECCIONAR JUGADOR*/}
+    <Col xs={12} className="text-center"> {/*SELECCIONAR JUGADOR*/}
       <Form.Select value={newWord} onChange={handleChange}>
-        <option>Selecc. jugador</option>
+        <option>Seleccionar jugador</option>
         {namesOptions.map(option => (
               <option key={option} value={option}>{option}</option>
             ))}      
       </Form.Select>
+    </Col>    
+    
+  </Row>
+</Container>
+
+<Container style={estiloBotones1y2Lugar}> {/*BOTONES 1 y 2 LUGAR*/}
+  <Row>
+    <Col className="d-flex justify-content-center align-items-center" size={12}> {/*BOTONES*/}
+      <ButtonToolbar aria-label="Toolbar with button groups">
+        <ButtonGroup className="me-2" aria-label="First group">
+          <Button onClick={handleSubmitTwo} type="submit" className="custom-class-1erlugar">Primer Lugar</Button>
+          <Button onClick={handleSubmitOne} type="submit" className="custom-class-2dolugar">Segundo Lugar</Button>
+        </ButtonGroup>
+      </ButtonToolbar>
     </Col>
   </Row>      
+</Container>
+
+<Container style={estiloBotones1y2Lugar}> {/*BOTONES 1 y 2 LUGAR*/}
+  <Row>
+    <Col xs={6} className="d-flex justify-content-center"> {/*DESHACER Y FULMINANTE*/}  
+      <Button style={estiloBotones} onClick={handleUndo} className="custom-class-deshacer">Deshacer</Button>
+    </Col>
+    <Col xs={6} className="d-flex justify-content-center"> {/*DESHACER Y FULMINANTE*/}  
+      <Button style={estiloBotones} onClick={() => {handleFulminado(newWord); handleFulminador(newName);}} className="custom-class-fulminante">Fulminante</Button>
+    </Col>
+  </Row>
 </Container>
 
 <ColoredLine color= "#C338DD" />
@@ -265,6 +311,7 @@ return (
       <h6 style={estiloDetalleDeVotos}>DETALLE DE VOTOS</h6>
         <ListGroup.Item>
           <dl>
+            {fulminado === '' ? null : <li>{fulminador}: {fulminado} (Fulminante)</li>}
             {names.map((name, index) => (
             <li key={index}>{name}: {words[index]}</li>
             ))}
@@ -294,4 +341,4 @@ return (
   );
 };
 
-export default ContadorFinal;
+export default ContadorFinalFulmOK;

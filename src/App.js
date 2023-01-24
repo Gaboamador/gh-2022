@@ -1,13 +1,32 @@
 import gh from './logo.png';
 import './App.css';
-import ContadorFinal from './ContadorFinal';
-import ModeloNuevo from './ModeloNuevo';
+import React, { useState, useEffect } from 'react';
+import ContadorFinalFulmOK from './ContadorFinalFulmOK';
 import {Row, Col, Container} from 'react-bootstrap';
 
+
 function App() {  
+
+  /*AVISA ANTES DE ACTUALIZAR LA PÁGINA*/
+/*  
+  useEffect(() => {
+    const unloadCallback = (event) => {
+      event.preventDefault();
+      event.returnValue = "";
+      return "";
+    };
   
+    window.addEventListener("beforeunload", unloadCallback);
+    return () => window.removeEventListener("beforeunload", unloadCallback);
+  }, []); 
+*/
+  /*AVISA ANTES DE ACTUALIZAR LA PÁGINA*/
+
+
+
 /*LÍNEA DIVISORIA PARA DIFERENCIAR LOS DOS ELEMENTOS*/
-  const ColoredLine = ({ color }) => (
+/*  
+const ColoredLine = ({ color }) => (
     <hr
         style={{
             color: color,
@@ -18,12 +37,15 @@ function App() {
         }}
     />
 );
+*/
 /*LÍNEA DIVISORIA PARA DIFERENCIAR LOS DOS ELEMENTOS*/
 
   return (  
 
 <div>
+  
   <header className="App-header">
+    
     <Container>
       <Row className="d-flex align-items-center justify-content-center">
         <Col xs={1} className="mx-auto align-items-right">
@@ -41,18 +63,10 @@ function App() {
     </Container>
   </header>
   
-  <div> {/*CONTENEDOR CON LA APLICACIÓN*/}
+  <div> {/*CONTENEDOR CON LA APLICACIÓN*/}    
     <Container>
       <Row>
-        <Col><ContadorFinal words={[]} /></Col>
-      </Row>
-    </Container>
-    <Container> {/*LÍNEA DIVISORIA PARA DIFERENCIAR LOS DOS ELEMENTOS*/}
-    <ColoredLine color= "RED" />
-    </Container> {/*LÍNEA DIVISORIA PARA DIFERENCIAR LOS DOS ELEMENTOS*/}
-    <Container>
-      <Row>
-        <Col><ModeloNuevo words={[]}/></Col>
+        <Col><ContadorFinalFulmOK words={[]} /></Col>
       </Row>
     </Container>
   </div>
