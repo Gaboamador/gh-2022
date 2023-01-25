@@ -4,6 +4,11 @@
 .GeneralFont {
 /*  font-family: 'Roboto', sans-serif;*/
 font-family: 'Assistant', sans-serif;
+font-weight: 500;
+}
+
+.whiteBackground {
+  background-color:white;
 }
 
 .App {
@@ -116,6 +121,18 @@ label {
   border-color: #ab34bf !important;
 }
 
+.custom-class-screenshotPlaca{
+  background-image: linear-gradient(to right, #ab34bf, #2426d4) !important;
+  color: white !important;
+  border-color: grey !important;
+}
+
+.custom-class-screenshotVotos{
+  background-image: linear-gradient(to left, #ab34bf, #2426d4) !important;
+  color: white !important;
+  border-color: grey !important;
+}
+
 
 .rounded-borders {
   border: 1px solid #dfdfdf;
@@ -123,6 +140,10 @@ label {
   padding: 1px;
   margin-top: 3px;
   margin-bottom: 3px;
+}
+
+.columnaJugadoresNegrita {
+  font-weight:bold;
 }
 
 .tituloTablaDetalleVotosJugador {

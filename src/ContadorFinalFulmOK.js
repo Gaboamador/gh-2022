@@ -4,6 +4,7 @@ import {Button, Row, Col, Container, ListGroup} from 'react-bootstrap';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Form from 'react-bootstrap/Form';
+import domtoimage from 'dom-to-image';
 
 const ContadorFinalFulmOK = ({ words: initialWords }) => {
 
@@ -124,10 +125,10 @@ const [isConfirming, setIsConfirming] = useState(false);
   }
 
 const estiloSeleccionarVotanteGroupItem = {
-  marginTop: "10px",
   marginBottom: "10px",
 }
 const estiloSeleccionarVotante = {
+  marginTop: "10px",
   marginBottom: "10px"
 }
 const estiloListaJugadoresRadio = {
@@ -167,8 +168,9 @@ const estiloBotones = {
   marginLeft: "10px"
 }
 const estiloBotonReiniciar = {
-    marginTop: "20px",
-    marginBottom: "10px",
+    marginTop: "40px",
+    marginBottom: "20px",
+    float: "right"
     }
 
 const ColoredLine = ({ color }) => (
@@ -219,7 +221,24 @@ const rows = Object.keys(namesData).map(name => {
 const containerClass = "container";
 const rowClass = "row rounded-borders";
 const colClass = "col";
-  
+
+
+function copyScreenshotPlaca() {
+  domtoimage.toBlob(document.getElementById('screenPlaca'))
+    .then(function (blob) {
+        navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+    });
+    alert("Se ha guardado una captura de pantalla con la placa de nominados.");
+}
+
+function copyScreenshotDetalleVotos() {
+  domtoimage.toBlob(document.getElementById('screenDetalleVotos'))
+    .then(function (blob) {
+        navigator.clipboard.write([new ClipboardItem({'image/png': blob})]);
+    });
+    alert("Se ha guardado una captura de pantalla con el detalle de votos.");
+}
+
 return (
 <div className="GeneralFont">
 
@@ -227,8 +246,9 @@ return (
   <Row>
     <Col xs={6}>
       <ListGroup>
+      <h6 className="seleccionarVotante" style={estiloSeleccionarVotante}>SELECC. VOTANTE</h6>
       <ListGroup.Item style={estiloSeleccionarVotanteGroupItem}>
-        <h6 className="seleccionarVotante" style={estiloSeleccionarVotante}>SELECCIONAR VOTANTE</h6>
+        
           <Form style={estiloListaJugadoresRadio}>
             {namesOptions.map((option) => (
                 <Form.Check 
@@ -247,8 +267,8 @@ return (
       </ListGroup>
     </Col>
 
-    <Col xs={6}>
-      <ListGroup style={estiloPlacaNominadosyFueraDePlaca}>
+    <Col xs={6} id="screenPlaca" className="whiteBackground">
+      <ListGroup style={estiloPlacaNominadosyFueraDePlaca} id="text-to-copy">
         <h6 className="placaNominados" style={estiloPlacaDeNominados}>PLACA DE NOMINADOS</h6>
           <ListGroup.Item>
             <div>
@@ -303,7 +323,7 @@ return (
   <Row>
     <Col xs={12} className="text-center"> {/*SELECCIONAR JUGADOR*/}
       <Form.Select value={newWord} onChange={handleChange}>
-        <option>Seleccionar jugador</option>
+        <option>Seleccionar jugador votado</option>
         {namesOptions.map(option => (
               <option key={option} value={option}>{option}</option>
             ))}      
@@ -337,15 +357,15 @@ return (
   </Row>
 </Container>
 
-<Container className={containerClass}> {/*LISTA DETALLE VOTOS*/}
+<Container className={`${containerClass} whiteBackground`} id="screenDetalleVotos"> {/*LISTA DETALLE VOTOS*/}
       <Row>
         <Col className="detalleDeVotos">DETALLE &nbsp; &nbsp; DE &nbsp; &nbsp; VOTOS</Col>
       </Row>
       
       <Row>
         <Col className='tituloTablaDetalleVotosJugador' xs={4}>JUGADOR</Col>
-        <Col className='tituloTablaDetalleVotos1erLugar' xs={4}>PRIMER LUG.</Col>
-        <Col className='tituloTablaDetalleVotos2doLugar' xs={4}>SEGUNDO LUG.</Col>
+        <Col className='tituloTablaDetalleVotos1erLugar' xs={4}>PRIMER L.</Col>
+        <Col className='tituloTablaDetalleVotos2doLugar' xs={4}>SEGUNDO L.</Col>
       </Row>
       
       <Row className={rowClass}>
@@ -357,7 +377,7 @@ return (
       </>
       ) : (
       <>
-        <Col xs={4}>{fulminador}</Col>
+        <Col className="columnaJugadoresNegrita" xs={4}>{fulminador}</Col>
         <Col>{fulminado} (Fulm.)</Col>
         <Col>-</Col>
       </>
@@ -367,7 +387,7 @@ return (
       {Object.keys(namesData).map(name => {
             return (
                 <Row key={name} className={`${rowClass} ${Object.keys(namesData[name]['words']).map(word => namesData[name]['words'][word]).includes(3) ? 'highlight-bg' : ''}`}>
-                    <Col xs={4} className={colClass}>{name}</Col>
+                    <Col xs={4} className="columnaJugadoresNegrita">{name}</Col>
                     {Object.keys(namesData[name]['words']).map((word, index) => {
                         return (
                             <Col key={word} className={colClass}>
@@ -381,17 +401,29 @@ return (
 </Container>
 
 <Container> {/*BOTÓN REINICIAR*/}
+<Row>
+    <Col xs={12}>
+      <>
+        {isConfirming && (
+          <div className="precaucion" style={estiloBotonReiniciar}>
+            <h6>Esta acción eliminará todos los datos cargados. ¿Proceder?</h6>
+            <Button onClick={() => {handleReset(); setIsConfirming(false)}} variant="outline-danger">Sí</Button>{' '}
+            <Button onClick={() => setIsConfirming(false)} variant="outline-dark">No</Button>{' '}
+          </div>
+        )}
+      </>
+    </Col>
+  </Row>
   <Row>
-    <>
-      {isConfirming && (
-        <div className="precaucion" style={estiloBotonReiniciar}>
-        <h6>Esta acción eliminará todos los datos cargados. ¿Proceder?</h6>
-              <Button onClick={() => {handleReset(); setIsConfirming(false)}} variant="outline-danger">Sí</Button>{' '}
-              <Button onClick={() => setIsConfirming(false)} variant="outline-dark">No</Button>{' '}
-        </div>
-      )}
-    <Button style={estiloBotonReiniciar} onClick={() => setIsConfirming(true)} className="btn btn-danger">Reiniciar formulario</Button>
-    </>
+    <Col xs={3}>
+      <Button style={estiloBotonReiniciar} onClick={copyScreenshotPlaca} type="submit" className="custom-class-screenshotPlaca">Placa</Button>
+    </Col>
+    <Col xs={3}>
+    <Button style={estiloBotonReiniciar} onClick={copyScreenshotDetalleVotos} type="submit" className="custom-class-screenshotVotos">Votos</Button>
+    </Col>
+    <Col xs={6}>
+      <Button style={estiloBotonReiniciar} onClick={() => setIsConfirming(true)} className="btn btn-danger">↺</Button>
+    </Col>
   </Row>
 </Container>
 
