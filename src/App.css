@@ -142,6 +142,20 @@ label {
   margin-bottom: 3px;
 }
 
+.tituloEspontanea {
+  font-weight:bold;
+  color:white;
+  background:#2426d4;
+  border-radius:10px;
+}
+
+.tituloFulminante {
+  font-weight:bold;
+  color:white;
+  background:#ab34bf;
+  border-radius:10px;
+}
+
 .columnaJugadoresNegrita {
   font-weight:bold;
 }
