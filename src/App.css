@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Assistant&family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant&family=BIZ+UDGothic&family=Michroma&display=swap');
+
+@font-face {
+  font-family: 'TacticSans';
+  src: url('./TacticSansExtExd-Blk.otf') format('truetype');
+}
+
 
 
 .GeneralFont {
@@ -59,13 +65,31 @@ font-weight: 500;
   font-weight:bold;
 }
 
+hr {
+  border: 0;
+  height: 1px;
+  background-color: black;
+}
+
 .placaNominados{
-  color:#a934c0;
-  font-weight:bold;
+  /*background-color:#a934c0;*/
+  font-family: 'TacticSans', sans-serif;
+  color: white;
+  text-align:center;
+  text-shadow: 0px -2.5px 2px #e700ee;
 }
 
 .fueraDePlaca{
-  color:#1680CE;
+  color:black;
+  /*background-color:#1680CE;*/
+  background-color:rgba(36,38,212,0.3);
+  text-align:center;
+  font-weight:bold;
+}
+
+.votaciones{
+  background-color:rgba(0,0,0,0.3);
+  text-align:center;
   font-weight:bold;
 }
 
@@ -133,6 +157,11 @@ label {
   border-color: grey !important;
 }
 
+
+.containerPlaca {
+  justify-content: center;
+  align-items: center;
+}
 
 .rounded-borders {
   border: 1px solid #dfdfdf;
