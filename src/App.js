@@ -7,7 +7,7 @@ function App() {
 return (
 <div className="GeneralFont">
   <Header/>
-  <ContadorNominaciones id="screenContador" className="whiteBackground"/> 
+  <ContadorNominaciones/> 
     
     
     

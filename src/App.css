@@ -5,16 +5,9 @@
   src: url('./TacticSansExtExd-Blk.otf') format('truetype');
 }
 
-
-
 .GeneralFont {
-/*  font-family: 'Roboto', sans-serif;*/
 font-family: 'Assistant', sans-serif;
 font-weight: 500;
-}
-
-.whiteBackground {
-  background-color:white;
 }
 
 .App {
@@ -22,24 +15,24 @@ font-weight: 500;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
   min-height:40px;
-  background-image: linear-gradient(to right, #ab34bf, #2426d4);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+  
+
+  
+  background-image: linear-gradient(to right,
+  #ab34bf 0%,
+  #1A45E0 25%,
+  #1A46E0 50%,
+  #1447DF 75%,
+  #ab34bf 100%);
 }
 
 .title-word {
@@ -67,7 +60,7 @@ font-weight: 500;
 
 hr {
   border: 0;
-  height: 1px;
+  height: 10px;
   background-color: black;
 }
 
@@ -87,11 +80,62 @@ hr {
   font-weight:bold;
 }
 
-.votaciones{
-  background-color:rgba(0,0,0,0.3);
-  text-align:center;
-  font-weight:bold;
+.lineaDivisoria {
+  height: 4px;
+  width: 50%;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background-image: linear-gradient(to right, 
+  rgba(0, 255, 255, 0.5),
+  rgba(0, 255, 255, 0.7),
+  rgba(0, 255, 255, 0.9),
+  rgba(0, 255, 255, 1),
+  rgba(0, 255, 255, 0.7),
+  rgba(0, 255, 255, 0.5));
+  background-size: 400% 100%;
+  animation: neon 2s ease-in-out infinite;
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff, 0 0 100px #00ffff, 0 0 150px #00ffff;
 }
+
+@keyframes neon {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.lineaDivisoriaFondo {
+  height: 4px;
+  width: 50%;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background-image: linear-gradient(to left, 
+  rgba(0, 255, 255, 0.5),
+  rgba(0, 255, 255, 0.7),
+  rgba(0, 255, 255, 0.9),
+  rgba(0, 255, 255, 1),
+  rgba(0, 255, 255, 0.7),
+  rgba(0, 255, 255, 0.5));
+  background-size: 400% 100%;
+  animation: neonFondo 2s ease-in-out infinite;
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff, 0 0 100px #00ffff, 0 0 150px #00ffff;
+}
+
+@keyframes neonFondo {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/*
+.containerVotaciones{
+}
+*/
 
 .detalleDeVotos {
   background-image: linear-gradient(to left, #ab34bf, #2426d4);
@@ -108,11 +152,6 @@ hr {
 label {
   display: block;
   margin-bottom: 0.5em;
-}
-
-.precaucion{
-  color:red;
-  text-align:center;
 }
 
 .grid-container {
@@ -138,25 +177,6 @@ label {
   color: white !important;
   border-color: grey !important;
 }
-
-.custom-class-deshacer{
-  background-color: #56EAFA !important;
-  color: #2426d4 !important;
-  border-color: #ab34bf !important;
-}
-
-.custom-class-screenshotPlaca{
-  background-image: linear-gradient(to right, #ab34bf, #2426d4) !important;
-  color: white !important;
-  border-color: grey !important;
-}
-
-.custom-class-screenshotVotos{
-  background-image: linear-gradient(to left, #ab34bf, #2426d4) !important;
-  color: white !important;
-  border-color: grey !important;
-}
-
 
 .containerPlaca {
   justify-content: center;
@@ -185,25 +205,165 @@ label {
   border-radius:10px;
 }
 
+.encabezadoVotaciones {
+  
+  padding: 5px;
+  
+}
+
 .columnaJugadoresNegrita {
   font-weight:bold;
+  text-shadow: 0px 0px 6px white;
+}
+
+.columnaJugadoresNegrita.espfulmFont {
+  color:white !important;
+  text-shadow:none !important;
 }
 
 .tituloTablaDetalleVotosJugador {
   font-weight:bold;
-  
+  color: white;
 }
 
 .tituloTablaDetalleVotos1erLugar {
   font-weight:bold;
-  color: #2426d4;
+  /*color: #2426d4;*/
+  color: white;
 }
 
 .tituloTablaDetalleVotos2doLugar {
   font-weight:bold;
-  color: #ab34bf;
+  /*color: #ab34bf;*/
+  color: white;
 }
 
 .highlight-bg {
   background-color: #aa34bf4d;  
 }
+
+.precaucion{
+  color: white;
+  text-align:center;
+  font-weight:bold;
+  text-shadow: 2px 2px 2px black;
+  background-color: rgba(86,234,250,0.5);
+  border-radius: 40px;
+  padding:10px;
+}
+
+.custom-class-reiniciar{
+  background-color: #e700ee !important;
+  color: whitesmoke !important;
+  border-color: #019BFF !important
+}
+
+.fixed-width-reiniciar {
+  width:45px;
+}
+
+
+.container-neon-reiniciar {
+  color: white;
+  text-align:center;
+  font-weight:bold;
+  text-shadow: 2px 2px 2px black;
+  background-color: rgba(86,234,250,0.35);
+  border-radius: 40px;
+  padding:10px;
+  width:70%;
+  animation: neon-reiniciar 2s ease-in-out infinite;
+}
+
+
+.neon-light-reiniciar {
+  width: 200px;
+  height: 200px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  }
+  
+  .neon-light-reiniciar:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border: 2px solid #000;
+  border-radius: 50%;
+  transform-origin: center;
+  animation: neon-reiniciar 1s ease-in-out infinite;
+  }
+  
+  @keyframes neon-reiniciar {
+  0% {
+  box-shadow: 0 0 0 2px #e700ee;
+  }
+  50% {
+  box-shadow: 0 0 20px 2px #e700ee;
+  }
+  100% {
+  box-shadow: 0 0 0 2px #e700ee;
+  }
+  }
+
+  .comboBox {
+    background-color: rgba(255,255,255,0.4) !important;
+    }
+
+    .comboBox.disabled {
+      display: none !important;
+      }
+
+      .comboBox.fulminanteColor {
+        background-color: rgba(171,52,191,0.4) !important;
+        color:white !important
+      }
+
+    .comboBox.espontanea {
+      background-color: rgba(36,38,212,0.7) !important;
+      color:white !important
+    }
+
+    
+
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: lightgray;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease-in-out;
+      /**/
+      min-height:40px;
+      flex-direction: column;
+      margin-bottom: 10px;
+      background-image: linear-gradient(to right,
+      #ab34bf 0%,
+      #1A45E0 25%,
+      #1A46E0 50%,
+      #1447DF 75%,
+      #ab34bf 100%);
+      z-index:2 !important;
+    }
+    
+    .header--sticky {
+      transform: translateY(0);
+      background-color: lightgray;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .content {
+      margin-top: 50px !important;
+      font-family: 'Assistant', sans-serif !important;
+      font-weight: 500 !important;
+    }
