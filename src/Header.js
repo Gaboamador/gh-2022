@@ -49,9 +49,6 @@ const Header = () => {
     );
   };
   
-  const Content = () => {
-    return <div className="content">Content</div>;
-  };
 /*function Header() {
     return (
     <div className="GeneralFont">

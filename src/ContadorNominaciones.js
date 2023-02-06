@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
-import Ariel from './pictures/Ariel.png'
 import Camila from './pictures/Camila.png'
 import Daniela from './pictures/Daniela.png'
 import Julieta from './pictures/Julieta.png'
@@ -11,12 +10,11 @@ import Romina from './pictures/Romina.png'
 import Walter from './pictures/Walter.png'
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
 
-const participants = ['Ariel', 'Camila', 'Daniela', 'Julieta', 'Lucila', 'Marcos', 'Nacho', 'Romina', 'Walter'];
+const participants = ['Camila', 'Daniela', 'Julieta', 'Lucila', 'Marcos', 'Nacho', 'Romina', 'Walter'];
 
 const initialRows = participants.map(participant => ({ participant, firstPlace: '', secondPlace: ''}));
 
 const participantsToImage = {
-  Ariel: Ariel,
   Camila: Camila,
   Daniela: Daniela,
   Julieta: Julieta,
@@ -273,14 +271,7 @@ if (fulminatedIndex !== -1) {
     marginTop: "10px",
     marginBottom: "10px"
   }
-  const estiloFueraDePlaca = {
-    marginTop: "10px",
-    marginBottom: "10px"
-  }
-  const estiloVotaciones = {
-    marginTop: "10px",
-    marginBottom: "10px"
-  }
+
   const estiloBotonReiniciar = {
     marginTop: "10px",
     marginBottom: "20px",
@@ -405,7 +396,7 @@ return (
     <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
     {sortedEntries.map(([participant, count], index) => {          
       return (
-        <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
+        <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 30 }}>
           {/*NUMEROS FUERA DE PLACA ORDENADA*/}
           {index < 4 || count >= fourthCount ? null : (        
               <div style={{
@@ -458,11 +449,11 @@ return (
 <Row>
   <Col xs={1}>
   </Col>
-  <Col xs={8} className="lineaDivisoria" style={{width:'60%'}}>
+  <Col xs={8} className="lineaDivisoria2" style={{width:'60%'}}>
   </Col>
   <Col xs={1}>
   </Col>
-  <Col xs={2} className="lineaDivisoria" style={{width:'20%'}}>
+  <Col xs={2} className="lineaDivisoria2" style={{width:'20%'}}>
   </Col>
   </Row>
 </Container>
@@ -558,11 +549,11 @@ return (
 
 <Container style={{marginTop: '12px'}}>
 <Row>
-  <Col xs={1} className="lineaDivisoriaFondo" style={{width:'5%', marginLeft:12}}>
+  <Col xs={1} className="lineaDivisoria2" style={{width:'5%', marginLeft:20}}>
   </Col>
   <Col xs={2}>
   </Col>
-  <Col xs={4} className="lineaDivisoriaFondo" style={{width:'60%'}}>
+  <Col xs={4} className="lineaDivisoria2" style={{width:'60%'}}>
   </Col>
   <Col xs={2}>
   </Col>
