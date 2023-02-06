@@ -1,28 +1,27 @@
 {
   "files": {
-    "main.css": "/gh-2022/static/css/main.8f2b0be3.css",
-    "main.js": "/gh-2022/static/js/main.c74f2b56.js",
+    "main.css": "/gh-2022/static/css/main.583baebb.css",
+    "main.js": "/gh-2022/static/js/main.b4a74be0.js",
     "static/js/787.a485250f.chunk.js": "/gh-2022/static/js/787.a485250f.chunk.js",
     "static/media/FondoPlaca.jpg": "/gh-2022/static/media/FondoPlaca.614c7bee6dfbe61b4db9.jpg",
+    "static/media/Camila.png": "/gh-2022/static/media/Camila.5374e3736bf20004b043.png",
+    "static/media/Daniela.png": "/gh-2022/static/media/Daniela.403083b1a1616c7734a4.png",
+    "static/media/Julieta.png": "/gh-2022/static/media/Julieta.2eaaf0035d289ffbe6f1.png",
+    "static/media/Walter.png": "/gh-2022/static/media/Walter.c78a69115ce5718301ea.png",
+    "static/media/Romina.png": "/gh-2022/static/media/Romina.8648903b660d1f2b77b7.png",
+    "static/media/Lucila.png": "/gh-2022/static/media/Lucila.2613a74359f81828c2aa.png",
     "static/media/logo.png": "/gh-2022/static/media/logo.997e654173ce066ac37a.png",
+    "static/media/Nacho.png": "/gh-2022/static/media/Nacho.aab0ba6afc5461d60a95.png",
+    "static/media/Marcos.png": "/gh-2022/static/media/Marcos.f72debedfa9a3be79e2e.png",
     "static/media/TacticSansExtExd-Blk.otf": "/gh-2022/static/media/TacticSansExtExd-Blk.6e8276e67ac806e3c6e1.otf",
-    "static/media/Camila.png": "/gh-2022/static/media/Camila.8b504dfef9db36ebac6f.png",
-    "static/media/Julieta.png": "/gh-2022/static/media/Julieta.0b9232ee29c5d726442b.png",
-    "static/media/Walter.png": "/gh-2022/static/media/Walter.2328821fe555856af3cf.png",
-    "static/media/Daniela.png": "/gh-2022/static/media/Daniela.47b8ff28299f7c622799.png",
-    "static/media/Marcos.png": "/gh-2022/static/media/Marcos.ed7d340c8b2af1fe39ae.png",
-    "static/media/Lucila.png": "/gh-2022/static/media/Lucila.7604713f16f8ab2bdc4b.png",
-    "static/media/Nacho.png": "/gh-2022/static/media/Nacho.7f9636cb30f4696ea49e.png",
-    "static/media/Romina.png": "/gh-2022/static/media/Romina.86e2ddb0c907b5b0fb2a.png",
-    "static/media/Ariel.png": "/gh-2022/static/media/Ariel.c6ad481b6d67fe652fe9.png",
     "static/media/HeaderVotaciones.jpg": "/gh-2022/static/media/HeaderVotaciones.3b24045241405e533eda.jpg",
     "index.html": "/gh-2022/index.html",
-    "main.8f2b0be3.css.map": "/gh-2022/static/css/main.8f2b0be3.css.map",
-    "main.c74f2b56.js.map": "/gh-2022/static/js/main.c74f2b56.js.map",
+    "main.583baebb.css.map": "/gh-2022/static/css/main.583baebb.css.map",
+    "main.b4a74be0.js.map": "/gh-2022/static/js/main.b4a74be0.js.map",
     "787.a485250f.chunk.js.map": "/gh-2022/static/js/787.a485250f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8f2b0be3.css",
-    "static/js/main.c74f2b56.js"
+    "static/css/main.583baebb.css",
+    "static/js/main.b4a74be0.js"
   ]
 }
