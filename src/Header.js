@@ -37,7 +37,7 @@ const Header = () => {
                     <Col xs={10}>
                         <div class="col10-class">
                             <h3 class="title-word-class">
-                            <span class="title-word">GRAN</span>&nbsp;&nbsp;
+                            <span class="title-word">GRAN</span>
                             <span class="title-word second-word">HERMANO</span>
                             </h3>
                         </div>

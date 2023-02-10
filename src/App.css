@@ -50,6 +50,31 @@ font-weight: 500;
   padding: 0px 0px 0px !important;
 }
 
+@media (max-width: 410px) {
+  .title-word {
+    font-size: 20px !important;
+  }
+  .tituloEspontanea {
+    height:25px;
+    padding:0px !important;
+    text-align:center;
+  }
+  .tituloFulminante {
+    height:25px;
+    padding:0px !important;
+    text-align:center;
+  }
+  .tituloTablaDetalleVotosJugador {
+    font-size: 14px !important;
+  }
+  .tituloTablaDetalleVotos1erLugar {
+    font-size: 14px !important;
+  }
+  .tituloTablaDetalleVotos2doLugar {
+    font-size: 14px !important;
+  }
+}
+
 .seleccionarVotante{
   color:#4a2ace;
   font-weight:bold;
@@ -200,6 +225,18 @@ label {
   color:white;
   background:#ab34bf;
   border-radius:10px;
+}
+
+.tituloTablasNomAnteriores {
+  width:fit-content;
+  font-weight:bold;
+  color:white;
+  text-align:center;
+  border: 1px solid white;
+  border-radius:10px;
+  /*background-color:rgba(171,52,191,0.5);*/
+  margin: 0 auto;
+  padding: 6px;
 }
 
 .encabezadoVotaciones {
@@ -357,7 +394,7 @@ label {
     }
     
     .content {
-      margin-top: 50px !important;
+      /*margin-top: 50px !important;*/
       font-family: 'Assistant', sans-serif !important;
       font-weight: 500 !important;
     }
@@ -382,3 +419,16 @@ label {
       box-shadow: 0px 0px 8px 6px #1afcfa;
       }
       }
+
+      .center {
+        text-align:center;
+      }
+
+
+      .custom-class-home {
+        background-color: #e700ee !important;
+        color: whitesmoke !important;
+        border-color: #019BFF !important;
+      }
+      
+      

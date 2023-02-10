@@ -281,13 +281,12 @@ if (fulminatedIndex !== -1) {
 
 return (
 <div className="content"  style={{
-  marginTop: -10,
   backgroundImage: `url(${require('./pictures/FondoPlaca.jpg')})`,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center center',
   zIndex: -1,
-  paddingTop: 10,
+  paddingTop: 20,
   minHeight: '100vh'
   }}>
   
