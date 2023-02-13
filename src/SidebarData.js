@@ -8,7 +8,7 @@ import { GiVote, GiCalculator, GiHouse } from 'react-icons/gi';
 export const SidebarData = [
   {
     title: 'Página Principal',
-    path: '/gh-2022',
+    path: '/',
     icon: <GiHouse size={40}/>,
     cName: 'nav-text'
   },
@@ -21,6 +21,12 @@ export const SidebarData = [
   {
     title: 'Nominaciones Anteriores',
     path: '/NominAnteriores',
+    icon: <GiVote size={40}/>,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Listado Roles Nominaciones',
+    path: '/ListadoRolesNominaciones',
     icon: <GiVote size={40}/>,
     cName: 'nav-text'
   },

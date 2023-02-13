@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { dataPlaca } from './dataPlaca';
 
 const participantes = ['Agustín', 'Alexis', 'Ariel', 'Camila', 'Constanza', 'Daniela', 'Juan', 'Juliana', 'Julieta', 'Lucila', 'Marcos', 'María Laura', 'Martina', 'Maximiliano', 'Mora', 'Nacho', 'Romina', 'Thiago', 'Tomás', 'Walter'];
 
@@ -379,6 +380,7 @@ const [data, setData] = useState([
 ],        
 ]);
 
+
 const [results, setResults] = useState([]);
 
     const options = data.map((_, index) => (
@@ -421,182 +423,6 @@ useEffect(() => {
   handleChange({ target: { value: participantes[0] } });
 }, []);
 
-const dataPlaca = [
-{week: 0,
-data: [  
-  { role: 'Líder', name: 'Martina', result: '-' },
-  { role: 'Nominado', name: 'Walter', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Marcos', result: '17,96% (Entre 3)' },
-  { role: 'Nominado', name: 'Agustín', result: '40,66% (Entre 2)' },
-  { role: 'Nominado', name: 'Tomás', result: 'Eliminado (59,40%)' },
-],
-},
-{
-  week: 1,
-  data: [
-  { role: 'Líder', name: 'Maximiliano', result: '-' },
-  { role: 'Nominado', name: 'Walter', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Nacho', result: '3,03%' },
-  { role: 'Nominado', name: 'Juan', result: '39,55%' },
-  { role: 'Nominado', name: 'Martina', result: 'Eliminado (57,42%)' },
-],
-},
-{
-  week: 2,
-  data: [
-  { role: 'Líder', name: 'Romina', result: '-' },
-  { role: 'Nominado', name: 'Daniela', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Walter', result: '6,72% (Entre 4)' },
-  { role: 'Nominado', name: 'Agustín', result: '9,93% (Entre 3)' },
-  { role: 'Nominado', name: 'Juan', result: '39,93% (Entre 2)' },
-  { role: 'Nominado', name: 'Mora', result: 'Eliminado (60,07%)' },
-],
-},
-{
-  week: 3,
-  data: [
-  { role: 'Líder', name: 'Lucila', result: '-' },
-  { role: 'Nominado', name: 'Agustín', result: '0,78% (Entre 5)' },
-  { role: 'Nominado', name: 'Nacho', result: '3,27% (Entre 4)' },
-  { role: 'Nominado', name: 'Daniela', result: '6,53% (Entre 3)' },
-  { role: 'Nominado', name: 'Walter', result: '11,86% (Entre 2)' },
-  { role: 'Nominado', name: 'Juan', result: 'Eliminado (88,14%)' },
-],
-},
-{
-  week: 4,
-  data: [
-  { role: 'Líder', name: 'Alexis', result: '-' },
-  { role: 'Líder', name: 'Nacho', result: '-' },
-  { role: 'Nominado', name: 'María Laura', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Walter', result: '4,45% (Entre 3)' },
-  { role: 'Nominado', name: 'Juliana', result: '34,62% (Entre 2)' },
-  { role: 'Nominado', name: 'Lucila', result: 'Eliminado (65,38%)' },
-],
-},
-{
-  week: 5,
-  data: [
-  { role: 'Líder', name: 'Thiago', result: '-' },
-  { role: 'Nominado', name: 'Romina', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Agustín', result: '5,70% (Entre 4)' },
-  { role: 'Nominado', name: 'Nacho', result: '8,86% (Entre 3)' },
-  { role: 'Nominado', name: 'María Laura', result: '42,33% (Entre 2)' },
-  { role: 'Nominado', name: 'Juliana', result: 'Eliminado (57,67%)' },
-],
-},
-{
-  week: 6,
-  data: [
-  { role: 'Líder', name: 'Romina', result: '-' },
-  { role: 'Nominado', name: 'Constanza', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Walter', result: '3,17% (Entre 4)' },
-  { role: 'Nominado', name: 'Nacho', result: '24,01% (Entre 3)' },
-  { role: 'Nominado', name: 'Daniela', result: '47,20% (Entre 2)' },
-  { role: 'Nominado', name: 'María Laura', result: 'Eliminado (52,80%)' },
-],
-},
-{
-  week: 7,
-  data: [
-  { role: 'Líder', name: 'Thiago', result: '-' },
-  { role: 'Nominado', name: 'Maximiliano', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Marcos', result: '1,08% (Entre 5)' },
-  { role: 'Nominado', name: 'Julieta', result: '5,78% (Entre 4)' },
-  { role: 'Nominado', name: 'Romina', result: '6,42% (Entre 3)' },
-  { role: 'Nominado', name: 'Nacho', result: '23,53% (Entre 2)' },
-  { role: 'Nominado', name: 'Agustín', result: 'Eliminado (76,47%)' },
-],
-},
-{
-  week: 8,
-  data: [
-  { role: 'Líder', name: 'Thiago', result: '-' },
-  { role: 'Nominado', name: 'Alexis', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Romina', result: '7,97% (Entre 3)' },
-  { role: 'Nominado', name: 'Julieta', result: '26,71% (Entre 2)' },
-  { role: 'Nominado', name: 'Daniela', result: 'Eliminado (73,29%)' },
-],
-},
-{
-  week: 9,
-  data: [
-  { role: 'Líder', name: 'Alexis', result: '-' },
-  { role: 'Salvado', name: 'Juliana', result: '3 votos' },
-  { role: 'Salvado', name: 'Daniela', result: '40,98% (Entre 8)' },
-  { role: 'Salvado', name: 'Agustín', result: '47,15% (Entre 3)' },
-  { role: 'Salvado', name: 'Lucila', result: '68,76% (Entre 2)' },
-  { role: 'En repechaje', name: 'Mora', result: 'Eliminado (31,24%)' },
-  { role: 'En repechaje', name: 'Martina', result: 'Eliminado (7,85%)' },
-  { role: 'En repechaje', name: 'Tomás', result: 'Eliminado (5,64%)' },
-  { role: 'En repechaje', name: 'Juan', result: 'Eliminado (2,89%)' },
-  { role: 'En repechaje', name: 'María Laura', result: 'Eliminado (2,19%)' },
-],
-},
-{
-  week: 10,
-  data: [
-  { role: 'Líder', name: 'Thiago', result: '-' },
-  { role: 'Nominado', name: 'Camila', result: '0,72% (Entre 5)' },
-  { role: 'Nominado', name: 'Walter', result: '5,55% (Entre 4)' },
-  { role: 'Nominado', name: 'Daniela', result: '13,12% (Entre 3)' },
-  { role: 'Nominado', name: 'Ariel', result: '32,65% (Entre 2)' },
-  { role: 'Nominado', name: 'Constanza', result: 'Eliminado (67,35%)' },
-],
-},
-{
-  week: 11,
-  data: [
-  { role: 'Líder', name: 'Nacho', result: '-' },
-  { role: 'Nominado', name: 'Lucila', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Agustín', result: '15,80% (Entre 3)' },
-  { role: 'Nominado', name: 'Ariel', result: '43,81% (Entre 2)' },
-  { role: 'Nominado', name: 'Alexis', result: 'Eliminado (56,19%)' },
-],
-},
-{
-  week: 12,
-  data: [
-  { role: 'Líder', name: 'Maximiliano', result: '-' },
-  { role: 'Nominado', name: 'Nacho', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Camila', result: '7,82% (Entre 3)' },
-  { role: 'Nominado', name: 'Agustín', result: '47,10% (Entre 2)' },
-  { role: 'Nominado', name: 'Thiago', result: 'Eliminado (52,90%)' },
-],
-},
-{
-  week: 13,
-  data: [
-  { role: 'Líder', name: 'Marcos', result: '-' },
-  { role: 'Nominado', name: 'Agustín', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Nacho', result: '15,02% (Entre 3)' },
-  { role: 'Nominado', name: 'Ariel', result: '47,98% (Entre 2)' },
-  { role: 'Nominado', name: 'Maximiliano', result: 'Eliminado (52,02%)' },
-],
-},
-{
-  week: 14,
-  data: [
-  { role: 'Líder', name: 'Marcos', result: '-' },
-  { role: 'Líder', name: 'Romina', result: '-' },
-  { role: 'Nominado', name: 'Ariel', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Lucila', result: '3,38% (Entre 3)' },
-  { role: 'Nominado', name: 'Daniela', result: '49,19% (Entre 2)' },
-  { role: 'Nominado', name: 'Agustín', result: 'Eliminado (50,81%)' },
-],
-},
-{
-  week: 15,
-  data: [
-  { role: 'Líder', name: 'Camila', result: '-' },
-  { role: 'Nominado', name: 'Walter', result: 'Salvado por el líder' },
-  { role: 'Nominado', name: 'Marcos', result: '2% (Entre 4)' },
-  { role: 'Nominado', name: 'Nacho', result: '14,63% (Entre 3)' },
-  { role: 'Nominado', name: 'Julieta', result: '44,79% (Entre 2)' },
-  { role: 'Nominado', name: 'Ariel', result: 'Eliminado (55,21%)' },
-],
-},  
-];
 
 const weekNumber = parseInt(selectedOption) + 1;
 
@@ -613,7 +439,7 @@ const DataTable = ({ week, data }) => {
       <tbody style={{background:'rgba(255,255,255,0.6)'}}>
         {data.map((row, index) => (
           <tr key={index}>
-            <td className='comboBox'>{row.role}</td>
+            <td className='comboBoxNominAnteriores'>{row.role}</td>
             <td>{row.name}</td>
             <td>{row.result}</td>
           </tr>
@@ -622,6 +448,7 @@ const DataTable = ({ week, data }) => {
     </Table>
   );
 };
+
 
 return (
 <div className="content" style={{
@@ -635,10 +462,10 @@ paddingTop: 20,
 minHeight: '100vh'
 }}>
 
-  <Container style={{marginBottom:10, marginTop:10}}> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
+<Container style={{marginBottom:10, marginTop:10}}> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
     <FormSelect value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}
       style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
-      className="comboBox">
+      className="comboBoxNominAnteriores">
       {options}
     </FormSelect>
   </Container>
@@ -674,7 +501,7 @@ minHeight: '100vh'
       <tbody style={{background:'rgba(255,255,255,0.6)'}}>
         {data[selectedOption].map((row, index) => (
         <tr key={index}>
-          <td className='comboBox'>{row[0]}</td>
+          <td className='comboBoxNominAnteriores'>{row[0]}</td>
           {row.length === 2 && (
           <td colSpan={2}>{row[1]}</td>
           )}
@@ -707,7 +534,7 @@ minHeight: '100vh'
   <Container style={{marginBottom:10, marginTop:10}}> {/*COMBOBOX PARA SELECCIONAR JUGADOR*/}
     <FormSelect onChange={handleChange}
     style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
-    className="comboBox">
+    className="comboBoxNominAnteriores">
     {participantes.map((option, index) => (
     <option key={index} value={option}>
     {option}
@@ -732,7 +559,7 @@ minHeight: '100vh'
       <tbody style={{background:'rgba(255,255,255,0.6)'}}>
         {results.map((result, index) => (
         <tr key={index}>
-        <td className='comboBox'>{result.week}</td>
+        <td className='comboBoxNominAnteriores'>{result.week}</td>
         {result.vote.length === 1 && (
         <td colSpan={2}>{result.vote[0]}</td>
         )}

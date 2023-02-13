@@ -30,8 +30,18 @@ minHeight: '100vh'
 <Container style={{display: 'flex', justifyContent: 'center', marginTop:10}}>
   <Row>
     <Col>
-      <Link to='/NominAnteriores'>
+      <Link to='/NominAnteriores' style={{padding:0}}>
         <Button className="custom-class-home">Nominaciones Anteriores</Button>
+      </Link>
+    </Col>  
+    </Row>
+</Container>
+
+<Container style={{display: 'flex', justifyContent: 'center', marginTop:10}}>
+  <Row>
+    <Col>
+      <Link to='/ListadoRolesNominaciones' style={{padding:0}}>
+        <Button className="custom-class-home">Listado Roles</Button>
       </Link>
     </Col>  
     </Row>
