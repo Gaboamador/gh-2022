@@ -7,10 +7,9 @@ import Lucila from './pictures/Lucila.png'
 import Marcos from './pictures/Marcos.png'
 import Nacho from './pictures/Nacho.png'
 import Romina from './pictures/Romina.png'
-import Walter from './pictures/Walter.png'
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
 
-const participants = ['Camila', 'Daniela', 'Julieta', 'Lucila', 'Marcos', 'Nacho', 'Romina', 'Walter'];
+const participants = ['Camila', 'Daniela', 'Julieta', 'Lucila', 'Marcos', 'Nacho', 'Romina'];
 
 const initialRows = participants.map(participant => ({ participant, firstPlace: '', secondPlace: ''}));
 
@@ -22,7 +21,6 @@ const participantsToImage = {
   Marcos: Marcos,
   Nacho: Nacho,
   Romina: Romina,
-  Walter: Walter
 };
 
 function ContadorNominaciones() {
@@ -457,7 +455,7 @@ return (
   </Row>
 </Container>
 <Container className="containerVotaciones"> {/* CONTAINER CON LAS VOTACIONES */}
-      <Container style={{paddingBottom: 1, marginTop: '0px', backgroundImage: `url(${require('./pictures/FondoPlaca.jpg')})`}}>
+      <Container style={{paddingBottom: 1, marginTop: '0px', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})`}}>
       <Table>
           <Row className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}}>
             <Col className='tituloEspontanea' xs={1}>E</Col>

@@ -7,7 +7,7 @@ import { dataPlaca } from './dataPlaca';
 
 const participantes = ['Agustín', 'Alexis', 'Ariel', 'Camila', 'Constanza', 'Daniela', 'Juan', 'Juliana', 'Julieta', 'Lucila', 'Marcos', 'María Laura', 'Martina', 'Maximiliano', 'Mora', 'Nacho', 'Romina', 'Thiago', 'Tomás', 'Walter'];
 
-const NominAnteriores = () => {
+const VotacionesPorSemana = () => {
 const [selectedOption, setSelectedOption] = useState(0);
 const [selectedName, setSelectedName] = useState(participantes[0]);
 const [data, setData] = useData();
@@ -84,7 +84,6 @@ const DataTable = ({ week, data }) => {
 
 return (
 <div className="content" style={{
-marginTop: -10,
 backgroundImage: `url(${require('./pictures/FondoPlaca.jpg')})`,
 backgroundSize: 'cover',
 backgroundRepeat: 'no-repeat',
@@ -94,34 +93,20 @@ paddingTop: 20,
 minHeight: '100vh'
 }}>
 
-<Container style={{marginBottom:10, marginTop:10}}> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
+<Container style={{marginBottom:10}}> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
     <FormSelect value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}
       style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
-      className="comboBoxNominAnteriores">
+      className="selectNominAnteriores">
       {options}
     </FormSelect>
   </Container>
 
-<Container style={{marginBottom:5}}>
-  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">PLACA NOMINACIONES {weekNumber}° SEMANA</h6>
-  </Container>
-  
-  <Container style={{}}> {/*TABLA CON RESULTADOS PLACA DE SEMANA SELECCIONADA*/}
-    <Table>
-    {dataPlaca.map(w => {
-    if (w.week === Number(selectedOption)) {
-    return <DataTable data={w.data}/>;
-    }
-    return null;
-    })}
-    </Table>
-  </Container>
   
   <Container style={{marginBottom:5}}>
   <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE VOTACIONES {weekNumber}° SEMANA</h6>
   </Container>
 
-  <Container> {/*TABLA CON DETALLE DE VOTACIONES DE SEMANA SELECCIONADA*/}
+  <Container style={{paddingBottom: 5}}> {/*TABLA CON DETALLE DE VOTACIONES DE SEMANA SELECCIONADA*/}
     <Table striped bordered hover className="center">
       <thead>
         <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}}>
@@ -130,7 +115,7 @@ minHeight: '100vh'
           <th className='tituloTablaDetalleVotosJugador'>Segundo Lugar</th>
         </tr>
       </thead>
-      <tbody style={{background:'rgba(255,255,255,0.6)'}}>
+      <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})`}}>
         {data[selectedOption].map((row, index) => (
         <tr key={index}>
           <td className='comboBoxNominAnteriores'>{row[0]}</td>
@@ -149,65 +134,9 @@ minHeight: '100vh'
     </Table>
     <Footer data={data[selectedOption]}/>
   </Container>
-
-  <Container style={{marginTop: '20px'}}>
-<Row>
-  <Col xs={1}>
-  </Col>
-  <Col xs={8} className="lineaDivisoria2" style={{width:'60%'}}>
-  </Col>
-  <Col xs={1}>
-  </Col>
-  <Col xs={2} className="lineaDivisoria2" style={{width:'20%'}}>
-  </Col>
-  </Row>
-</Container>
-
-  <Container style={{marginBottom:10, marginTop:10}}> {/*COMBOBOX PARA SELECCIONAR JUGADOR*/}
-    <FormSelect onChange={handleChange}
-    style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
-    className="comboBoxNominAnteriores">
-    {participantes.map((option, index) => (
-    <option key={index} value={option}>
-    {option}
-    </option>
-    ))}
-    </FormSelect>
-  </Container>
-    
-  <Container style={{marginBottom:5}}>
-  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE VOTACIONES DE {selectedName.toUpperCase()}</h6>
-  </Container>
-
-  <Container style={{paddingBottom: 5}}> {/*TABLA CON DETALLE DE VOTACIONES DE JUGADOR SELECCIONADO*/}
-    <Table striped bordered hover className="center">
-      <thead>
-        <tr className='encabezadoVotaciones' style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}}>
-        <th className='tituloTablaDetalleVotosJugador'>Semana</th>
-        <th className='tituloTablaDetalleVotosJugador'>Primer Lugar</th>
-        <th className='tituloTablaDetalleVotosJugador'>Segundo Lugar</th>
-        </tr>
-      </thead>
-      <tbody style={{background:'rgba(255,255,255,0.6)'}}>
-        {results.map((result, index) => (
-        <tr key={index}>
-        <td className='comboBoxNominAnteriores'>{result.week}</td>
-        {result.vote.length === 1 && (
-        <td colSpan={2}>{result.vote[0]}</td>
-        )}
-        {result.vote.length === 2 && (
-        <>
-        <td>{result.vote[0]}</td>
-        <td>{result.vote[1]}</td>
-        </>
-        )}
-        </tr>
-        ))}
-      </tbody>
-    </Table>
-  </Container>      
+      
 
 </div>
 );
 };
-export default NominAnteriores;
+export default VotacionesPorSemana;

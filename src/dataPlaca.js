@@ -172,5 +172,15 @@ export const dataPlaca = [
       { role: 'Nominado', name: 'Julieta', result: '44,79% (Entre 2)' },
       { role: 'Nominado', name: 'Ariel', result: 'Eliminado (55,21%)' },
     ],
+    },
+    {
+      week: 16,
+      data: [
+      { role: 'Líder', name: 'Julieta', result: '-' },
+      { role: 'Nominado', name: 'Camila', result: 'Salvado por el líder' },
+      { role: 'Nominado', name: 'Lucila', result: '5,61% (Entre 3)' },
+      { role: 'Nominado', name: 'Romina', result: '47,17% (Entre 2)' },
+      { role: 'Nominado', name: 'Walter', result: 'Eliminado (52,83%)' },
+    ],
     },  
     ];

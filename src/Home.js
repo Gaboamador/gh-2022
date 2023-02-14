@@ -1,64 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import './App.css';
-import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import { FaVoteYea } from 'react-icons/fa';
+import {BsFillPersonLinesFill, BsReverseLayoutTextWindowReverse, BsCalendarWeek, BsXCircle, BsAward, BsCalendar2Check} from 'react-icons/bs';
 
 function Home() {
 
+  const icons = [
+    { icon: FaVoteYea, label: 'Contador Nominaciones', to: '/ContadorNominaciones' },
+    { icon: BsFillPersonLinesFill, label: 'Votaciones por Jugador', to: 'VotacionesPorJugador' },
+    { icon: BsCalendar2Check, label: 'Votaciones por Semana', to: '/VotacionesPorSemana' },
+    { icon: BsCalendarWeek, label: 'Placas de Nominados por Semana', to: '/PlacasPorSemana' },
+    { icon: BsReverseLayoutTextWindowReverse, label: 'Placas de Nominados en Lista', to: '/PlacasEnContinuado' },
+    { icon: BsAward, label: 'Listado de Líderes', to: '/ListadoLideres' },
+    { icon: BsXCircle, label: 'Listado de Eliminados', to: '/ListadoEliminados' },
+  ];
+
 return (
-<div className="content" style={{
-backgroundImage: `url(${require('./pictures/FondoPlaca.jpg')})`,
-backgroundSize: 'cover',
-backgroundRepeat: 'no-repeat',
-backgroundPosition: 'center center',
-zIndex: -1,
-paddingTop: 20,
-minHeight: '100vh'
-}}>
+<div className="contentHome">
 
-<Container style={{display: 'flex', justifyContent: 'center', marginTop:10}}>
-  <Row style={{marginBottom:10}}>    
-    <Col>
-      <Link to='/ContadorNominaciones' style={{padding:0}} >
-        <Button className="custom-class-home">Contador Nominaciones</Button>
-      </Link>
-    </Col>
-  </Row>  
+<Container className="navigation">
+  {icons.map((item, index) => (
+    <Link to={item.to} key={index} className='icon'>
+      <div className="icon-wrapper">
+        <div className="icon">
+          <item.icon />
+        </div>
+      </div>
+      <div className="label">{item.label}</div>
+    </Link>
+  ))}
 </Container>
 
-<Container style={{display: 'flex', justifyContent: 'center', marginTop:10}}>
-  <Row>
-    <Col>
-      <Link to='/NominAnteriores' style={{padding:0}}>
-        <Button className="custom-class-home">Nominaciones Anteriores</Button>
-      </Link>
-    </Col>  
-    </Row>
-</Container>
-
-<Container style={{display: 'flex', justifyContent: 'center', marginTop:10}}>
-  <Row>
-    <Col>
-      <Link to='/ListadoRolesNominaciones' style={{padding:0}}>
-        <Button className="custom-class-home">Listado Roles</Button>
-      </Link>
-    </Col>  
-    </Row>
-</Container>
-  
 </div>
 );
 }  
 export default Home;
-
-
-
-
-
-
-
-
-
-
-  

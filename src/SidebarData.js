@@ -19,14 +19,38 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Nominaciones Anteriores',
-    path: '/NominAnteriores',
+    title: 'Placas por semana',
+    path: '/PlacasPorSemana',
     icon: <GiVote size={40}/>,
     cName: 'nav-text'
   },
   {
-    title: 'Listado Roles Nominaciones',
-    path: '/ListadoRolesNominaciones',
+    title: 'Placas en continuado',
+    path: '/PlacasEnContinuado',
+    icon: <GiVote size={40}/>,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Votaciones por semana',
+    path: '/VotacionesPorSemana',
+    icon: <GiVote size={40}/>,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Votaciones por jugador',
+    path: '/VotacionesPorJugador',
+    icon: <GiVote size={40}/>,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Listado de líderes',
+    path: '/ListadoLideres',
+    icon: <GiVote size={40}/>,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Listado de eliminados',
+    path: '/ListadoEliminados',
     icon: <GiVote size={40}/>,
     cName: 'nav-text'
   },
