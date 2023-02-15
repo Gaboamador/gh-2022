@@ -14,6 +14,7 @@ import ListadoLideres from './ListadoLideres';
 import ListadoEliminados from './ListadoEliminados';
 import PlacasPorSemana from './PlacasPorSemana';
 import PlacasEnContinuado from './PlacasEnContinuado';
+import GraficoVotos from './GraficoVotos';
 
 function App() {  
 return (
@@ -32,6 +33,7 @@ return (
           <Route path="/ListadoEliminados" element={<ListadoEliminados/>}></Route>
           <Route path="/PlacasPorSemana" element={<PlacasPorSemana/>}></Route>
           <Route path="/PlacasEnContinuado" element={<PlacasEnContinuado/>}></Route>
+          <Route path="/GraficoVotos" element={<GraficoVotos/>}></Route>
         </Routes>
     </Router>
   </div>

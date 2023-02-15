@@ -103,7 +103,7 @@ export const dataPlaca = [
       { role: 'Salvado', name: 'Daniela', result: '40,98% (Entre 8)' },
       { role: 'Salvado', name: 'Agustín', result: '47,15% (Entre 3)' },
       { role: 'Salvado', name: 'Lucila', result: '68,76% (Entre 2)' },
-      { role: 'En repechaje', name: 'Mora', result: 'Eliminado (31,24%)' },
+      { role: 'En repechaje', name: 'Mora', result: 'Cortado (31,24%)' },
       { role: 'En repechaje', name: 'Martina', result: 'Cortado (7,85%)' },
       { role: 'En repechaje', name: 'Tomás', result: 'Cortado (5,64%)' },
       { role: 'En repechaje', name: 'Juan', result: 'Cortado (2,89%)' },
@@ -182,5 +182,15 @@ export const dataPlaca = [
       { role: 'Nominado', name: 'Romina', result: '47,17% (Entre 2)' },
       { role: 'Nominado', name: 'Walter', result: 'Eliminado (52,83%)' },
     ],
-    },  
+    },
+    {
+      week: 17,
+      data: [
+      { role: 'Líder', name: 'Romina', result: '-' },
+      { role: 'Nominado', name: '-', result: '-' },
+      { role: 'Nominado', name: '-', result: '-' },
+      { role: 'Nominado', name: '-', result: '-' },
+      { role: 'Nominado', name: '-', result: '-' },
+    ],
+    },
     ];

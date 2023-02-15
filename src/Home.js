@@ -4,13 +4,14 @@ import {Container} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { FaVoteYea } from 'react-icons/fa';
-import {BsFillPersonLinesFill, BsReverseLayoutTextWindowReverse, BsCalendarWeek, BsXCircle, BsAward, BsCalendar2Check} from 'react-icons/bs';
+import {BsFillPersonLinesFill, BsReverseLayoutTextWindowReverse, BsCalendarWeek, BsXCircle, BsAward, BsCalendar2Check, BsFillBarChartLineFill} from 'react-icons/bs';
 
 function Home() {
 
   const icons = [
     { icon: FaVoteYea, label: 'Contador Nominaciones', to: '/ContadorNominaciones' },
-    { icon: BsFillPersonLinesFill, label: 'Votaciones por Jugador', to: 'VotacionesPorJugador' },
+    { icon: BsFillPersonLinesFill, label: 'Votaciones por Jugador (Lista)', to: 'VotacionesPorJugador' },
+    { icon: BsFillBarChartLineFill, label: 'Votaciones por Jugador (Gráf.)', to: '/GraficoVotos' },
     { icon: BsCalendar2Check, label: 'Votaciones por Semana', to: '/VotacionesPorSemana' },
     { icon: BsCalendarWeek, label: 'Placas de Nominados por Semana', to: '/PlacasPorSemana' },
     { icon: BsReverseLayoutTextWindowReverse, label: 'Placas de Nominados en Lista', to: '/PlacasEnContinuado' },
