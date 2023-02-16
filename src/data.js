@@ -50,6 +50,7 @@ export const useData = () => {
     ['Tomás', '1° eliminado'],
     ['Walter', 'Juan', 'Nacho'],
     ],
+    
     /*SEMANA 3*/
     [
     ['Agustín', 'Mora', 'Daniela'],
@@ -194,7 +195,7 @@ export const useData = () => {
     ['Alexis', 'Julieta', 'Marcos'],
     ['Ariel', 'No estaba'],
     ['Camila', 'No estaba'],
-    ['Constanza', 'Marcos', 'Julieta'],
+    ['Constanza', 'Julieta', 'Daniela'],
     ['Daniela', 'Maximiliano', 'Agustín'],
     ['Juan', '4° eliminado'],
     ['Juliana', '6° eliminada'],
@@ -390,7 +391,7 @@ export const useData = () => {
     ['Maximiliano', '13° eliminado'],
     ['Mora', '3° eliminada'],
     ['Nacho', 'Camila', 'Walter'],
-    ['Romina', 'Camila', 'Voto anulado'],
+    ['Romina', 'Camila', 'Walter'],
     ['Thiago', '12° eliminado'],
     ['Tomás', '1° eliminado'],
     ['Walter', 'Romina', 'Lucila'],
@@ -400,24 +401,50 @@ export const useData = () => {
     ['Agustín', '14° eliminado'],
     ['Alexis', '11° eliminado'],
     ['Ariel', '15° eliminado'],
-    ['Camila', '-', '-'],
+    ['Camila', 'Lucila', 'Daniela'],
     ['Constanza', '10° eliminada'],
-    ['Daniela', '-', '-'],
+    ['Daniela', 'Nacho', 'Lucila'],
     ['Juan', '4° eliminado'],
     ['Juliana', '1° expulsada'],
-    ['Julieta', '-', '-'],
-    ['Lucila', '-', '-'],
-    ['Marcos', '-', '-'],
+    ['Julieta', 'Camila'],
+    ['Lucila', 'Daniela', 'Julieta'],
+    ['Marcos', 'Lucila', 'Daniela'],
     ['María Laura', '7° eliminada'],
     ['Martina', '2° eliminada'],
     ['Maximiliano', '13° eliminado'],
     ['Mora', '3° eliminada'],
-    ['Nacho', '-', '-'],
-    ['Romina', '-', '-'],
+    ['Nacho', 'Julieta', 'Daniela'],
+    ['Romina', 'Nacho', 'Marcos'],
     ['Thiago', '12° eliminado'],
     ['Tomás', '1° eliminado'],
     ['Walter', '16° eliminado'],
     ],
-    ]);  
+    ]);
+    data[1][15].espontanea = true; /*semana 2*/
+    data[1][6].anulado = true; /*semana 2*/
+    data[1][12].anulado = true; /*semana 2*/
+    data[1][15].anulado = true; /*semana 2*/
+    data[2][4].espontanea = true; /*semana 3*/
+    data[3][9].espontanea = true; /*semana 4*/
+    data[3][6].anulado = true; /*semana 4*/
+    data[3][7].anulado = true; /*semana 4*/
+    data[3][9].anulado = true; /*semana 4*/
+    data[4][9].espontanea = true; /*semana 5*/
+    data[4][1].anulado = true; /*semana 5*/
+    data[4][4].anulado = true; /*semana 5*/
+    data[5][5].espontanea = true; /*semana 6*/
+    data[6][13].espontanea = true; /*semana 7*/
+    data[6][13].anulado1 = true; /*semana 7*/ /*solo anulado el primer voto*/
+    data[7][8].espontanea = true; /*semana 8*/
+    data[8][4].espontanea = true; /*semana 9*/
+    data[10][5].espontanea = true; /*semana 11*/
+    data[10][5].anulado2 = true; /*semana 11*/ /*solo anulado el segundo voto*/
+    data[11][5].espontanea = true; /*semana 12*/
+    data[12][3].espontanea = true; /*semana 13*/
+    data[13][5].espontanea = true; /*semana 14*/
+    data[14][8].espontanea = true; /*semana 15*/
+    data[16][15].espontanea = true; /*semana 17*/
+    data[16][16].anulado2 = true; /*semana 17*/ /*solo anulado el segundo voto*/
+    data[17][8].fulminante = true; /*semana 18*/
     return [data, setData];
   };

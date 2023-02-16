@@ -187,10 +187,11 @@ export const dataPlaca = [
       week: 17,
       data: [
       { role: 'Líder', name: 'Romina', result: '-' },
-      { role: 'Nominado', name: '-', result: '-' },
-      { role: 'Nominado', name: '-', result: '-' },
-      { role: 'Nominado', name: '-', result: '-' },
-      { role: 'Nominado', name: '-', result: '-' },
+      { role: 'Nominado', name: 'Camila', result: '-' },
+      { role: 'Nominado', name: 'Daniela', result: '-' },
+      { role: 'Nominado', name: 'Julieta', result: '-' },
+      { role: 'Nominado', name: 'Lucila', result: '-' },
+      { role: 'Nominado', name: 'Nacho', result: '-' },
     ],
     },
     ];

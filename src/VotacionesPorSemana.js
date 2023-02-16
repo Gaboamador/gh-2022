@@ -117,7 +117,17 @@ minHeight: '100vh'
       </thead>
       <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})`}}>
         {data[selectedOption].map((row, index) => (
-        <tr key={index}>
+        <tr key={index} className={
+          row.espontanea && row.anulado ? 'espontanea-anulado-row' :
+          row.espontanea && row.anulado1 ? 'espontanea-anulado1-row' :
+          row.espontanea && row.anulado2 ? 'espontanea-anulado2-row' :
+          row.fulminante && row.anulado ? 'fulminante-anulado-row' :
+          row.espontanea ? 'espontanea-row' :
+          row.fulminante ? 'fulminante-row' :
+          row.anulado ? 'anulado-row' :
+          row.anulado1 ? 'anulado1-row' :
+          row.anulado2 ? 'anulado2-row' : ''
+        }>        
           <td className='comboBoxNominAnteriores'>{row[0]}</td>
           {row.length === 2 && (
           <td colSpan={2}>{row[1]}</td>
@@ -131,8 +141,21 @@ minHeight: '100vh'
         </tr>
         ))}
       </tbody>
+      {data[selectedOption].some(row => row.espontanea || row.fulminante) && (
+    <tfoot>
+      <tr>
+        <td colSpan={3}>
+          {data[selectedOption].some(row => row.espontanea) && (
+            <span style={{ backgroundColor: 'rgba(36,38,212,0.7)', color: 'white', padding: '5px', borderRadius: '10px' }}>Espontánea</span>
+          )}
+          {data[selectedOption].some(row => row.fulminante) && (
+            <span style={{ backgroundColor: 'rgba(171,52,191,0.7)', color: 'white', padding: '5px', borderRadius: '10px' }}>Fulminante</span>
+          )}
+        </td>
+      </tr>
+    </tfoot>
+  )}
     </Table>
-    <Footer data={data[selectedOption]}/>
   </Container>
       
 
