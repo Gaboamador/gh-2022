@@ -39,21 +39,24 @@ const GraficoVotos = () => {
     }
     return participants;
   };
-  
-
   const voteCounts = countVotes(data);
-  const chartData = {
-    labels: Object.keys(voteCounts[selectedParticipant]).sort(),
-    datasets: [
-      {
-        label: selectedParticipant,
-        data: Object.values(voteCounts[selectedParticipant]).sort((a, b) => a - b),
-        backgroundColor: "rgba(32, 42, 234, 1)",
-        borderColor: "rgba(193, 56, 219, 1)",
-        borderWidth: 1,
-      },
-    ],
-  };
+  const dataEntries = Object.entries(voteCounts[selectedParticipant]).sort((a, b) => a[1] - b[1]);
+  const sortedLabels = dataEntries.map(([label, _]) => label);
+  const sortedData = dataEntries.map(([_, value]) => value);
+
+ 
+const chartData = {
+  labels: sortedLabels,
+  datasets: [
+    {
+      label: selectedParticipant,
+      data: sortedData,
+      backgroundColor: "rgba(32, 42, 234, 1)",
+      borderColor: "rgba(193, 56, 219, 1)",
+      borderWidth: 1,
+    },
+  ],
+};
 
   const chartOptions = {
     plugins: {
