@@ -3,7 +3,14 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect } from "react-bootstrap";
 import { useData } from "./data";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Bar, Doughnut, Pie, Radar, Line} from "react-chartjs-2";
+import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
+
+Chart.register(
+  ArcElement,
+  RadialLinearScale,
+  PointElement,
+  LineElement);
 
 ChartJS.register(
   CategoryScale,
@@ -14,13 +21,15 @@ ChartJS.register(
   Legend
 );
 
-const GraficoVotos2 = () => {
+/*const GraficoVotos2 = () => {*/
+const GraficoVotos2 = ({ selectedParticipant }) => {
   const participantes = [    "Agustín",    "Alexis",    "Ariel",    "Camila",    "Constanza",    "Daniela",    "Juan",    "Juliana",    "Julieta",    "Lucila",    "Marcos",    "María Laura",    "Martina",    "Maximiliano",    "Mora",    "Nacho",    "Romina",    "Thiago",    "Tomás",    "Walter",  ];
 
   const [data, setData] = useData();
-  const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);
+  /*const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);*/
+  
 
-  const countVotes = (data) => {
+  const countVotesGiven = (data) => {
     const participants = {};
     for (const week of data) {
       for (const [i, [participant, ...competitors]] of week.entries()) {
@@ -42,20 +51,20 @@ const GraficoVotos2 = () => {
     return participants;
   };
   
-  const voteCounts = countVotes(data);
-  const dataEntries = Object.entries(voteCounts[selectedParticipant]).sort((a, b) => a[1] - b[1]);
-  const sortedLabels = dataEntries.map(([label, _]) => label);
-  const sortedData = dataEntries.map(([_, value]) => value);
+  const votesGiven = countVotesGiven(data);
+  const dataEntriesGiven = Object.entries(votesGiven[selectedParticipant]).sort((a, b) => a[1] - b[1]);
+  const sortedLabelsGiven = dataEntriesGiven.map(([label, _]) => label);
+  const sortedDataGiven = dataEntriesGiven.map(([_, value]) => value);
   
  
 const chartData = {
-  labels: sortedLabels,
+  labels: sortedLabelsGiven,
   datasets: [
     {
       label: selectedParticipant,
-      data: sortedData,
-      backgroundColor: "rgba(32, 42, 234, 1)",
-      borderColor: "rgba(193, 56, 219, 1)",
+      data: sortedDataGiven,
+      backgroundColor: "rgba(193, 56, 219, 1)",
+      borderColor: "rgba(32, 42, 234, 1)",
       borderWidth: 1,
     },
   ],
@@ -104,16 +113,16 @@ const chartData = {
   
   
 
-  const handleParticipantChange = (event) => {
+  /*const handleParticipantChange = (event) => {
     setSelectedParticipant(event.target.value);
-  };
+  };*/
 
-  console.log(voteCounts);
+  console.log(votesGiven, "TotalesDados");
 
   return (
 <div>
 
-<Container style={{marginBottom:10, marginTop:30}}>
+{/*<Container style={{marginBottom:10, marginTop:30}}>
 <FormSelect
               value={selectedParticipant}
               onChange={handleParticipantChange}
@@ -124,15 +133,15 @@ const chartData = {
                 {participant}
                 </option>))}
                 </FormSelect>
-        </Container>
+              </Container>*/}
 
-        <Container style={{marginBottom:5}}>
+        
   <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">VOTOS TOTALES DADOS</h6>
-  </Container>
+  
 
-    <Container style={{paddingTop: 20}}>
-      <Bar data={chartData} plugins={[ChartDataLabels]} options={chartOptions} />
-    </Container>
+    
+      <Line data={chartData} plugins={[ChartDataLabels]} options={chartOptions} />
+    
     </div>
   );
 };
