@@ -4,6 +4,7 @@ import { Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect } 
 import { useData } from "./data";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import { Bar } from "react-chartjs-2";
+import GraficoVotos2 from "./GraficoVotos2"
 
 ChartJS.register(
   CategoryScale,
@@ -132,6 +133,11 @@ minHeight: '100vh'
     <Container style={{paddingTop: 20}}>
       <Bar data={chartData} plugins={[ChartDataLabels]} options={chartOptions} />
     </Container>
+
+    {/*<Container>
+    <GraficoVotos2/>
+    </Container>*/}
+
     </div>
   );
 };

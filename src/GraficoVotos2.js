@@ -20,7 +20,6 @@ const GraficoVotos2 = () => {
   const [data, setData] = useData();
   const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);
 
-  
   const countVotes = (data) => {
     const participants = {};
     for (const week of data) {
@@ -28,65 +27,28 @@ const GraficoVotos2 = () => {
         if (!participants[participant]) {
           participants[participant] = {};
         }
-        for (const competitor of competitors) {
+        for (let j = 0; j < competitors.length; j++) {
+          const competitor = competitors[j];
           if (participantes.includes(competitor)) {
             if (!participants[participant][competitor]) {
               participants[participant][competitor] = 0;
             }
-            participants[participant][competitor] += 1;
+            const votes = j === 0 ? 2 : j === 1 ? 1 : 0;
+            participants[participant][competitor] += votes;
           }
         }
       }
     }
     return participants;
   };
+  
   const voteCounts = countVotes(data);
   const dataEntries = Object.entries(voteCounts[selectedParticipant]).sort((a, b) => a[1] - b[1]);
   const sortedLabels = dataEntries.map(([label, _]) => label);
   const sortedData = dataEntries.map(([_, value]) => value);
-
-  const voteTotals = {};
-  for (const participant in voteCounts) {
-    const participantVotes = voteCounts[participant];
-    for (const competitor in participantVotes) {
-      const votes = participantVotes[competitor];
-      const voteTotal = votes * (votes === 1 ? 1 : 2);
-      if (!voteTotals[competitor]) {
-        voteTotals[competitor] = 0;
-      }
-      voteTotals[competitor] += voteTotal;
-    }
-  }
-
   
-  const chartData = {
-    labels: Object.keys(voteCounts[selectedParticipant]),
-    datasets: [
-      {
-        label: "Total Votes",
-        data: Object.values(voteCounts[selectedParticipant]).map(
-          (votes) => votes * (votes === 1 ? 1 : 2)
-        ),
-        backgroundColor: "#ff9900",
-      },
-    ],
-  };
-  
-  
-  const chartOptions = {
-    scales: {
-      x: {
-        stacked: true,
-      },
-      y: {
-        stacked: true,
-      },
-    },
-  };
- /*console.log(voteTotals)  */
- console.log(voteCounts);
-
-/*const chartData = {
+ 
+const chartData = {
   labels: sortedLabels,
   datasets: [
     {
@@ -139,21 +101,19 @@ const GraficoVotos2 = () => {
             },
         backgroundColor: "rgba(255, 255, 255, 0.2)", // set the background color to a semi-transparent white
 };
-  */
+  
   
 
   const handleParticipantChange = (event) => {
     setSelectedParticipant(event.target.value);
   };
 
-  /*console.log(voteCounts);*/
+  console.log(voteCounts);
 
   return (
-<div className="contentChart" style={{
-minHeight: '100vh'
-}}>
+<div>
 
-<Container style={{marginBottom:10}}>
+<Container style={{marginBottom:10, marginTop:30}}>
 <FormSelect
               value={selectedParticipant}
               onChange={handleParticipantChange}
@@ -167,7 +127,7 @@ minHeight: '100vh'
         </Container>
 
         <Container style={{marginBottom:5}}>
-  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">VOTOS DE {selectedParticipant.toUpperCase()}</h6>
+  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">VOTOS TOTALES DADOS</h6>
   </Container>
 
     <Container style={{paddingTop: 20}}>

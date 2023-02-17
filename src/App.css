@@ -587,12 +587,16 @@ label {
       tbody .espontanea-anulado-row {
         background-color: rgba(36,38,212,0.7);
       }
+      
       .espontanea-anulado-row td:not(:first-child) {
         color: white !important;
         text-decoration:line-through;
       }
       tbody .fulminante-anulado-row {
         background-color: rgba(171,52,191,0.7);
+      }
+      .espontanea-anulado-row td:first-child {
+        color: white !important;
       }
       .fulminante-anulado-row td:not(:first-child) {
         color: white !important;
@@ -614,6 +618,20 @@ label {
       .espontanea-anulado1-row td:nth-child(3) {
         color: white !important;
       }
+
+      tbody .espontanea-anulado2-row {
+        background-color: rgba(36,38,212,0.7);
+      }      
+      .espontanea-anulado2-row td:first-child {
+        color: white !important;
+      }
+      .espontanea-anulado2-row td:nth-child(2) {
+        color: white !important;
+      }
+      .espontanea-anulado2-row td:nth-child(3) {
+        color: white !important;
+      }
+
       tbody .fulminante-anulado1-row {
         background-color: rgba(171,52,191,0.7);
       }

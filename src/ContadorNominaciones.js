@@ -310,7 +310,7 @@ return (
                 width: 35,
                 zIndex: 1
                 }}>
-                F
+                X
       </div>
       {/*IMAGEN FULMINADO*/}
       <div style={{

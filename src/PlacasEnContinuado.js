@@ -61,9 +61,11 @@ return (
         <td>{nominee.results[0]}</td>
       </tr>
       {nominee.names.slice(1).map((name, i) => (
-        <tr key={i}>          
-          <td style={{ backgroundColor: nominee.results[i + 1].includes('Eliminado') ? 'rgba(171,52,191,0.3)' : 'inherit' }}>{name}</td>
-          <td style={{ backgroundColor: nominee.results[i + 1].includes('Eliminado') ? 'rgba(171,52,191,0.3)' : 'inherit' }}>{nominee.results[i + 1]}</td>
+        <tr key={i}>
+          <td style={{ backgroundColor: nominee.results[i + 1].includes('Eliminado') ? 'rgba(171,52,191,0.6)' : 'inherit',
+        color: nominee.results[i + 1].includes('Eliminado') ? 'white' : 'inherit' }}>{name}</td>
+          <td style={{ backgroundColor: nominee.results[i + 1].includes('Eliminado') ? 'rgba(171,52,191,0.6)' : 'inherit',
+        color: nominee.results[i + 1].includes('Eliminado') ? 'white' : 'inherit' }}>{nominee.results[i + 1]}</td>
         </tr>
       ))}
     </React.Fragment>
