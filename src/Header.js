@@ -2,9 +2,8 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
 import gh from './logo.png';
-import {Row, Col, Container} from 'react-bootstrap';
-import { GiHouse } from 'react-icons/gi';
-import {BsFillHouseDoorFill, BsFillHouseFill} from 'react-icons/bs';
+import {Row, Col} from 'react-bootstrap';
+import {BsFillHouseFill} from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
@@ -28,7 +27,7 @@ const Header = () => {
   
     
     return (
-<header className={`header ${sticky ? "header--sticky" : ""}`}>
+<header id="header" className={`header ${sticky ? "header--sticky" : ""}`}>
   <div>
     <Row className="align-items-center justify-content-between">
       <Col className="d-flex align-items-center">

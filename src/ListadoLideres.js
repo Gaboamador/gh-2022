@@ -62,7 +62,7 @@ return (
     </thead>
     <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})`}}>
     {leaders.map((leader, index) => (
-        <tr>
+        <tr key={index}>
           <td className='comboBoxNominAnteriores'>{leader.week}</td>
           <td>{leader.name}</td>
           <td>{leader.savedName}</td>

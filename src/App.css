@@ -656,3 +656,15 @@ label {
         color: white !important;
         text-decoration: line-through;
       }
+
+      .grafico{
+        background-image: radial-gradient(
+        rgba(255,255,255,0.6) 30%,
+        rgba(255,255,255,0.5) 40%,
+        rgba(255,255,255,0.4) 50%,
+        rgba(255,255,255,0.3) 60%,
+        rgba(255,255,255,0.2) 70%,
+        rgba(255,255,255,0.1) 80%,
+        rgba(255,255,255,0) 90%);
+        border-radius: 0px;
+      }
