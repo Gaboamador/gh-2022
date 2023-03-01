@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
 import Camila from './pictures/Camila.png'
-import Daniela from './pictures/Daniela.png'
 import Julieta from './pictures/Julieta.png'
 import Lucila from './pictures/Lucila.png'
 import Marcos from './pictures/Marcos.png'
@@ -9,13 +8,12 @@ import Nacho from './pictures/Nacho.png'
 import Romina from './pictures/Romina.png'
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
 
-const participants = ['Camila', 'Daniela', 'Julieta', 'Lucila', 'Marcos', 'Nacho', 'Romina'];
+const participants = ['Camila', 'Julieta', 'Lucila', 'Marcos', 'Nacho', 'Romina'];
 
 const initialRows = participants.map(participant => ({ participant, firstPlace: '', secondPlace: ''}));
 
 const participantsToImage = {
   Camila: Camila,
-  Daniela: Daniela,
   Julieta: Julieta,
   Lucila: Lucila,
   Marcos: Marcos,

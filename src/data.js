@@ -419,6 +419,29 @@ export const useData = () => {
     ['Tomás', '1° eliminado'],
     ['Walter', '16° eliminado'],
     ],
+    /*SEMANA 19*/
+    [
+    ['Agustín', '14° eliminado'],
+    ['Alexis', '11° eliminado'],
+    ['Ariel', '15° eliminado'],
+    ['Camila', '-', '-'],
+    ['Constanza', '10° eliminada'],
+    ['Daniela', '17° eliminada'],
+    ['Juan', '4° eliminado'],
+    ['Juliana', '1° expulsada'],
+    ['Julieta', '-', '-'],
+    ['Lucila', '-', '-'],
+    ['Marcos', '-', '-'],
+    ['María Laura', '7° eliminada'],
+    ['Martina', '2° eliminada'],
+    ['Maximiliano', '13° eliminado'],
+    ['Mora', '3° eliminada'],
+    ['Nacho', '-', '-'],
+    ['Romina', '-', '-'],
+    ['Thiago', '12° eliminado'],
+    ['Tomás', '1° eliminado'],
+    ['Walter', '16° eliminado'],
+    ],
     ]);
     data[1][15].espontanea = true; /*semana 2*/
     data[1][6].anulado = true; /*semana 2*/

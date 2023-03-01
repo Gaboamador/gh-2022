@@ -194,4 +194,15 @@ export const dataPlaca = [
       { role: 'Nominado', name: 'Daniela', result: 'Eliminado (53,17%)' },
     ],
     },
+    {
+      week: 18,
+      data: [
+      { role: 'Líder', name: 'Marcos', result: '-' },
+      { role: 'Nominado', name: '-', result: 'Salvado por el líder' },
+      { role: 'Nominado', name: '-', result: '-' },
+      { role: 'Nominado', name: '-', result: '-' },
+      { role: 'Nominado', name: '-', result: '-' },
+      { role: 'Nominado', name: '-', result: '-' },
+    ],
+    },
     ];
