@@ -1,14 +1,13 @@
 {
   "files": {
     "main.css": "/gh-2022/static/css/main.64873891.css",
-    "main.js": "/gh-2022/static/js/main.0d14a152.js",
+    "main.js": "/gh-2022/static/js/main.7fb9a074.js",
     "static/js/787.a485250f.chunk.js": "/gh-2022/static/js/787.a485250f.chunk.js",
     "static/media/FondoPlaca.jpg": "/gh-2022/static/media/FondoPlaca.614c7bee6dfbe61b4db9.jpg",
     "static/media/FondoPlaca2.jpg": "/gh-2022/static/media/FondoPlaca2.b86d4d6a67b5aa914d4d.jpg",
     "static/media/Camila.png": "/gh-2022/static/media/Camila.5374e3736bf20004b043.png",
     "static/media/Julieta.png": "/gh-2022/static/media/Julieta.2eaaf0035d289ffbe6f1.png",
     "static/media/Romina.png": "/gh-2022/static/media/Romina.8648903b660d1f2b77b7.png",
-    "static/media/Lucila.png": "/gh-2022/static/media/Lucila.2613a74359f81828c2aa.png",
     "static/media/logo.png": "/gh-2022/static/media/logo.997e654173ce066ac37a.png",
     "static/media/Nacho.png": "/gh-2022/static/media/Nacho.aab0ba6afc5461d60a95.png",
     "static/media/Marcos.png": "/gh-2022/static/media/Marcos.f72debedfa9a3be79e2e.png",
@@ -16,11 +15,11 @@
     "static/media/HeaderVotaciones.jpg": "/gh-2022/static/media/HeaderVotaciones.3b24045241405e533eda.jpg",
     "index.html": "/gh-2022/index.html",
     "main.64873891.css.map": "/gh-2022/static/css/main.64873891.css.map",
-    "main.0d14a152.js.map": "/gh-2022/static/js/main.0d14a152.js.map",
+    "main.7fb9a074.js.map": "/gh-2022/static/js/main.7fb9a074.js.map",
     "787.a485250f.chunk.js.map": "/gh-2022/static/js/787.a485250f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.64873891.css",
-    "static/js/main.0d14a152.js"
+    "static/js/main.7fb9a074.js"
   ]
 }
