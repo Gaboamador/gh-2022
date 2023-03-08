@@ -2,20 +2,18 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 import Camila from './pictures/Camila.png'
 import Julieta from './pictures/Julieta.png'
-import Lucila from './pictures/Lucila.png'
 import Marcos from './pictures/Marcos.png'
 import Nacho from './pictures/Nacho.png'
 import Romina from './pictures/Romina.png'
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
 
-const participants = ['Camila', 'Julieta', 'Lucila', 'Marcos', 'Nacho', 'Romina'];
+const participants = ['Camila', 'Julieta', 'Marcos', 'Nacho', 'Romina'];
 
 const initialRows = participants.map(participant => ({ participant, firstPlace: '', secondPlace: ''}));
 
 const participantsToImage = {
   Camila: Camila,
   Julieta: Julieta,
-  Lucila: Lucila,
   Marcos: Marcos,
   Nacho: Nacho,
   Romina: Romina,
@@ -39,6 +37,7 @@ function ContadorNominaciones() {
 
   const sortedEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
   const fourthCount = sortedEntries.length > 4 ? sortedEntries[3][1] : 0;
+  const thirdCount = sortedEntries.length > 3 ? sortedEntries[2][1] : 0;
 
   
     useEffect(() => {
@@ -327,7 +326,7 @@ return (
     return (
       <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
         {/*NUMEROS PLACA ORDENADA*/}
-        {index < 4 || count >= fourthCount ? (        
+        {index < 3 || count >= thirdCount ? (        
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -349,7 +348,7 @@ return (
               </div>
         ) : null}
         {/*IMAGEN PLACA ORDENADA*/}
-        {index < 4 || count >= fourthCount ? (
+        {index < 3 || count >= thirdCount ? (
                   <div style={{
                     marginLeft: -45,
                     paddingTop: 5,
@@ -393,7 +392,7 @@ return (
       return (
         <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 30 }}>
           {/*NUMEROS FUERA DE PLACA ORDENADA*/}
-          {index < 4 || count >= fourthCount ? null : (        
+          {index < 3 || count >= thirdCount ? null : (        
               <div style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -415,7 +414,7 @@ return (
                 </div>
           )}
           {/*IMAGEN PLACA ORDENADA*/}
-          {index < 4 || count >= fourthCount ? null : (
+          {index < 3 || count >= thirdCount ? null : (
                     <div style={{
                       marginLeft: -45,
                       paddingTop: 5,
@@ -434,7 +433,7 @@ return (
     <Container> {/*CONTAINER CON EL ZOCALO FUERA DE PLACA*/}
     <h6 className="placaNominados" style={estiloPlacaDeNominados}>
       {sortedEntries.some(([participant, count], index) => {
-        return (index >= 4 && count < fourthCount)
+        return (index >= 3 && count < thirdCount)
       }) ? 'FUERA DE PLACA' : null}
     </h6>
     </Container>
