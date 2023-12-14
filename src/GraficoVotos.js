@@ -5,6 +5,7 @@ import { useData } from "./data";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import { Bar, Doughnut} from "react-chartjs-2";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
+import participants from "./participantsData";
 
 Chart.register(
   ArcElement,
@@ -23,7 +24,7 @@ ChartJS.register(
 
 
 const GraficoVotos = () => {
-  const participantes = [    "Agustín",    "Alexis",    "Ariel",    "Camila",    "Constanza",    "Daniela",    "Juan",    "Juliana",    "Julieta",    "Lucila",    "Marcos",    "María Laura",    "Martina",    "Maximiliano",    "Mora",    "Nacho",    "Romina",    "Thiago",    "Tomás",    "Walter",  ];
+  const participantes = participants;
 
   const [data] = useData();
   const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);

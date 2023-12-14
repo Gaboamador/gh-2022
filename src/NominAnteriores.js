@@ -4,8 +4,9 @@ import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} fr
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useData } from './data';
 import { dataPlaca } from './dataPlaca';
+import participants from "./participantsData";
 
-const participantes = ['Agustín', 'Alexis', 'Ariel', 'Camila', 'Constanza', 'Daniela', 'Juan', 'Juliana', 'Julieta', 'Lucila', 'Marcos', 'María Laura', 'Martina', 'Maximiliano', 'Mora', 'Nacho', 'Romina', 'Thiago', 'Tomás', 'Walter'];
+const participantes = participants;
 
 const NominAnteriores = () => {
 const [selectedOption, setSelectedOption] = useState(0);
