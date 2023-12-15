@@ -5,7 +5,8 @@ export const dataPlaca = [
       { role: 'Nominado', name: 'Juliana', result: '' },
       { role: 'Nominado', name: 'Zoe', result: '' },
       { role: 'Nominado', name: 'Hernán', result: '' },
-      { role: 'Nominado', name: 'Catalina', result: '' },
+      { role: 'Nominado por el líder', name: 'Williams', result: '' },
+      { role: 'Nominado', name: 'Catalina', result: 'Salvado por el líder' },
     ],
     },
     ];

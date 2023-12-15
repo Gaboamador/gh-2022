@@ -12,9 +12,13 @@ const leaders = [];
 dataPlaca.forEach(week => {
     let savedParticipant = null;
     let leader = null;
+    let leaderNominee = null;
     week.data.forEach(participant => {
       if (participant.result === "Salvado por el líder") {
         savedParticipant = participant;
+      }
+      if (participant.role === "Nominado por el líder") {
+        leaderNominee = participant;
       }
       if (participant.role === "Líder") {
         leader = participant;
@@ -24,13 +28,15 @@ dataPlaca.forEach(week => {
       leaders.push({
         week: week.week + 1,
         name: leader.name,
-        savedName: savedParticipant.name
+        savedName: savedParticipant.name,
+        leaderNominee: leaderNominee.name
       });
     } else if (leader) {
       leaders.push({
         week: week.week + 1,
         name: leader.name,
-        savedName: "No hubo salvados"
+        savedName: "No hubo salvados",
+        leaderNominee: "No nominó como líder"
       });
     }
 });
@@ -58,6 +64,7 @@ return (
         <th className='tituloTablaDetalleVotosJugador'>Semana</th>
         <th className='tituloTablaDetalleVotosJugador'>Nombre</th>
         <th className='tituloTablaDetalleVotosJugador'>Salvado</th>
+        <th className='tituloTablaDetalleVotosJugador'>Nominado</th>
       </tr>
     </thead>
     <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})`}}>
@@ -66,6 +73,7 @@ return (
           <td className='comboBoxNominAnteriores'>{leader.week}</td>
           <td>{leader.name}</td>
           <td>{leader.savedName}</td>
+          <td>{leader.leaderNominee}</td>
         </tr>
       ))}
     </tbody>

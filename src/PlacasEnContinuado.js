@@ -11,7 +11,7 @@ const nominated = [];
 
 dataPlaca.forEach(week => {
     week.data.forEach(participant => {
-        if (participant.role === "Nominado") {
+        if (participant.role === "Nominado" || participant.role === "Nominado por el líder") {
         nominated.push({...participant, week: week.week + 1});
       }
     })
