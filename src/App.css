@@ -5,6 +5,11 @@
   src: url('./TacticSansExtExd-Blk.otf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Oswald-Regular';
+  src: url('fonts/Oswald-Regular.ttf') format('truetype');
+}
+
 .GeneralFont {
 font-family: 'Assistant', sans-serif;
 font-weight: 500;
@@ -23,15 +28,31 @@ font-weight: 500;
   /**/
   min-height:40px;
   margin-bottom: 10px;
-  background-image: linear-gradient(to right,
+  
+  /* background-image: linear-gradient(to top right,
+  #ab34bf 0%,
+  #1f185b 30%,
+  rgba(31, 24, 91, 0.5) 85%); */
+
+  background-image: linear-gradient(to top right,
+  #602697 0%,
+  #040e3e 50%,
+  #145b9e 100%);
+ 
+  /* background-image: linear-gradient(to right,
   #c138db 65%,
-  #202af3 100%);
+  #202af3 100%); */
   z-index:2 !important;
 }
 
 .header--sticky {
   transform: translateY(0);
-  background-color: lightgray;
+  /* background-color: lightgray; */
+  background-image: linear-gradient(to top right,
+  #602697 0%,
+  #040e3e 50%,
+  #145b9e 100%);
+  /* rgba(31, 24, 91, 1) 85%); */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 

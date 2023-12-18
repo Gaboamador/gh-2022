@@ -31,7 +31,9 @@ const Header = () => {
   <div>
     <Row className="align-items-center justify-content-between">
       <Col className="d-flex align-items-center">
+      <Link to="/">
         <img src={gh} alt={""} width="40px" height="40px" style={{marginRight:10}}/>
+        </Link>
         <h3 className="title-word-class">
           <span className="title-word">GRAN</span>
           <span> </span>

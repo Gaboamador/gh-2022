@@ -328,16 +328,16 @@ return (
                 flexDirection: 'column',
                 alignItems: 'center',
                 color: 'white',
-                fontSize: 25,
-                fontFamily: 'BIZ UDGothic',
+                fontSize: 23,
+                fontFamily: 'Oswald-Regular',
                 fontWeight: 600,
                 background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
-                marginBottom: -5,
+                marginBottom: -14,
                 borderBottomLeftRadius: 0,
                 borderTopLeftRadius: 15,
                 borderBottomRightRadius: 10,
                 borderTopRightRadius: 0,
-                width: 50,
+                width: 45,
                 zIndex: 1
                 }}>
                 X
@@ -365,16 +365,16 @@ return (
                 flexDirection: 'column',
                 alignItems: 'center',
                 color: 'white',
-                fontSize: 25,
-                fontFamily: 'BIZ UDGothic',
+                fontSize: 23,
+                fontFamily: 'Oswald-Regular',
                 fontWeight: 600,
                 background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
-                marginBottom: -5,
+                marginBottom: -14,
                 borderBottomLeftRadius: 0,
                 borderTopLeftRadius: 15,
                 borderBottomRightRadius: 10,
                 borderTopRightRadius: 0,
-                width: 50,
+                width: 45,
                 zIndex: 1
                 }}>
                 {count}
@@ -427,22 +427,21 @@ return (
           {/*NUMEROS FUERA DE PLACA ORDENADA*/}
           {index < 3 || count >= fourthCount ? null : (        
               <div style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  color: 'white',
-                  fontSize: 25,
-                  fontFamily: 'BIZ UDGothic',
-                  fontWeight: 600,
-                  // backgroundColor: '#1f185b',
-                  background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
-                  marginBottom: -5,
-                  borderBottomLeftRadius: 0,
-                  borderTopLeftRadius: 15,
-                  borderBottomRightRadius: 10,
-                  borderTopRightRadius: 0,
-                  width: 50,
-                  zIndex: 1
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                color: 'white',
+                fontSize: 23,
+                fontFamily: 'Oswald-Regular',
+                fontWeight: 600,
+                background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
+                marginBottom: -14,
+                borderBottomLeftRadius: 0,
+                borderTopLeftRadius: 15,
+                borderBottomRightRadius: 10,
+                borderTopRightRadius: 0,
+                width: 45,
+                zIndex: 1
                   }}>
                   {count}
                 </div>
