@@ -400,6 +400,12 @@ label {
   border-color: #019BFF !important
 }
 
+.custom-class-exportar{
+  background-color: #019BFF !important;
+  color: whitesmoke !important;
+  border-color: #e700ee !important
+}
+
 .fixed-width-reiniciar {
   width:45px;
 }
@@ -476,10 +482,26 @@ label {
       color:white !important
     }
 
+    .votoFinalFirstPlace {
+      color: white !important;
+      background-color: #343A40 !important;
+    }
+
+    .votoFinal {
+      
+    }
+
+    .votoFinalDisabler {
+      display: none !important;
+      }
+
     @media (max-width: 410px) {
       .comboBox {
         font-size:12px !important;
         padding-left: 2px !important;        
+      }
+      .votoFinalSecondPlaceRow {
+        font-size:13px !important;
       }
     }
 

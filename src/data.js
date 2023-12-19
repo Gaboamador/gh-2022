@@ -29,8 +29,13 @@ export const useData = () => {
     ['Williams', 'Isabel', 'Juliana'],
     ['Zoe', 'Williams', 'Axel'],
     ],
+/*SEMANA 2*/
+
+
+
     ]);
     data[0][13].espontanea = true; /*semana 1*/
+    // data[1][12].espontanea = true; /*semana 2*/
     // data[1][6].anulado = true; /*semana 2*/
     // data[6][13].anulado1 = true; /*semana 7*/ /*solo anulado el primer voto*/
     // data[10][5].anulado2 = true; /*semana 11*/ /*solo anulado el segundo voto*/

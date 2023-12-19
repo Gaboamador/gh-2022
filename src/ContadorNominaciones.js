@@ -23,9 +23,32 @@ import Sabrina from './pictures/Sabrina.png'
 import Williams from './pictures/Williams.png'
 import Zoe from './pictures/Zoe.png'
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
+import { dataPlaca } from "./dataPlaca";
+import { votoFinal } from "./dataPlaca";
 import participants from "./participantsData";
 
-const initialRows = participants.map(participant => ({ participant, firstPlace: '', secondPlace: ''}));
+
+// Find the last 'Eliminado' of the last week
+let lastEliminadoName = null;
+let lastEliminadoWeek = -1;
+
+dataPlaca.forEach(weekData => {
+  const eliminadoIndex = weekData.data.findIndex(entry => entry.result.includes('Eliminado'));
+  
+  if (eliminadoIndex !== -1 && weekData.week > lastEliminadoWeek) {
+    lastEliminadoWeek = weekData.week;
+    lastEliminadoName = weekData.data[eliminadoIndex].name;
+  }
+});
+
+const eliminado = lastEliminadoName
+
+const initialRows = [
+  { participant: eliminado, firstPlace: votoFinal, secondPlace: '' },
+  ...participants.map(participant => ({ participant, firstPlace: '', secondPlace: '' }))
+];
+
+// const initialRows = participants.map(participant => ({ participant, firstPlace: '', secondPlace: ''}));
 
 const participantsToImage = {
   Agostina: Agostina,
@@ -306,6 +329,36 @@ if (fulminatedIndex !== -1) {
     float: "right"
     }
 
+    const estiloBotonExportar = {
+      marginTop: "10px",
+      marginBottom: "20px",
+      float: "left"
+      }
+
+    const handleExport = () => {
+      // Convert the 'rows' array to the desired format
+      const exportedArray = rows.map(row => [
+        `'${row.participant}'`,
+        `'${row.firstPlace}'`,
+        `'${row.secondPlace}'`,
+      ]);
+    
+      // Convert the array to a string
+      const formattedArray = `[${exportedArray.map(row => `[${row.join(', ')}]`).join(',\n')}]`;
+    
+      // Create a Blob with the formatted data
+      const blob = new Blob([formattedArray], { type: 'application/json' });
+    
+      // Create a link element to download the JSON file
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'exported_rows.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    };
+    
+    
 
 return (
 <div className="content"  style={{
@@ -502,6 +555,10 @@ return (
             {background: "linear-gradient(to right, rgba(36,38,212,1) 0%, rgba(36,38,212,0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)",borderRadius: "20px"} :
             row.checkedF ?
             {background: "linear-gradient(to right, rgba(171,52,191,1) 0%, rgba(171,52,191,0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)",borderRadius: "20px"} :
+            row.participant === eliminado ?
+            {background: "linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(20, 91, 158,0.5) 10%, rgba(20, 91, 158,1) 50%, rgba(20, 91, 158,0.5) 90%, rgba(255,255,255,0) 99%)",
+          
+          } :
             {}
             }>              
             <Col xs={1} style={{marginLeft:'-7px'}}>
@@ -511,7 +568,9 @@ return (
               checked={row.checked}
               onChange={() => handleCheckbox(row.participant, index)}
               onClick={handleCheckboxClick}
-              disabled={index !== selectedIndex && selectedIndex !== -1}>
+              disabled={index !== selectedIndex && selectedIndex !== -1}
+              className={`${row.checkedF ? 'votoFinalDisabler' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''}`}
+              >
               </FormCheck>
             </Col>
             <Col xs={1}>
@@ -521,26 +580,34 @@ return (
               checked={row.checkedF}
               onChange={() => handleCheckboxF(row.participant, index)}
               onClick={handleCheckboxClickF}
-              disabled={index !== selectedIndexF && selectedIndexF !== -1}>
+              disabled={index !== selectedIndexF && selectedIndexF !== -1}
+              className={`${row.checked ? 'votoFinalDisabler' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''}`}
+              >
               </FormCheck>
             </Col>
             <Col className="columnaJugadoresNegrita">
               <ListGroup
-              className={`columnaJugadoresNegrita ${row.checkedF ? 'espfulmFont' : ''} ${row.checked ? 'espfulmFont' : ''}`}
+              // className={`columnaJugadoresNegrita ${row.checkedF ? 'espfulmFont' : ''} ${row.checked ? 'espfulmFont' : ''} `}
+              className={`columnaJugadoresNegrita ${row.checkedF ? 'espfulmFont' : ''} ${row.checked ? 'espfulmFont' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''} `}
               style={{marginTop: '2.5px', marginBottom: '2.5px'}}>
               {row.participant}
               </ListGroup>
+              {row.participant === eliminado && (
+              <div className="columnaJugadoresNegrita espfulmFont">{eliminado}</div>
+              )}
             </Col>
             <Col>
               <FormSelect
                 value={row.firstPlace}
-                /*className="comboBox"*/
-                className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''}`}
+                // className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalFirstPlace' : ''}`}
+                className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''}`}
                 style={{
                 marginTop: '2.5px',
                 marginBottom: '2.5px',
                 }}
-                onChange={e => handleFirstPlaceChange(index, e.target.value)}>
+                onChange={e => handleFirstPlaceChange(index, e.target.value)}
+                disabled={row.participant === eliminado}
+                >
                 <option value="">-</option>
                 {participants.map(participant => (
                 <option key={participant} value={participant}>
@@ -548,13 +615,16 @@ return (
                 </option>
                 ))}
               </FormSelect>
+              {row.participant === eliminado && (
+              <div className="columnaJugadoresNegrita espfulmFont">{votoFinal}</div>
+              )}
             </Col>
             <Col>
               <FormSelect
                 as="select"
-                disabled={row.checkedF}
+                disabled={row.checkedF || row.participant === eliminado}
                 value={row.secondPlace}
-                className={`comboBox ${row.checkedF ? 'disabled' : ''} ${row.checked ? 'espontanea' : ''}`}
+                className={`comboBox ${row.checkedF ? 'disabled' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''}`}
                 style={{
                   marginTop: '2.5px',
                   marginBottom: '2.5px',
@@ -567,6 +637,9 @@ return (
                 </option>
                 ))}
               </FormSelect>
+              {row.participant === eliminado && (
+              <div className="columnaJugadoresNegrita espfulmFont votoFinalSecondPlaceRow">(voto final)</div>
+              )}
             </Col>
           </Row>
         ))}
@@ -604,7 +677,9 @@ return (
       </Col>
     </Row>
     <Row>
-        <Col xs={6}></Col>
+        <Col xs={6}>
+          <Button style={estiloBotonExportar} onClick={handleExport} className="custom-class-exportar">Exportar</Button>
+        </Col>
         <Col xs={6}>
           <Button style={estiloBotonReiniciar} onClick={() => setIsConfirming(true)} className="custom-class-reiniciar">Reiniciar</Button>
         </Col>

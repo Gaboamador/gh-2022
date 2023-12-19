@@ -9,4 +9,16 @@ export const dataPlaca = [
       { role: 'Nominado', name: 'Hernán', result: 'Eliminado (52,60%)' },
     ],
     },
+    {week: 1,
+      data: [  
+        { role: 'Líder', name: '', result: '-' },
+        // { role: 'Nominado', name: '', result: '' },
+        // { role: 'Nominado por el líder', name: '', result: '' },
+        // { role: 'Nominado', name: '', result: '' },
+        // { role: 'Nominado', name: '', result: '' },
+        // { role: 'Nominado', name: '', result: '' },
+      ],
+      },
     ];
+
+    export const votoFinal = 'Joel'
