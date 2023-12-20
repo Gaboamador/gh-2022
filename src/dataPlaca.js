@@ -11,7 +11,7 @@ export const dataPlaca = [
     },
     {week: 1,
       data: [  
-        { role: 'Líder', name: '', result: '-' },
+        { role: 'Líder', name: 'Martín', result: '-' },
         // { role: 'Nominado', name: '', result: '' },
         // { role: 'Nominado por el líder', name: '', result: '' },
         // { role: 'Nominado', name: '', result: '' },
