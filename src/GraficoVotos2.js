@@ -5,7 +5,7 @@ import { useData } from "./data";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import { Bar, Doughnut, Pie, Radar, Line} from "react-chartjs-2";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
-import participants from "./participantsData";
+import { participantsChart } from "./participantsData";
 
 Chart.register(
   ArcElement,
@@ -24,7 +24,7 @@ ChartJS.register(
 
 /*const GraficoVotos2 = () => {*/
 const GraficoVotos2 = ({ selectedParticipant }) => {
-  const participantes = participants;
+  const participantes = participantsChart;
 
   const [data, setData] = useData();
   /*const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);*/

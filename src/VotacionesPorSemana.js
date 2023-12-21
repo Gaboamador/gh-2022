@@ -4,7 +4,7 @@ import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} fr
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useData } from './data';
 import { dataPlaca } from './dataPlaca';
-import participants from "./participantsData";
+import { participants } from "./participantsData";
 
 const participantes = participants;
 

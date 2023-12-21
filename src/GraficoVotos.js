@@ -5,7 +5,8 @@ import { useData } from "./data";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import { Bar, Doughnut} from "react-chartjs-2";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
-import participants from "./participantsData";
+import {participantsChart} from "./participantsData";
+import GraficoVotos3 from "./GraficoVotos3";
 
 Chart.register(
   ArcElement,
@@ -24,7 +25,7 @@ ChartJS.register(
 
 
 const GraficoVotos = () => {
-  const participantes = participants;
+  const participantes = participantsChart;
 
   const [data] = useData();
   const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);
@@ -421,19 +422,17 @@ minHeight: '100vh'
     </Container>
 
     
-    <Container>    
+    {/* <Container>    
     <h6 style={{marginTop: 10, backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">PROMEDIO DE VOTOS CONTRA {selectedParticipant.toUpperCase()}</h6>
       <Doughnut data={chartDataStats} plugins={[ChartDataLabels]} options={chartOptionsStats}
       className='grafico'/>
-    </Container>
+    </Container> */}
     
 
-    {/*
-    Bar, Doughnut, Pie, Radar, Line, PolarArea, Bubble, Scatter
-    <Container style={{paddingTop: 30}}>
-    <GraficoVotos2 selectedParticipant={selectedParticipant}/>
-    </Container>
-    */}
+      <Container>
+      <h6 style={{marginTop: 10, backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">VOTOS TOTALES RECIBIDOS</h6>
+      <GraficoVotos3 participantName={selectedParticipant} className='grafico'/>
+      </Container>
 
     </div>
   );

@@ -25,7 +25,7 @@ import Zoe from './pictures/Zoe.png'
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
 import { dataPlaca } from "./dataPlaca";
 import { votoFinal } from "./dataPlaca";
-import participants from "./participantsData";
+import { participants } from "./participantsData";
 
 
 // Find the last 'Eliminado' of the last week
@@ -43,9 +43,16 @@ dataPlaca.forEach(weekData => {
 
 const eliminado = lastEliminadoName
 
+// const initialRows = [
+//   { participant: eliminado, firstPlace: votoFinal, secondPlace: '' },
+//   ...participants.map(participant => ({ participant, firstPlace: '', secondPlace: '' }))
+// ];
+
 const initialRows = [
-  { participant: eliminado, firstPlace: votoFinal, secondPlace: '' },
-  ...participants.map(participant => ({ participant, firstPlace: '', secondPlace: '' }))
+  ...(votoFinal !== ""
+    ? [{ participant: eliminado, firstPlace: votoFinal, secondPlace: "" }]
+    : []),
+  ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' }))
 ];
 
 // const initialRows = participants.map(participant => ({ participant, firstPlace: '', secondPlace: ''}));
@@ -622,7 +629,7 @@ return (
             <Col>
               <FormSelect
                 as="select"
-                disabled={row.checkedF || row.participant === eliminado}
+                disabled={row.checkedF || row.participant === eliminado }
                 value={row.secondPlace}
                 className={`comboBox ${row.checkedF ? 'disabled' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''}`}
                 style={{

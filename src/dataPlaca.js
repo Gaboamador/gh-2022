@@ -12,13 +12,13 @@ export const dataPlaca = [
     {week: 1,
       data: [  
         { role: 'Líder', name: 'Martín', result: '-' },
-        // { role: 'Nominado', name: '', result: '' },
         // { role: 'Nominado por el líder', name: '', result: '' },
-        // { role: 'Nominado', name: '', result: '' },
-        // { role: 'Nominado', name: '', result: '' },
-        // { role: 'Nominado', name: '', result: '' },
+        { role: 'Nominado', name: 'Juliana', result: '' },
+        { role: 'Nominado', name: 'Carla', result: '' },
+        { role: 'Nominado', name: 'Axel', result: '' },
+        { role: 'Nominado', name: 'Catalina', result: '' },
       ],
       },
     ];
 
-    export const votoFinal = 'Joel'
+    export const votoFinal = ""

@@ -27,7 +27,8 @@ const Header = () => {
   
     
     return (
-<header id="header" className={`header ${sticky ? "header--sticky" : ""}`}>
+
+  <header id="header" className={`header ${sticky ? "header--sticky" : ""}`}>
   <div>
     <Row className="align-items-center justify-content-between">
       <Col className="d-flex align-items-center">
