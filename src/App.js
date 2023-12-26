@@ -2,6 +2,7 @@ import React from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import GlobalState from "./globalState";
 import Header from './Header'
 /*import Navbar from './Navbar';*/
 import Home from './Home';
@@ -21,6 +22,7 @@ function App() {
 return (
   <div className="GeneralFont">    
     <Router>
+    <GlobalState>
       <Header/>
       {/*<Navbar />*/}
       <Routes>
@@ -37,6 +39,7 @@ return (
           <Route path="/GraficoVotos" element={<GraficoVotos/>}></Route>
           <Route path="/GraficoVotos2" element={<GraficoVotos2/>}></Route>
         </Routes>
+        </GlobalState>
     </Router>
   </div>
 );

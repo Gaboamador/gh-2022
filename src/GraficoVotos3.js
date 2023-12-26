@@ -29,7 +29,7 @@ const GraficoVotos3 = ({participantName}) => {
     const seriesData = xAxisData.map((participant) =>
       counts.reduce((total, weekCount) => total + (weekCount[participant] || 0), 0)
     );
-
+    
     // Sort data in descending order
     const sortedIndices = [...Array(xAxisData.length).keys()].sort(
       (a, b) => seriesData[b] - seriesData[a]
@@ -96,6 +96,46 @@ const GraficoVotos3 = ({participantName}) => {
             },
           ],
       };
+
+      // const logVotesData = (participantName) => {
+      //   const participantIndex = chartData.xAxisData.indexOf(participantName);
+      
+      //   if (participantIndex !== -1) {
+      //     const participant = chartData.xAxisData[participantIndex];
+      //     const totalVotes = chartData.seriesData[participantIndex];
+      
+      //     const votesData = [
+      //       { Participant: participant },
+      //       { "Total Votes": totalVotes },
+      //       { Contributors: {} },
+      //     ];
+      
+      //     data.forEach((week) => {
+      //       week.forEach((names) => {
+      //         const voter = names[0];
+      //         const participantIndex = names.indexOf(participant);
+      
+      //         if (participantIndex !== -1 && participantIndex !== 0) {
+      //           const contributor = names[1];
+      //           const votes = participantIndex === 1 ? 2 : 1;
+      
+      //           votesData[2][contributor] = {
+      //             Votes: (votesData[2][contributor]?.Votes || 0) + votes,
+      //             Weeks: (votesData[2][contributor]?.Weeks || []).concat(voter),
+      //           };
+      //         }
+      //       });
+      //     });
+      
+      //     console.log(votesData);
+      //   } else {
+      //     console.log(`Participant '${participantName}' not found.`);
+      //   }
+      // };
+      
+      //       logVotesData(participantName);
+      
+      
 
     return (
         <div>

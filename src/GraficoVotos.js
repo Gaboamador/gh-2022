@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext} from "react";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { Container, FormSelect } from "react-bootstrap";
+import { Container, Row, Col, FormSelect, Image} from "react-bootstrap";
 import { useData } from "./data";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import { Bar, Doughnut} from "react-chartjs-2";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
 import {participantsChart} from "./participantsData";
 import GraficoVotos3 from "./GraficoVotos3";
+import { participantsToImage } from "./participantsToImage";
+import Context from "./context";
 
 Chart.register(
   ArcElement,
@@ -25,10 +27,23 @@ ChartJS.register(
 
 
 const GraficoVotos = () => {
+  
+  const context= useContext(Context)
+
   const participantes = participantsChart;
 
   const [data] = useData();
-  const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);
+  // const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);
+  const [selectedParticipant, setSelectedParticipant] = useState(
+    context.selectedParticipant !== '' ? context.selectedParticipant : participantes[0]
+  );
+  
+  const selectedParticipantData = participantsChart.filter(participant => participant === selectedParticipant);
+
+  useEffect(() => {
+    // Scroll to the top when the component mounts
+    window.scrollTo(0, 0);
+  }, []); 
 
   const countVotes = (data) => {
     const participants = {};
@@ -398,7 +413,12 @@ const backgroundColors2 = dataAverages.map((data, index) => {
 minHeight: '100vh'
 }}>
 
-<Container style={{paddingBottom:10}}>
+<Container style={{display:'flex', alignItems: 'center'}}>
+  {selectedParticipantData.map((participant) => (
+          <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5}}>
+            <Image src={participantsToImage[selectedParticipant]} width="99px" height="105px" />
+          </div>
+        ))}
   <FormSelect
     value={selectedParticipant}
     onChange={handleParticipantChange}
@@ -411,8 +431,21 @@ minHeight: '100vh'
   </FormSelect>
 </Container>
 
+<Container style={{marginTop: 20, marginBottom: 20}}>
+<Row>
+  <Col xs={1}>
+  </Col>
+  <Col xs={8} className="lineaDivisoria2" style={{width:'60%'}}>
+  </Col>
+  <Col xs={1}>
+  </Col>
+  <Col xs={2} className="lineaDivisoria2" style={{width:'20%'}}>
+  </Col>
+  </Row>
+</Container>
+
   <Container>
-  <h6 style={{marginBottom: 20, backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">VOTOS DE {selectedParticipant.toUpperCase()}</h6>
+  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES DE {selectedParticipant.toUpperCase()}</h6>
 {/*  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">CANTIDAD DE VECES VOTADOS</h6>*/}
   </Container>
 
@@ -428,9 +461,21 @@ minHeight: '100vh'
       className='grafico'/>
     </Container> */}
     
+    <Container style={{marginTop: 20, marginBottom: 20}}>
+    <Row>
+  <Col xs={1} className="lineaDivisoria2" style={{width:'5%', marginLeft:20}}>
+  </Col>
+  <Col xs={2}>
+  </Col>
+  <Col xs={4} className="lineaDivisoria2" style={{width:'60%'}}>
+  </Col>
+  <Col xs={2}>
+  </Col>
+  </Row>
+</Container>
 
       <Container>
-      <h6 style={{marginTop: 10, backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">VOTOS TOTALES RECIBIDOS</h6>
+      <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES TOTALES RECIBIDAS</h6>
       <GraficoVotos3 participantName={selectedParticipant} className='grafico'/>
       </Container>
 

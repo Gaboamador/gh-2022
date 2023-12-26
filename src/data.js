@@ -59,8 +59,8 @@ export const useData = () => {
 
     ]);
     data[0][13].espontanea = true; /*semana 1*/    
-    data[1][0].anulado2 = true; /*semana 2*/
-    data[1][3].anulado1 = true; /*semana 2*/
+    data[1][0].anulado2 = true; /*semana 2*/ /*solo anulado el segundo voto*/
+    data[1][3].anulado1 = true; /*semana 2*/ /*solo anulado el primer voto*/
     data[1][4].anulado2 = true; /*semana 2*/
     data[1][5].anulado2 = true; /*semana 2*/
     data[1][9].anulado1 = true; /*semana 2*/
@@ -70,8 +70,6 @@ export const useData = () => {
     data[1][18].anulado1 = true; /*semana 2*/
     data[1][19].anulado1 = true; /*semana 2*/
     // data[1][6].anulado = true; /*semana 2*/
-    // data[6][13].anulado1 = true; /*semana 7*/ /*solo anulado el primer voto*/
-    // data[10][5].anulado2 = true; /*semana 11*/ /*solo anulado el segundo voto*/
     // data[17][8].fulminante = true; /*semana 18*/
     return [data, setData];
   };

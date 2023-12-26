@@ -24,21 +24,12 @@ dataPlaca.forEach(week => {
         leader = participant;
       }
     });
-    if (savedParticipant && leader) {
       leaders.push({
         week: week.week + 1,
         name: leader.name,
-        savedName: savedParticipant.name,
-        leaderNominee: leaderNominee.name
+        savedName: savedParticipant ? savedParticipant.name : "No hubo salvados",
+        leaderNominee: leaderNominee ? leaderNominee.name : "No nominó como líder"
       });
-    } else if (leader) {
-      leaders.push({
-        week: week.week + 1,
-        name: leader.name,
-        savedName: "No hubo salvados",
-        leaderNominee: "No nominó como líder"
-      });
-    }
 });
 
 return (

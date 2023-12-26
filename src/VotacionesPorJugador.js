@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} from 'react-bootstrap';
+import {Button, Row, Col, Container, ListGroup, Table, Image, FormCheck, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useData } from './data';
 import { dataPlaca } from './dataPlaca';
-import { participants } from "./participantsData";
+import { participants, participantsChart } from "./participantsData";
+import { participantsToImage } from './participantsToImage';
 
-const participantes = participants;
+const participantes = participantsChart;
 
 const VotacionesPorJugador = () => {
 
 const [selectedName, setSelectedName] = useState(participantes[0]);
 const [data, setData] = useData();
+const selectedParticipantData = participantes.filter(participant => participant === selectedName);
 
 const [results, setResults] = useState([]);
     
@@ -48,7 +50,13 @@ zIndex: -1,
 minHeight: '100vh'
 }}>
  
-  <Container style={{marginBottom:10}}> {/*COMBOBOX PARA SELECCIONAR JUGADOR*/}
+  {/* <Container style={{marginBottom:10}}> */}
+  <Container style={{display:'flex', alignItems: 'center'}}>
+  {selectedParticipantData.map((participant) => (
+          <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5}}>
+            <Image src={participantsToImage[selectedName]} width="99px" height="105px" />
+          </div>
+        ))}
     <FormSelect onChange={handleChange}
     style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
     className="selectNominAnteriores">
@@ -59,6 +67,20 @@ minHeight: '100vh'
     ))}
     </FormSelect>
   </Container>
+
+  <Container style={{marginTop: 20, marginBottom: 20}}>
+<Row>
+  <Col xs={1}>
+  </Col>
+  <Col xs={8} className="lineaDivisoria2" style={{width:'60%'}}>
+  </Col>
+  <Col xs={1}>
+  </Col>
+  <Col xs={2} className="lineaDivisoria2" style={{width:'20%'}}>
+  </Col>
+  </Row>
+</Container>
+
     
   <Container style={{marginBottom:5}}>
   <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE VOTACIONES DE {selectedName.toUpperCase()}</h6>

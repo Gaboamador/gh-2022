@@ -12,11 +12,12 @@ export const dataPlaca = [
     {week: 1,
       data: [  
         { role: 'Líder', name: 'Martín', result: '-' },
-        // { role: 'Nominado por el líder', name: '', result: '' },
-        { role: 'Nominado', name: 'Juliana', result: '' },
-        { role: 'Nominado', name: 'Carla', result: '' },
-        { role: 'Nominado', name: 'Axel', result: '' },
-        { role: 'Nominado', name: 'Catalina', result: '' },
+        { role: 'Nominado por el líder', name: 'Agostina', result: '2,90% (Entre 5)' },
+        { role: 'Nominado', name: 'Carla', result: '20,90% (Entre 4)' },
+        { role: 'Nominado', name: 'Catalina', result: '32,50% (Entre 3)' },
+        { role: 'Nominado', name: 'Juliana', result: '45,70% (Entre 2)' },
+        { role: 'Nominado', name: 'Axel', result: 'Eliminado (54,30%)' },
+        
       ],
       },
     ];
