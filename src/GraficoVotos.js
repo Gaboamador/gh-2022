@@ -7,6 +7,7 @@ import { Bar, Doughnut} from "react-chartjs-2";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
 import {participantsChart} from "./participantsData";
 import GraficoVotos3 from "./GraficoVotos3";
+import GraficoVotos4 from "./GraficoVotos4";
 import { participantsToImage } from "./participantsToImage";
 import Context from "./context";
 
@@ -477,6 +478,12 @@ minHeight: '100vh'
       <Container>
       <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES TOTALES RECIBIDAS</h6>
       <GraficoVotos3 participantName={selectedParticipant} className='grafico'/>
+      </Container>
+
+
+
+      <Container>
+      <GraficoVotos4 participantName={selectedParticipant} className='grafico'/>
       </Container>
 
     </div>

@@ -167,11 +167,12 @@ const GraficoVotos3 = ({participantName}) => {
         <div>
 <ReactEcharts option={option} style={{marginTop: '-50px', minHeight: '90vh'}}/>
 
+{totalVotesReceived >= 1 && (
 <div>
   <h6 style={{marginBottom:5, backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE NOMINACIONES RECIBIDAS ({totalVotesReceived})</h6>
   {generateVotesTable()}
 </div>
-
+)}
 
 </div>
   );

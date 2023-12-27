@@ -871,3 +871,12 @@ label {
   margin: 0;
   padding: 0;
 }
+
+.accordionContributors {
+  display: flex;
+  text-align: center;
+  vertical-align: middle;
+  justify-content: center;
+  border-bottom: 1px dotted var(--color-terciario-claro);
+  padding: 5px 0px;
+}
