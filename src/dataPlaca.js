@@ -20,6 +20,20 @@ export const dataPlaca = [
         
       ],
       },
+      {week: 2,
+        data: [  
+          { role: 'Líder', name: 'Martín', result: '-' },
+          // { role: 'Nominado por el líder', name: '', result: '' },
+          { role: 'Nominado', name: 'Juliana', result: '' },
+          { role: 'Nominado', name: 'Williams', result: '' },
+          // { role: 'Nominado', name: '', result: '' },
+          // { role: 'Nominado', name: '', result: '' },
+          
+        ],
+        },
     ];
 
-    export const votoFinal = ""
+    export const votoFinal = "Carla"
+
+    export const sancionado = ["Juliana", "Williams"];
+    // export const sancionado = null;

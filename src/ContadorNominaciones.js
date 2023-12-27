@@ -5,6 +5,7 @@ import { dataPlaca } from "./dataPlaca";
 import { votoFinal } from "./dataPlaca";
 import { participants } from "./participantsData";
 import { participantsToImage } from "./participantsToImage";
+import { sancionado } from "./dataPlaca";
 
 
 // Find the last 'Eliminado' of the last week
@@ -334,6 +335,50 @@ return (
   
 <Container> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
     <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: -10}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
+
+    
+    {sancionado && sancionado.map((participant) => {
+    return (
+      <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
+        {/*TEXTO SANCIONADO*/}
+        {sancionado !== null ? (
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                color: 'white',
+                fontSize: 23,
+                fontFamily: 'Oswald-Regular',
+                fontWeight: 600,
+                background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
+                marginBottom: -14,
+                borderBottomLeftRadius: 0,
+                borderTopLeftRadius: 15,
+                borderBottomRightRadius: 10,
+                borderTopRightRadius: 0,
+                width: 45,
+                zIndex: 1
+                }}>
+                S
+              </div>
+        ) : null}
+        {/*IMAGEN SANCIONADO*/}
+        {sancionado !== null ? (
+                  <div style={{
+                    marginLeft: -45,
+                    paddingTop: 5,
+                    marginBottom: -30,
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    zIndex: 0
+                    }}>
+        <Image src={participantsToImage[participant]} width="99px" height="105px"/>
+        </div>
+        ) : null}
+      </div>
+    );
+  })}
+
       {fulminado === '' ? null : (
       <div style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
       {/*TEXTO F FULMINADO*/}
@@ -530,7 +575,7 @@ return (
               onChange={() => handleCheckbox(row.participant, index)}
               onClick={handleCheckboxClick}
               disabled={index !== selectedIndex && selectedIndex !== -1}
-              className={`${row.checkedF ? 'votoFinalDisabler' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''}`}
+              className={`${row.checkedF ? 'votoFinalDisabler' : ''} ${row.participant === eliminado || sancionado.includes(row.participant) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
@@ -542,7 +587,7 @@ return (
               onChange={() => handleCheckboxF(row.participant, index)}
               onClick={handleCheckboxClickF}
               disabled={index !== selectedIndexF && selectedIndexF !== -1}
-              className={`${row.checked ? 'votoFinalDisabler' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''}`}
+              className={`${row.checked ? 'votoFinalDisabler' : ''} ${row.participant === eliminado || sancionado.includes(row.participant) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
@@ -561,7 +606,7 @@ return (
               <FormSelect
                 value={row.firstPlace}
                 // className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalFirstPlace' : ''}`}
-                className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''}`}
+                className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado || sancionado.includes(row.participant) ? 'votoFinalDisabler' : ''}`}
                 style={{
                 marginTop: '2.5px',
                 marginBottom: '2.5px',
@@ -585,7 +630,7 @@ return (
                 as="select"
                 disabled={row.checkedF || row.participant === eliminado }
                 value={row.secondPlace}
-                className={`comboBox ${row.checkedF ? 'disabled' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''}`}
+                className={`comboBox ${row.checkedF ? 'disabled' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado || sancionado.includes(row.participant) ? 'votoFinalDisabler' : ''}`}
                 style={{
                   marginTop: '2.5px',
                   marginBottom: '2.5px',

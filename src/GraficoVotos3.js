@@ -42,6 +42,7 @@ const GraficoVotos3 = ({participantName}) => {
       xAxisData: sortedXAxisData,
       seriesData: sortedSeriesData,
     });
+
   }, [data]);
 
   const selectedColor = 'rgba(193, 56, 219, 1)';
@@ -55,7 +56,7 @@ const GraficoVotos3 = ({participantName}) => {
       },
   }));
 
-  
+
     const option = {
         // tooltip: {
         //   trigger: 'axis',
@@ -97,49 +98,80 @@ const GraficoVotos3 = ({participantName}) => {
           ],
       };
 
-      // const logVotesData = (participantName) => {
-      //   const participantIndex = chartData.xAxisData.indexOf(participantName);
+
+
+      const countVotesReceived = (data) => {
+        const participants = {};
+        for (const week of data) {
+          for (const [i, [voter, participant1, participant2]] of week.entries()) {
+            if (!participants[participant1]) {
+              participants[participant1] = {};
+            }
+            if (!participants[participant2]) {
+              participants[participant2] = {};
+            }
       
-      //   if (participantIndex !== -1) {
-      //     const participant = chartData.xAxisData[participantIndex];
-      //     const totalVotes = chartData.seriesData[participantIndex];
+            participants[participant1][voter] = participants[participant1][voter] ? participants[participant1][voter] + 2 : 2;
+            participants[participant2][voter] = participants[participant2][voter] ? participants[participant2][voter] + 1 : 1;
+          }
+        }
+        return participants;
+      };
       
-      //     const votesData = [
-      //       { Participant: participant },
-      //       { "Total Votes": totalVotes },
-      //       { Contributors: {} },
-      //     ];
+      const votesReceived = countVotesReceived(data);
       
-      //     data.forEach((week) => {
-      //       week.forEach((names) => {
-      //         const voter = names[0];
-      //         const participantIndex = names.indexOf(participant);
+      const generateVotesTable = () => {
+        const tableRows = [];
+    
+        if (votesReceived[participantName]) {
+          const voters = Object.keys(votesReceived[participantName]);
+    
+          voters.sort((a, b) => votesReceived[participantName][b] - votesReceived[participantName][a]);
+    
+      voters.forEach((voter) => {
+        const votes = votesReceived[participantName][voter];
+        const row = (
+          <tr key={voter}>
+            <td className='comboBoxNominAnteriores'>{voter}</td>
+            <td>{votes}</td>
+          </tr>
+        );
+        tableRows.push(row);
+      });
+    }
+
+    return (
+      <Table striped bordered hover className="center">
+        <thead>
+          <tr className='encabezadoVotaciones' style={{ backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})` }}>
+            <th className='tituloTablaDetalleVotosJugador'>Participante</th>
+            <th className='tituloTablaDetalleVotosJugador'>Nominaciones</th>
+          </tr>
+        </thead>
+        <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})` }}>
+          {tableRows}
+        </tbody>
+      </Table>
+    );
+  };
+
+  
+      const totalVotesReceived = Object.values(votesReceived[participantName] || {}).reduce(
+        (total, votes) => total + votes,
+        0
+      );
       
-      //         if (participantIndex !== -1 && participantIndex !== 0) {
-      //           const contributor = names[1];
-      //           const votes = participantIndex === 1 ? 2 : 1;
-      
-      //           votesData[2][contributor] = {
-      //             Votes: (votesData[2][contributor]?.Votes || 0) + votes,
-      //             Weeks: (votesData[2][contributor]?.Weeks || []).concat(voter),
-      //           };
-      //         }
-      //       });
-      //     });
-      
-      //     console.log(votesData);
-      //   } else {
-      //     console.log(`Participant '${participantName}' not found.`);
-      //   }
-      // };
-      
-      //       logVotesData(participantName);
-      
-      
+
 
     return (
         <div>
 <ReactEcharts option={option} style={{marginTop: '-50px', minHeight: '90vh'}}/>
+
+<div>
+  <h6 style={{marginBottom:5, backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE NOMINACIONES RECIBIDAS ({totalVotesReceived})</h6>
+  {generateVotesTable()}
+</div>
+
 
 </div>
   );
