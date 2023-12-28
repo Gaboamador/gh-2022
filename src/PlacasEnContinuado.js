@@ -7,6 +7,26 @@ import { ImSortNumbericDesc, ImTable2 } from 'react-icons/im';
 
 const PlacasEnContinuado = () => {
 
+
+/*inicio llamado de datos automaticos*/
+//   const [dataPlaca, setData] = useState([]);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/placasNominados.json');
+//         const jsonData = await response.json();
+//         setData(jsonData);
+//       } catch (error) {
+//         console.error('Error fetching data:', error);
+//       }
+//     };
+// console.log(dataPlaca, "data placa")
+//     fetchData();
+//   }, []);
+/*fin llamado de datos automaticos*/
+
+
 const nominated = [];
 
 dataPlaca.forEach(week => {
