@@ -23,14 +23,13 @@ export const dataPlaca = [
       {week: 2,
         data: [  
           { role: 'Líder', name: 'Martín', result: '-' },
-          // { role: 'Nominado por el líder', name: '', result: '' },
+          { role: 'Nominado por el líder', name: 'Catalina', result: '' },
           { role: 'Nominado', name: 'Juliana', result: '' },
           { role: 'Nominado', name: 'Williams', result: '' },
           { role: 'Nominado', name: 'Florencia', result: '' },
           { role: 'Nominado', name: 'Carla', result: '' },
           { role: 'Nominado', name: 'Sabrina', result: '' },
           { role: 'Nominado', name: 'Lisandro', result: '' },
-          
         ],
         },
     ];
