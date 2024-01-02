@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import './App.css';
+import '../App.css';
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
-import { dataPlaca } from "./dataPlaca";
-import { votoFinal } from "./dataPlaca";
-import { participants } from "./participantsData";
-import { participantsToImage } from "./participantsToImage";
-import { sancionado } from "./dataPlaca";
+import { dataPlaca } from "../data/placasData";
+import { votoFinal } from "../data/placasData";
+import { participants } from "../data/participantsData";
+import { participantsToImage } from "../data/participantsToImage";
+import { sancionado } from "../data/placasData";
 
 
 // Find the last 'Eliminado' of the last week
@@ -324,7 +324,7 @@ if (fulminatedIndex !== -1) {
 
 return (
 <div className="content"  style={{
-  backgroundImage: `url(${require('./pictures/FondoPlaca.jpg')})`,
+  backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center center',
@@ -544,9 +544,9 @@ return (
   </Row>
 </Container>
 <Container className="containerVotaciones"> {/* CONTAINER CON LAS VOTACIONES */}
-      <Container style={{paddingBottom: 1, marginTop: '0px', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})`}}>
+      <Container style={{paddingBottom: 1, marginTop: '0px', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
       <Table>
-          <Row className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}}>
+          <Row className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
             <Col className='tituloEspontanea' xs={1}>E</Col>
             <Col className='tituloFulminante' xs={1}>F</Col>
             <Col className='tituloTablaDetalleVotosJugador'

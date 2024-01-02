@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import '../App.css';
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { dataPlaca } from './dataPlaca';
+import { dataPlaca } from '../data/placasData';
 import { ImSortNumbericDesc, ImTable2 } from 'react-icons/im';
 
 const PlacasEnContinuado = () => {
@@ -50,7 +50,7 @@ const nominatedByWeek = nominated.reduce((acc, cur) => {
 
 return (
     <div className="content" style={{
-    backgroundImage: `url(${require('./pictures/FondoPlaca.jpg')})`,
+    backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center center',
@@ -60,18 +60,18 @@ return (
     }}>
 
 <Container style={{marginBottom:10}}>
-  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">LISTADO DE PLACAS</h6>
+  <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">LISTADO DE PLACAS</h6>
 </Container>
 <Container style={{paddingBottom: 5}}>
   <Table striped bordered hover className="center">
     <thead style={{background:'rgba(40,43,242,0.5)'}}>
-      <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}}>
+      <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
       <th className='tituloTablaDetalleVotosJugador'>Semana</th>
         <th className='tituloTablaDetalleVotosJugador'>Nombre</th>
         <th className='tituloTablaDetalleVotosJugador'>Resultado</th>
       </tr>
     </thead>
-    <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})`, backgroundSize: 'cover',
+    <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`, backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat'}}>
   {Object.values(nominatedByWeek).map((nominee, index) => (
     <React.Fragment key={index}>

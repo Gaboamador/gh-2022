@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext} from "react";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Container, Row, Col, FormSelect, Image} from "react-bootstrap";
-import { useData } from "./data";
+import { useData } from "../data/votacionesData";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import { Bar, Doughnut} from "react-chartjs-2";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
-import {participantsChart} from "./participantsData";
-import GraficoVotos3 from "./GraficoVotos3";
-import GraficoVotos4 from "./GraficoVotos4";
-import { participantsToImage } from "./participantsToImage";
-import Context from "./context";
+import {participantsChart} from "../data/participantsData";
+import GraficoVotos3 from "../graficos/GraficoVotos3";
+import GraficoVotos4 from "../graficos/GraficoVotos4";
+import GraficoVotos5 from "../graficos/GraficoVotos5";
+import { participantsToImage } from "../data/participantsToImage";
+import Context from "../context";
 
 Chart.register(
   ArcElement,
@@ -446,7 +447,7 @@ minHeight: '100vh'
 </Container>
 
   <Container>
-  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES DE {selectedParticipant.toUpperCase()}</h6>
+  <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES DE {selectedParticipant.toUpperCase()}</h6>
 {/*  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">CANTIDAD DE VECES VOTADOS</h6>*/}
   </Container>
 
@@ -476,7 +477,7 @@ minHeight: '100vh'
 </Container>
 
       <Container>
-      <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES TOTALES RECIBIDAS</h6>
+      <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES TOTALES RECIBIDAS</h6>
       <GraficoVotos3 participantName={selectedParticipant} className='grafico'/>
       </Container>
 
@@ -485,6 +486,10 @@ minHeight: '100vh'
       <Container>
       <GraficoVotos4 participantName={selectedParticipant} className='grafico'/>
       </Container>
+
+      {/* <Container>
+      <GraficoVotos5 participantName={selectedParticipant} className='grafico'/>
+      </Container> */}
 
     </div>
   );

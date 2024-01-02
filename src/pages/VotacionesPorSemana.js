@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import '../App.css';
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useData } from './data';
-import { dataPlaca } from './dataPlaca';
-import { participants } from "./participantsData";
+import { useData } from '../data/votacionesData';
+import { participants } from '../data/participantsData';
 
 const participantes = participants;
 
@@ -63,7 +62,7 @@ const DataTable = ({ week, data }) => {
   return (
     <Table striped bordered hover className="center">
       <thead style={{background:'rgba(40,43,242,0.5)'}}>
-        <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}}>
+        <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
           <th className='tituloTablaDetalleVotosJugador'>Rol</th>
           <th className='tituloTablaDetalleVotosJugador'>Nombre</th>
           <th className='tituloTablaDetalleVotosJugador'>Resultado</th>
@@ -85,7 +84,7 @@ const DataTable = ({ week, data }) => {
 
 return (
 <div className="content" style={{
-backgroundImage: `url(${require('./pictures/FondoPlaca.jpg')})`,
+backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
 backgroundSize: 'cover',
 backgroundRepeat: 'no-repeat',
 backgroundPosition: 'center center',
@@ -104,19 +103,19 @@ minHeight: '100vh'
 
   
   <Container style={{marginBottom:5}}>
-  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE VOTACIONES {weekNumber}° SEMANA</h6>
+  <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE VOTACIONES {weekNumber}° SEMANA</h6>
   </Container>
 
   <Container style={{paddingBottom: 5}}> {/*TABLA CON DETALLE DE VOTACIONES DE SEMANA SELECCIONADA*/}
     <Table striped bordered hover className="center">
       <thead>
-        <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}}>
+        <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
           <th className='tituloTablaDetalleVotosJugador'>Jugador</th>
           <th className='tituloTablaDetalleVotosJugador'>Primer Lugar</th>
           <th className='tituloTablaDetalleVotosJugador'>Segundo Lugar</th>
         </tr>
       </thead>
-      <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})`}}>
+      <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
         {data[selectedOption].map((row, index) => (
         <tr key={index} className={
           row.espontanea && row.anulado ? 'espontanea-anulado-row' :

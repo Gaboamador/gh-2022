@@ -1,12 +1,12 @@
-import Home from "./Home";
-import ContadorNominaciones from "./ContadorNominaciones";
-import VotacionesPorJugador from "./VotacionesPorJugador";
-import GraficoVotos from "./GraficoVotos";
-import VotacionesPorSemana from "./VotacionesPorSemana";
-import PlacasPorSemana from "./PlacasPorSemana";
-import PlacasEnContinuado from "./PlacasEnContinuado";
-import ListadoLideres from "./ListadoLideres";
-import ListadoEliminados from "./ListadoEliminados";
+import Home from "../pages/Home";
+import ContadorNominaciones from "../pages/ContadorNominaciones";
+import VotacionesPorJugador from "../pages/VotacionesPorJugador";
+import GraficoVotos from "../pages/GraficoVotos";
+import VotacionesPorSemana from "../pages/VotacionesPorSemana";
+import PlacasPorSemana from "../pages/PlacasPorSemana";
+import PlacasEnContinuado from "../pages/PlacasEnContinuado";
+import ListadoLideres from "../pages/ListadoLideres";
+import ListadoEliminados from "../pages/ListadoEliminados";
 
 
 export const navlist = [

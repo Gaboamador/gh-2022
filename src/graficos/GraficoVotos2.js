@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect } from "react-bootstrap";
-import { useData } from "./data";
+import { useData } from "../data/votacionesData";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import { Bar, Doughnut, Pie, Radar, Line} from "react-chartjs-2";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
-import { participantsChart } from "./participantsData";
+import { participantsChart } from "../data/participantsData";
 
 Chart.register(
   ArcElement,

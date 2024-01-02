@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
 import { Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Accordion, Card } from "react-bootstrap";
-import { useData } from "./data";
-import { participantsChart } from "./participantsData";
+import { useData } from "../data/votacionesData";
+import { participantsChart } from "../data/participantsData";
 
 const GraficoVotos4 = ({participantName}) => {
 
@@ -190,7 +190,7 @@ data.forEach((week, weekIndex) => {
     });
   });
 });
-console.log(contributorsData);
+
 
 /**/
 const generateContributorsTable = () => {
@@ -235,7 +235,7 @@ const generateContributorsTable = () => {
     });
     return (
       <Table striped bordered className='center'>
-        <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})` }}>
+        <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})` }}>
           {tableRows.flat()} {/* Flatten the array of rows */}
         </tbody>
       </Table>
@@ -263,7 +263,7 @@ const generateContributorsTable = () => {
   </Col>
   </Row>
 </Container>
-<h6 style={{marginBottom: 15, backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES RECIBIDAS POR SEMANA</h6>
+<h6 style={{marginBottom: 15, backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES RECIBIDAS POR SEMANA</h6>
 <ReactEcharts option={option} style={{marginTop: '-50px'}}/>
 </>
 )}

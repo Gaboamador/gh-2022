@@ -1,7 +1,7 @@
 /*import React from "react";*/
 import React, { useState, useEffect } from "react";
-import './App.css';
-import gh from './logo.png';
+import '../App.css';
+import gh from '../logo.png';
 import {Row, Col} from 'react-bootstrap';
 import {BsFillHouseFill} from 'react-icons/bs';
 import { Link } from 'react-router-dom';

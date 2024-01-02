@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
 import { Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect } from "react-bootstrap";
-import { useData } from "./data";
-import { participantsChart } from "./participantsData";
+import { useData } from "../data/votacionesData";
+import { participantsChart } from "../data/participantsData";
 
 const GraficoVotos3 = ({participantName}) => {
 
@@ -143,12 +143,12 @@ const GraficoVotos3 = ({participantName}) => {
     return (
       <Table striped bordered hover className="center">
         <thead>
-          <tr className='encabezadoVotaciones' style={{ backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})` }}>
+          <tr className='encabezadoVotaciones' style={{ backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})` }}>
             <th className='tituloTablaDetalleVotosJugador'>Participante</th>
             <th className='tituloTablaDetalleVotosJugador'>Nominaciones</th>
           </tr>
         </thead>
-        <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})` }}>
+        <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})` }}>
           {tableRows}
         </tbody>
       </Table>
@@ -169,7 +169,7 @@ const GraficoVotos3 = ({participantName}) => {
 
 {totalVotesReceived >= 1 && (
 <div>
-  <h6 style={{marginBottom:5, backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE NOMINACIONES RECIBIDAS ({totalVotesReceived})</h6>
+  <h6 style={{marginBottom:5, backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE NOMINACIONES RECIBIDAS ({totalVotesReceived})</h6>
   {generateVotesTable()}
 </div>
 )}

@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: 'TacticSans';
-  src: url('./TacticSansExtExd-Blk.otf') format('truetype');
+  src: url('./fonts/TacticSansExtExd-Blk.otf') format('opentype');
 }
 
 @font-face {

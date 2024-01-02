@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import './App.css';
+import '../App.css';
 import {Container, Image} from 'react-bootstrap';
-import Context from "./context";
+import Context from "../context";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { FaVoteYea } from 'react-icons/fa';
 import {BsFillPersonLinesFill, BsReverseLayoutTextWindowReverse, BsCalendarWeek, BsXCircle, BsAward, BsCalendar2Check, BsFillBarChartLineFill} from 'react-icons/bs';
-import { participants, participantsChart } from "./participantsData";
-import { participantsToImage } from "./participantsToImage";
+import { participants, participantsChart } from "../data/participantsData";
+import { participantsToImage } from "../data/participantsToImage";
 
 function Home() {
 

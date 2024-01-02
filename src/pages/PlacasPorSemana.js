@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './App.css';
+import '../App.css';
 import {Container, Table, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useData } from './data';
-import { dataPlaca } from './dataPlaca';
+import { useData } from '../data/votacionesData';
+import { dataPlaca } from '../data/placasData';
 
 const PlacasPorSemana = () => {
 const [selectedOption, setSelectedOption] = useState(0);
@@ -22,13 +22,13 @@ const DataTable = ({ week, data }) => {
   return (
     <Table striped bordered hover className="center">
       <thead style={{background:'rgba(40,43,242,0.5)'}}>
-        <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}}>
+        <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
           <th className='tituloTablaDetalleVotosJugador'>Rol</th>
           <th className='tituloTablaDetalleVotosJugador'>Nombre</th>
           <th className='tituloTablaDetalleVotosJugador'>Resultado</th>
         </tr>
       </thead>
-      <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('./pictures/FondoPlaca2.jpg')})`}}>
+      <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
         {data.map((row, index) => (
           <tr key={index}>
             <td className='comboBoxNominAnteriores'>{row.role}</td>
@@ -44,7 +44,7 @@ const DataTable = ({ week, data }) => {
 
 return (
 <div className="content" style={{
-backgroundImage: `url(${require('./pictures/FondoPlaca.jpg')})`,
+backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
 backgroundSize: 'cover',
 backgroundRepeat: 'no-repeat',
 backgroundPosition: 'center center',
@@ -62,7 +62,7 @@ minHeight: '100vh'
   </Container>
 
 <Container style={{marginBottom:5}}>
-  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">PLACA NOMINACIONES {weekNumber}° SEMANA</h6>
+  <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">PLACA NOMINACIONES {weekNumber}° SEMANA</h6>
   </Container>
   
   <Container style={{}}> {/*TABLA CON RESULTADOS PLACA DE SEMANA SELECCIONADA*/}
