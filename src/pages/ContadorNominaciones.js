@@ -575,7 +575,7 @@ return (
               onChange={() => handleCheckbox(row.participant, index)}
               onClick={handleCheckboxClick}
               disabled={index !== selectedIndex && selectedIndex !== -1}
-              className={`${row.checkedF ? 'votoFinalDisabler' : ''} ${row.participant === eliminado || sancionado ? sancionado.includes(row.participant) ? 'votoFinalDisabler' : '' : null}`}
+              className={`${row.checkedF ? 'votoFinalDisabler' : ''} ${row.participant === eliminado || (sancionado !== null && sancionado.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
@@ -587,7 +587,7 @@ return (
               onChange={() => handleCheckboxF(row.participant, index)}
               onClick={handleCheckboxClickF}
               disabled={index !== selectedIndexF && selectedIndexF !== -1}
-              className={`${row.checked ? 'votoFinalDisabler' : ''} ${row.participant === eliminado || sancionado ? sancionado.includes(row.participant) ? 'votoFinalDisabler' : '' : null}`}
+              className={`${row.checked ? 'votoFinalDisabler' : ''} ${row.participant === eliminado || (sancionado !== null && sancionado.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
@@ -606,7 +606,7 @@ return (
               <FormSelect
                 value={row.firstPlace}
                 // className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalFirstPlace' : ''}`}
-                className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado || sancionado ? sancionado.includes(row.participant) ? 'votoFinalDisabler' : '' : ''}`}
+                className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado || (sancionado !== null && sancionado.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
                 style={{
                 marginTop: '2.5px',
                 marginBottom: '2.5px',
@@ -630,7 +630,7 @@ return (
                 as="select"
                 disabled={row.checkedF || row.participant === eliminado }
                 value={row.secondPlace}
-                className={`comboBox ${row.checkedF ? 'disabled' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado || sancionado ? sancionado.includes(row.participant) ? 'votoFinalDisabler' : '' : ''}`}
+                className={`comboBox ${row.checkedF ? 'disabled' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado || (sancionado !== null && sancionado.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
                 style={{
                   marginTop: '2.5px',
                   marginBottom: '2.5px',

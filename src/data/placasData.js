@@ -32,9 +32,17 @@ export const dataPlaca = [
           { role: 'Nominado', name: 'Williams', result: 'Eliminado (52,54%)' },
         ],
         },
+        {week: 3,
+          data: [  
+            { role: 'Líder', name: 'Alan', result: '-' },
+            // { role: 'Nominado por el líder', name: '', result: '-' },
+            // { role: 'Nominado', name: '', result: '' },
+          ],
+          },
     ];
 
-    export const votoFinal = ""
+    export const votoFinal = "Carla"
+    // export const votoFinal = ""
 
     // export const sancionado = ["Juliana", "Williams"];
     export const sancionado = null;
