@@ -36,7 +36,11 @@ export const dataPlaca = [
           data: [  
             { role: 'Líder', name: 'Alan', result: '-' },
             // { role: 'Nominado por el líder', name: '', result: '-' },
-            // { role: 'Nominado', name: '', result: '' },
+            { role: 'Nominado', name: 'Nicolás', result: '' },
+            { role: 'Nominado', name: 'Carla', result: '' },
+            { role: 'Nominado', name: 'Isabel', result: '' },
+            { role: 'Nominado', name: 'Lisandro', result: '' },
+            { role: 'Nominado', name: 'Florencia', result: '' },
           ],
           },
     ];

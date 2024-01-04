@@ -74,8 +74,27 @@ export const useData = () => {
     ['Sabrina', 'Florencia', 'Carla'],
     ['Zoe', 'Florencia', 'Carla']
 ],
-
-
+/*SEMANA 4*/
+[
+    ['Agostina', 'Martín', 'Sabrina'],
+    ['Alan', 'Juliana', 'Rosina'],
+    ['Bautista', 'Carla', 'Catalina'],
+    ['Carla', 'Isabel', 'Martín'],
+    ['Catalina', 'Martín', 'Lisandro'],
+    ['Denisse', 'Carla', 'Juliana'],
+    ['Emmanuel', 'Lisandro', 'Denisse'],
+    ['Federico', 'Carla', 'Florencia'],
+    ['Florencia', 'Martín', 'Isabel'],
+    ['Isabel', 'Catalina', 'Florencia'],
+    ['Joel', 'Lisandro', 'Sabrina'],
+    ['Juliana', 'Lisandro', 'Isabel'],
+    ['Lisandro', 'Catalina', 'Florencia'],
+    ['Lucía', 'Isabel', 'Florencia'],
+    ['Martín', 'Carla', 'Florencia'],
+    ['Rosina', 'Florencia', 'Carla'],
+    ['Sabrina', 'Catalina', 'Juliana'],
+    ['Zoe', 'Isabel', 'Florencia']
+],
 
     ]);
     data[0][13].espontanea = true; /*semana 1*/    
@@ -90,6 +109,7 @@ export const useData = () => {
     data[1][18].anulado1 = true; /*semana 2*/
     data[1][19].anulado1 = true; /*semana 2*/
     data[2][4].espontanea = true; /*semana 3*/
+    data[3][11].espontanea = true; /*semana 4*/
     // data[1][6].anulado = true;
     // data[17][8].fulminante = true;
     return [data, setData];
