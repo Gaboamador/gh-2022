@@ -45,4 +45,4 @@ export const dataPlaca = [
     // export const votoFinal = ""
 
     // export const sancionado = ["Juliana", "Williams"];
-    export const sancionado = null;
+    export const sancionado = ["Nicolás"];
