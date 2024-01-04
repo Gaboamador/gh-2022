@@ -557,6 +557,7 @@ return (
           
         {rows.map((row, index) => (
           <Row
+          key={index}
           style={row.checked ?
             {background: "linear-gradient(to right, rgba(36,38,212,1) 0%, rgba(36,38,212,0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)",borderRadius: "20px"} :
             row.checkedF ?

@@ -57,8 +57,9 @@ return (
            to="/GraficoVotos"
            onClick={() => updateSelectedParticipant(participant)}
            style={{ textDecoration: "none" }}
+           key={participant}
          >
-          <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5 }}>
             <Image src={participantsToImage[participant]} width="99px" height="105px"/>
           </div>
           </Link>
@@ -73,8 +74,9 @@ return (
           to="/GraficoVotos"
           onClick={() => updateSelectedParticipant(participant)}
           style={{ textDecoration: "none" }}
+          key={participant} 
         >
-          <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5 }}>
+          <div style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5 }}>
             <Image src={participantsToImage[participant]} width="99px" height="105px" />
           </div>
           </Link>

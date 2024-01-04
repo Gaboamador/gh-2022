@@ -129,7 +129,7 @@ return (
         </thead>
         <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
         {sortedData.map(eliminatedPlayer => (
-        <tr >
+        <tr key={eliminatedPlayer.week}>
         <td className='comboBoxNominAnteriores'>{eliminatedPlayer.week}</td>
         <td>{eliminatedPlayer.name}</td>
         <td>{eliminatedPlayer.result}</td>

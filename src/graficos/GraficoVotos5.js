@@ -1,27 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import ReactEcharts from "echarts-for-react";
-import * as echarts from 'echarts';
-import { Row, Col } from "react-bootstrap";
+import { Collapse } from "react-bootstrap";
 import { useData } from "../data/votacionesData";
 import {participantsChart} from "../data/participantsData";
+import TitleChart from "../componentes/TitleChart";
 
 const GraficoVotos5 = ({ participantName }) => {
-//   const [data] = useData();
 
-const [chartRef, setChartRef] = useState(null)
-
-/**/
 const participantes = participantsChart;
 
 const [data] = useData();
-// const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);
-
-const selectedParticipantData = participantsChart.filter(participant => participant === participantName);
-
-useEffect(() => {
-  // Scroll to the top when the component mounts
-  window.scrollTo(0, 0);
-}, []); 
 
 const countVotes = (data) => {
   const participants = {};
@@ -46,31 +34,6 @@ const voteCounts = countVotes(data);
 
 const dataEntries = Object.entries(voteCounts[participantName]).sort((a, b) => a[1] - b[1]);
 
-const sortedLabels = dataEntries.map(([label, _]) => label);
-const sortedData = dataEntries.map(([_, value]) => value);
-
-
-// const countVotesGiven = (data) => {
-//   const participants = {};
-//   for (const week of data) {
-//     for (const [i, [participant, ...competitors]] of week.entries()) {
-//       if (!participants[participant]) {
-//         participants[participant] = {};
-//       }
-//       for (let j = 0; j < competitors.length; j++) {
-//         const competitor = competitors[j];
-//         if (participantes.includes(competitor)) {
-//           if (!participants[participant][competitor]) {
-//             participants[participant][competitor] = 0;
-//           }
-//           const votes = j === 0 ? 2 : j === 1 ? 1 : 0;
-//           participants[participant][competitor] += votes;
-//         }
-//       }
-//     }
-//   }
-//   return participants;
-// };
 const countVotesGiven = (data) => {
   const participants = {};
 
@@ -108,11 +71,7 @@ const dataEntriesGiven = [];
       const givenCount = votesGiven[participantName][participant];
       dataEntriesGiven.push([participant, givenCount]);
     }
-  const sortedLabelsGiven = dataEntriesGiven.map(([label, _]) => label); 
-  const sortedDataGiven = dataEntriesGiven.map(([_, value]) => value);
-
-
-  
+    
   const accumulateVotes = (votesGiven) => {
     const accumulatedVotes = {};
   
@@ -165,112 +124,87 @@ const dataEntriesGiven = [];
   
   const participantData = getParticipantData(accumulatedVotes, participantName);
 
-  console.log(participantData, "participant data");
-  
+// Extracting unique competitor names from the data
+const competitorNames = Array.from(new Set(Object.values(participantData).flatMap(week => Object.keys(week[participantName] || {}))));
 
-  
-  
+// Creating the legend data dynamically
+const legendData = competitorNames.map(name => ({ name }));
 
-  
+// Creating the xAxis data dynamically based on the number of weeks
+const weeks = Object.keys(participantData);
+const xAxisData = weeks.map(week => `Semana ${week}`);
 
-  
-  
+// Creating the series data dynamically
+const seriesData = competitorNames.map(name => {
+  return {
+    name: name,
+    type: 'line', // or 'bar' based on your preference
+    stack: 'Total',
+    label: {
+      show: true,
+      position: 'right'
+    },
+    areaStyle: {},
+    emphasis: {
+      focus: 'series'
+    },
+    data: weeks.map(week => (participantData[week][participantName] && participantData[week][participantName][name]) || 0)
+  };
+});
 
-  /**/
-
-
-
-useEffect(() => {
-    const chartDom = document.getElementById('main');
-    const myChart = echarts.init(chartDom);
-    setChartRef(myChart)
-    let option;
-
-
-
-    // const data = sortedDataGiven
-const data = [];
-for (let i = 0; i < 5; ++i) {
-  data.push(Math.round(Math.random() * 200));
-}
-data.push()
-
-option = {
-  xAxis: {
-    max: 'dataMax'
-  },
-  yAxis: {
-    type: 'category',
-    data: ['A', 'B', 'C', 'D', 'E'],
-    // data: sortedLabelsGiven,
-    inverse: true,
-    animationDuration: 300,
-    animationDurationUpdate: 300
-  },
-  series: [
-    {
-      realtimeSort: true,
-      name: 'X',
-      type: 'bar',
-      data: data,
-      label: {
-        show: true,
-        position: 'right',
-        valueAnimation: true
+  const option = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
+        }
       }
-    }
-  ],
-  legend: {
-    show: true
-  },
-  animationDuration: 0,
-  animationDurationUpdate: 3000,
-  animationEasing: 'linear',
-  animationEasingUpdate: 'linear'
-};
-function run() {
-  for (var i = 0; i < data.length; ++i) {
-    if (Math.random() > 0.9) {
-      data[i] += Math.round(Math.random() * 2000);
-    } else {
-      data[i] += Math.round(Math.random() * 200);
-    }
-  }
-  myChart.setOption({
-    series: [
+    },
+    legend: {
+      data: legendData
+    },
+    xAxis: [
       {
-        type: 'bar',
-        data
+        type: 'category',
+        boundaryGap: false,
+        data: xAxisData,
+        axisLabel: {
+          color: 'black'
       }
-    ]
-  });
-}
-setTimeout(function () {
-  run();
-}, 0);
-setInterval(function () {
-  run();
-}, 3000);
+      }
+    ],
+    yAxis: [
+      {
+        type: 'value'
+      }
+    ],
+    series: seriesData
+  };
 
-myChart.setOption(option);
-  
-// Clean up the chart when the component unmounts
-return () => {
-  myChart.dispose();
-};
-}, []);
+  const [isChartVisible, setChartVisibility] = useState(true);
 
-
-
-
-
+  const toggleChartVisibility = () => {
+    setChartVisibility(!isChartVisible);
+  };
 
   return (
     <div>
       
-          <h6 style={{ marginBottom: 15 }}>Bar Race Chart</h6>
-          <div ref={chartRef} id="main" style={{ width: '100%', minHeight: '80vh' }} />
-        
+        <TitleChart
+  firstPart='NOMINACIONES DE '
+  participantName={participantName}
+  secondPart=' POR SEMANA'
+  isChartVisible={isChartVisible}
+  toggleChartVisibility={toggleChartVisibility}
+  />
+
+    <Collapse in={isChartVisible}>
+      <div>
+      <ReactEcharts key={participantName} option={option} className='grafico'/>
+      </div>
+      </Collapse>
       
     </div>
   );

@@ -1,149 +1,116 @@
-import React, { useState } from "react";
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect } from "react-bootstrap";
+import React, { useState, useContext, useEffect } from "react";
+import ReactEcharts from "echarts-for-react";
+import { Collapse } from "react-bootstrap";
 import { useData } from "../data/votacionesData";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
-import { Bar, Doughnut, Pie, Radar, Line} from "react-chartjs-2";
-import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
 import { participantsChart } from "../data/participantsData";
+import TitleChart from "../componentes/TitleChart";
 
-Chart.register(
-  ArcElement,
-  RadialLinearScale,
-  PointElement,
-  LineElement);
+const GraficoVotos2 = ({participantName}) => {
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+    const [data] = useData();
+  const [chartData, setChartData] = useState({
+    xAxisData: [], // for storing names
+    seriesData: [], // for storing counts
+  });
 
-/*const GraficoVotos2 = () => {*/
-const GraficoVotos2 = ({ selectedParticipant }) => {
-  const participantes = participantsChart;
+  useEffect(() => {
+    // Calculate counts for each participant in each week
+    const counts = data.map((week) => {
+      const weekCount = {};
+      week.forEach((names) => {
+        names.slice(1).forEach((name, index) => {
+          weekCount[name] = (weekCount[name] || 0) + (index === 0 ? 2 : 1);
+        });
+      });
+      return weekCount;
+    });
 
-  const [data, setData] = useData();
-  /*const [selectedParticipant, setSelectedParticipant] = useState(participantes[0]);*/
-  
+    // Initialize chart data
+    const xAxisData = participantsChart;
+    const seriesData = xAxisData.map((participant) =>
+      counts.reduce((total, weekCount) => total + (weekCount[participant] || 0), 0)
+    );
+    
+    // Sort data in descending order
+    const sortedIndices = [...Array(xAxisData.length).keys()].sort(
+      (a, b) => seriesData[b] - seriesData[a]
+    );
+    const sortedXAxisData = sortedIndices.map((index) => xAxisData[index]);
+    const sortedSeriesData = sortedIndices.map((index) => seriesData[index]);
 
-  const countVotesGiven = (data) => {
-    const participants = {};
-    for (const week of data) {
-      for (const [i, [participant, ...competitors]] of week.entries()) {
-        if (!participants[participant]) {
-          participants[participant] = {};
-        }
-        for (let j = 0; j < competitors.length; j++) {
-          const competitor = competitors[j];
-          if (participantes.includes(competitor)) {
-            if (!participants[participant][competitor]) {
-              participants[participant][competitor] = 0;
-            }
-            const votes = j === 0 ? 2 : j === 1 ? 1 : 0;
-            participants[participant][competitor] += votes;
-          }
-        }
-      }
-    }
-    return participants;
-  };
-  
-  const votesGiven = countVotesGiven(data);
-  const dataEntriesGiven = Object.entries(votesGiven[selectedParticipant]).sort((a, b) => a[1] - b[1]);
-  const sortedLabelsGiven = dataEntriesGiven.map(([label, _]) => label);
-  const sortedDataGiven = dataEntriesGiven.map(([_, value]) => value);
-  
- 
-const chartData = {
-  labels: sortedLabelsGiven,
-  datasets: [
-    {
-      label: selectedParticipant,
-      data: sortedDataGiven,
-      backgroundColor: "rgba(193, 56, 219, 1)",
-      borderColor: "rgba(32, 42, 234, 1)",
-      borderWidth: 1,
-    },
-  ],
-};
+    // Update state with chart data
+    setChartData({
+      xAxisData: sortedXAxisData,
+      seriesData: sortedSeriesData,
+    });
 
-  const chartOptions = {
-    plugins: {
-        datalabels: {
-            display: true,
-            font: {
-                    weight: 'bold',
-                    },
-            color: 'white',
-            sort: (a, b) => a.parsed - b.parsed,
-                    },
-        
-                    title: {
-                        display: false,
-                      },
-                    legend: {
-                        labels: {
-                          filter: function (legendItem, chartData) {
-                            return legendItem.datasetIndex !== chartData.datasets.findIndex(ds => ds.label === selectedParticipant);
-                          }
-                        }
-                      }
-                    
-                },
-        responsive: true,
-            scales: {
-                x: {
-                stacked: true,
-                ticks: {
-                    color: 'black',
-                  },
-                },
-                y: {
-                stacked: true,
-                ticks: {
-                    color: 'grey',
-                  },
-                },
+  }, [data]);
+
+  const selectedColor = 'rgba(193, 56, 219, 1)';
+  const defaultColor = 'rgba(32, 42, 234, 1)';
+
+  const updatedSeriesData = chartData.seriesData.map((item, index) => ({
+    value: item,
+      itemStyle: {
+        color: chartData.xAxisData[index] === participantName ? selectedColor : defaultColor,
+        borderColor: chartData.xAxisData[index] === participantName ? defaultColor : selectedColor,
+      },
+  }));
+
+
+    const option = {
+        legend: {
+            
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+          },
+          yAxis: {
+            type: 'category',
+            data: chartData.xAxisData,
+            inverse: true,
+            axisLabel: {
+                  color: 'black'
+              },
+          },
+          series: [
+            {
+              type: 'bar',
+              data: updatedSeriesData,
+              label: {
+                show: true,
+              },
             },
-        backgroundColor: "rgba(255, 255, 255, 0.2)", // set the background color to a semi-transparent white
-};
-  
-  
+          ],
+      };  
 
-  /*const handleParticipantChange = (event) => {
-    setSelectedParticipant(event.target.value);
-  };*/
+      const [isChartVisible, setChartVisibility] = useState(true);
 
-  console.log(votesGiven, "TotalesDados");
+  const toggleChartVisibility = () => {
+    setChartVisibility(!isChartVisible);
+  };
 
-  return (
-<div>
-
-{/*<Container style={{marginBottom:10, marginTop:30}}>
-<FormSelect
-              value={selectedParticipant}
-              onChange={handleParticipantChange}
-              style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
-              className="selectNominAnteriores">
-              {participantes.map((participant) => (
-                <option key={participant}>
-                {participant}
-                </option>))}
-                </FormSelect>
-              </Container>*/}
-
-        
-  <h6 style={{backgroundImage: `url(${require('./pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">VOTOS TOTALES DADOS</h6>
-  
-
-    
-      <Line data={chartData} plugins={[ChartDataLabels]} options={chartOptions} />
-    
-    </div>
+    return (
+        <div>
+            <TitleChart
+  firstPart='NOMINACIONES TOTALES RECIBIDAS'
+  participantName=''
+  secondPart=''
+  isChartVisible={isChartVisible}
+  toggleChartVisibility={toggleChartVisibility}
+  />
+        <Collapse in={isChartVisible}>
+          <div>
+          <ReactEcharts option={option} style={{marginTop: '-50px', minHeight: '90vh'}} className='grafico'/>
+          </div>
+        </Collapse>
+        </div>
   );
 };
 

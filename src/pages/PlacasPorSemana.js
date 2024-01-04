@@ -68,7 +68,7 @@ minHeight: '100vh'
   <Container style={{}}> {/*TABLA CON RESULTADOS PLACA DE SEMANA SELECCIONADA*/}
     {dataPlaca.map(w => {
     if (w.week === Number(selectedOption)) {
-    return <DataTable data={w.data}/>;
+    return <DataTable key={w} data={w.data}/>;
     }
     return null;
     })}

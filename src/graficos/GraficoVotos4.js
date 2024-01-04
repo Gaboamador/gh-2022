@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, {useState} from "react";
 import ReactEcharts from "echarts-for-react";
-import { Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Accordion, Card } from "react-bootstrap";
+import { Row, Col, Accordion, Collapse } from "react-bootstrap";
 import { useData } from "../data/votacionesData";
-import { participantsChart } from "../data/participantsData";
+import TitleChart from "../componentes/TitleChart";
 
 const GraficoVotos4 = ({participantName}) => {
 
@@ -29,7 +29,7 @@ const GraficoVotos4 = ({participantName}) => {
             existingWeek.votes += votes;
           } else {
             participantsByWeek[participant].push({
-              week: weekIndex + 1, // Adjusting week index to start from 1
+              week: weekIndex + 1,
               votes: votes,
             });
           }
@@ -40,10 +40,8 @@ const GraficoVotos4 = ({participantName}) => {
     return participantsByWeek;
   };
   
-  // Example usage
   const votesReceivedByWeek = countVotesReceivedByWeek(data);
   
-
   const weeks = Array.from(
     new Set(
       Object.values(votesReceivedByWeek)
@@ -68,6 +66,9 @@ const GraficoVotos4 = ({participantName}) => {
         xAxis: {
             type: 'category',
             data: weeks.map((week) => `Semana ${week}`),
+            axisLabel: {
+              color: 'black'
+          },
           },
           yAxis: {
             type: 'value',
@@ -101,51 +102,10 @@ const GraficoVotos4 = ({participantName}) => {
       
       const votesReceived = countVotesReceived(data);
       
-     
-
-  
       const totalVotesReceived = Object.values(votesReceived[participantName] || {}).reduce(
         (total, votes) => total + votes,
         0
       );
-      
-
-    
-
-// const contributorsData = [];
-// data.forEach((week, weekIndex) => {
-//   week.forEach(([voter, participant1, participant2]) => {
-//     const participants = [participant1, participant2];
-//     participants.forEach((participant, index) => {
-//       if (!contributorsData[weekIndex + 1]) {
-//         contributorsData[weekIndex + 1] = {
-//           week: weekIndex + 1,
-//           participants: {},
-//         };
-//       }
-//       const votes = index === 0 ? 2 : 1;
-//       if (!contributorsData[weekIndex + 1].participants[participant]) {
-//         contributorsData[weekIndex + 1].participants[participant] = {
-//           votesReceived: 0,
-//           contributors: [],
-//         };
-//       }
-//       contributorsData[weekIndex + 1].participants[participant].votesReceived += votes;
-//       const contributorIndex = contributorsData[weekIndex + 1].participants[participant].contributors.findIndex(
-//         (contributor) => contributor.voter === voter
-//       );
-//       if (contributorIndex === -1) {
-//         contributorsData[weekIndex + 1].participants[participant].contributors.push({
-//           voter: voter,
-//           votesContributed: votes,
-//         });
-//       } else {
-//         contributorsData[weekIndex + 1].participants[participant].contributors[contributorIndex].votesContributed += votes;
-//       }
-//     });
-//   });
-// });
-// console.log(contributorsData);
 
 const contributorsData = [];
 
@@ -154,7 +114,7 @@ data.forEach((week, weekIndex) => {
     const participants = [participant1, participant2];
     participants.forEach((participant, index) => {
       if (participant !== participantName) {
-        return; // Skip if the participant doesn't match participantName
+        return;
       }
 
       if (!contributorsData[weekIndex + 1]) {
@@ -191,59 +151,12 @@ data.forEach((week, weekIndex) => {
   });
 });
 
+// const [isChartVisible, setChartVisibility] = useState(totalVotesReceived >= 1 && true);
+const [isChartVisible, setChartVisibility] = useState(true);
 
-/**/
-const generateContributorsTable = () => {
-    const tableRows = [];
-  
-    contributorsData.forEach((weekData) => {
-      if (!weekData) {
-        return null; // Skip null entries
-      }
-  
-      const { week, participants } = weekData;
-  
-      const participantsRows = Object.entries(participants).map(([participant, data]) => {
-        const { contributors } = data;
-  
-        if (!contributors || !Array.isArray(contributors)) {
-          // Handle unexpected data structure
-          console.error('Unexpected data structure for contributors:', contributors);
-          return null;
-        }
-  
-        const voterRows = contributors.map(({ voter, votesContributed }) => (
-          <tr key={`${voter}-${participant}`}>
-            <td className='comboBoxNominAnteriores'>{voter}</td>
-            <td>{votesContributed}</td>
-          </tr>
-        ));
-  
-        return (
-          <React.Fragment key={`${week}-${participant}`}>
-            <tr className='encabezadoVotaciones'>
-              <th colSpan={2}>
-                {`Semana ${week} - ${participant}`}
-              </th>
-            </tr>
-            {voterRows}
-          </React.Fragment>
-        );
-      });
-  
-      tableRows.push(participantsRows);
-    });
-    return (
-      <Table striped bordered className='center'>
-        <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})` }}>
-          {tableRows.flat()} {/* Flatten the array of rows */}
-        </tbody>
-      </Table>
-    );
+  const toggleChartVisibility = () => {
+    setChartVisibility(!isChartVisible);
   };
-  
-/**/
-
 
     return (
         <div>
@@ -251,31 +164,29 @@ const generateContributorsTable = () => {
 {totalVotesReceived >= 1 && (
 <>
 
-<Container style={{marginTop: 20, marginBottom: 20}}>
-    <Row>
-  <Col xs={1} className="lineaDivisoria2" style={{width:'5%', marginLeft:20}}>
-  </Col>
-  <Col xs={2}>
-  </Col>
-  <Col xs={4} className="lineaDivisoria2" style={{width:'60%'}}>
-  </Col>
-  <Col xs={2}>
-  </Col>
-  </Row>
-</Container>
-<h6 style={{marginBottom: 15, backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">NOMINACIONES RECIBIDAS POR SEMANA</h6>
-<ReactEcharts option={option} style={{marginTop: '-50px'}}/>
+  <TitleChart
+  firstPart='NOMINACIONES RECIBIDAS POR SEMANA POR '
+  participantName={participantName}
+  secondPart=''
+  isChartVisible={isChartVisible}
+  toggleChartVisibility={toggleChartVisibility}
+  />
+
+<Collapse in={isChartVisible}>
+  <div>
+<ReactEcharts option={option} style={{marginTop: '-30px'}} className='grafico'/>
+</div>
+</Collapse>
 </>
 )}
 
-<Accordion defaultActiveKey="0">
+<Collapse in={isChartVisible}>
+<Accordion defaultActiveKey="0" style={{marginBottom: 30}} className="custom-accordion">
         {contributorsData.map((weekData, index) => {
           if (!weekData) {
-            return null; // Skip null entries
+            return null;
           }
-
           const { week, participants } = weekData;
-
           return (
             <Accordion.Item key={index} eventKey={index.toString()}>
               <Accordion.Header>{`SEMANA ${week}`}</Accordion.Header>
@@ -283,13 +194,11 @@ const generateContributorsTable = () => {
                 <div >
                   {Object.entries(participants).map(([participant, data]) => {
                     const { contributors } = data;
-
                     if (!contributors || !Array.isArray(contributors)) {
                       // Handle unexpected data structure
                       console.error('Unexpected data structure for contributors:', contributors);
                       return null;
                     }
-
                     return contributors.map(({ voter, votesContributed }) => (
                       <Row className='accordionContributors' key={`${voter}-${participant}-${index}`}>
                         <Col >
@@ -307,6 +216,7 @@ const generateContributorsTable = () => {
           );
         })}
       </Accordion>
+      </Collapse>
 </div>
   );
 };

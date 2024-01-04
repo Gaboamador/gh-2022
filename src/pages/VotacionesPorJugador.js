@@ -38,7 +38,7 @@ useEffect(() => {
   handleChange({ target: { value: participantes[0] } });
 }, []);
 
-console.log(results, "results")
+
 return (
 <div className="content" style={{
 backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
