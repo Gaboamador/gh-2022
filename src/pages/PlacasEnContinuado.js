@@ -66,9 +66,9 @@ return (
   <Table striped bordered hover className="center">
     <thead style={{background:'rgba(40,43,242,0.5)'}}>
       <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-      <th className='tituloTablaDetalleVotosJugador'>Semana</th>
-        <th className='tituloTablaDetalleVotosJugador'>Nombre</th>
-        <th className='tituloTablaDetalleVotosJugador'>Resultado</th>
+      <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Semana</th>
+        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Nombre</th>
+        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Resultado</th>
       </tr>
     </thead>
     <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`, backgroundSize: 'cover',
@@ -78,7 +78,7 @@ return (
       <tr>
         <td rowSpan={nominee.names.length} className='comboBoxNominAnteriores'>{nominee.week}</td>
         <td className='comboBoxNominAnteriores'>{nominee.names[0]}</td>
-        <td>{nominee.results[0]}</td>
+        <td style={{backgroundColor: 'transparent'}}>{nominee.results[0]}</td>
       </tr>
       {nominee.names.slice(1).map((name, i) => (
         <tr key={i}>

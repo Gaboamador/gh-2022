@@ -89,9 +89,9 @@ minHeight: '100vh'
     <Table striped bordered hover className="center">
       <thead>
         <tr className='encabezadoVotaciones' style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-        <th className='tituloTablaDetalleVotosJugador'>Semana</th>
-        <th className='tituloTablaDetalleVotosJugador'>Primer Lugar</th>
-        <th className='tituloTablaDetalleVotosJugador'>Segundo Lugar</th>
+        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Semana</th>
+        <th className='tituloTablaDetalleVotosJugador'style={{backgroundColor: 'transparent'}}>Primer Lugar</th>
+        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Segundo Lugar</th>
         </tr>
       </thead>
       <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>

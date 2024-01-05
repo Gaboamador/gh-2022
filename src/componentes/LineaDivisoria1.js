@@ -4,7 +4,7 @@ import { Container, Row, Col} from "react-bootstrap";
 const LineaDivisoria1 = () => {
 return (
 <div>
-<Container style={{marginTop: 20, marginBottom: 20}}>
+<Container style={{marginTop: 20, marginBottom: 10}}>
 <Row>
 <Col xs={1}>
 </Col>

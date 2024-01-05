@@ -35,18 +35,19 @@ export const dataPlaca = [
         {week: 3,
           data: [  
             { role: 'Líder', name: 'Alan', result: '-' },
-            // { role: 'Nominado por el líder', name: '', result: '-' },
-            { role: 'Nominado', name: 'Nicolás', result: '' },
-            { role: 'Nominado', name: 'Carla', result: '' },
-            { role: 'Nominado', name: 'Isabel', result: '' },
-            { role: 'Nominado', name: 'Lisandro', result: '' },
-            { role: 'Nominado', name: 'Florencia', result: '' },
+            { role: 'Nominado', name: 'Lisandro', result: 'Salvado por el líder' },
+            { role: 'Nominado por el líder', name: 'Rosina', result: '-' },
+            { role: 'Nominado', name: 'Nicolás', result: '-' },
+            { role: 'Nominado', name: 'Carla', result: '-' },
+            { role: 'Nominado', name: 'Isabel', result: '-' },
+            { role: 'Nominado', name: 'Florencia', result: '-' },
+
           ],
           },
     ];
 
-    export const votoFinal = "Carla"
-    // export const votoFinal = ""
+    // export const votoFinal = "Carla"
+    export const votoFinal = ""
 
     // export const sancionado = ["Juliana", "Williams"];
-    export const sancionado = ["Nicolás"];
+    export const sancionado = null;

@@ -9,7 +9,6 @@
   --color-terciario: #c138db;
   --color-terciario-claro: #d868ee;
   --color-terciario-oscuro: #7b238d;
-  
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Assistant&family=BIZ+UDGothic&family=Michroma&display=swap');
@@ -216,6 +215,7 @@ hr {
   margin: 0px !important;
   padding: 10px !important;
   box-shadow: 0px 0px 8px 6px #1afcfa;
+  background-color: #3374db;
 }
 
 .placaNominados{
@@ -373,9 +373,7 @@ label {
 }
 
 .encabezadoVotaciones {
-  
-  padding: 5px;
-  
+    padding: 5px;
 }
 
 .columnaJugadoresNegrita {
@@ -390,7 +388,8 @@ label {
 
 .tituloTablaDetalleVotosJugador {
   font-weight:bold;
-  color: white;
+  color: white !important;
+
 }
 
 .tituloTablaDetalleVotos1erLugar {
@@ -639,32 +638,42 @@ label {
            
       
       tbody .espontanea-row {
-        background-color: rgba(36,38,212,0.7);
+        /* background-color: rgba(36,38,212,0.7) !important; */
       }
       .espontanea-row td {
+        background-color: rgba(36,38,212,0.7) !important;
         color: white !important;
       }
       tbody .fulminante-row {
-        background-color: rgba(171,52,191,0.7);
+        /* background-color: rgba(171,52,191,0.7); */
       }
       .fulminante-row td {
+        background-color: rgba(171,52,191,0.7) !important;
         color: white !important;
       }
       .anulado-row td:not(:first-child) {
         text-decoration:line-through;
       }
       tbody .espontanea-anulado-row {
-        background-color: rgba(36,38,212,0.7);
+        /* background-color: rgba(36,38,212,0.7); */
       }
       
       .espontanea-anulado-row td:not(:first-child) {
+        /* background-color: rgba(36,38,212,0.7) !important; */
         color: white !important;
         text-decoration:line-through;
       }
       tbody .fulminante-anulado-row {
         background-color: rgba(171,52,191,0.7);
       }
+      
+      .espontanea-anulado-row td {
+        background-color: rgba(36,38,212,0.7) !important;
+        color: white !important;
+      }
+      
       .espontanea-anulado-row td:first-child {
+        /* background-color: rgba(36,38,212,0.7) !important; */
         color: white !important;
       }
       .fulminante-anulado-row td:not(:first-child) {
@@ -675,18 +684,23 @@ label {
         text-decoration: line-through;
       }      
       tbody .espontanea-anulado1-row {
-        background-color: rgba(36,38,212,0.7);
-      }      
-      .espontanea-anulado1-row td:first-child {
+        /* background-color: rgba(36,38,212,0.7); */
+      } 
+      .espontanea-anulado1-row td {
+        background-color: rgba(36,38,212,0.7) !important;
         color: white !important;
       }
-      .espontanea-anulado1-row td:nth-child(2) {
+      
+      /* .espontanea-anulado1-row td:first-child {
         color: white !important;
+      } */
+      .espontanea-anulado1-row td:nth-child(2) {
+        /* color: white !important; */
         text-decoration: line-through;
       }
-      .espontanea-anulado1-row td:nth-child(3) {
+      /* .espontanea-anulado1-row td:nth-child(3) {
         color: white !important;
-      }
+      } */
 
       tbody .espontanea-anulado2-row {
         background-color: rgba(36,38,212,0.7);
@@ -902,17 +916,50 @@ label {
   border-bottom: none;
 }
 
-.titleWithArrow {
+.titleContainer {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  /* padding: 0 10px; */
+}
+
+.titleWithArrow {
+  width: 75%;
+  font-weight: bold;
+  color: white;
   text-align: center;
-  vertical-align: middle;
-  margin: 10px 0px;
+  border: 2px solid var(--color-terciario-claro);
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 6px;
+  background-color: var(--color-primario);
+}
+
+
+.title-icon-container {
+  /* margin-left: auto; */
+  display: flex;
+  align-items: center;
 }
 
 .icon-circle {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   background-color: var(--color-terciario-claro);
+  color: var(--color-primario-oscuro);
   border-radius: 50px;
+}
+
+.mensajeNoVotado {
+display: flex;
+justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  width: fit-content;
+  margin: auto;
+  padding: 0px 15px;
+  background-color: var(--color-secundario-oscuro);
+  color: var(--color-texto);
+  border-radius: 25px;
 }

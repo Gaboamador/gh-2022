@@ -4,6 +4,28 @@ import { Collapse } from "react-bootstrap";
 import { useData } from "../data/votacionesData";
 import { participantsChart } from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
+import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
+import { Bar, Doughnut, chart} from "react-chartjs-2";
+
+ChartJS.register(...registerablesjs);
+
+Chart.register(
+  ArcElement,
+  RadialLinearScale,
+  PointElement,
+  LineElement);
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const GraficoVotos2 = ({participantName}) => {
 
@@ -63,8 +85,9 @@ const GraficoVotos2 = ({participantName}) => {
             
         },
         grid: {
+          top: '3%',
           left: '3%',
-          right: '4%',
+          right: '3%',
           bottom: '3%',
           containLabel: true
         },
@@ -90,7 +113,7 @@ const GraficoVotos2 = ({participantName}) => {
           ],
       };  
 
-      const [isChartVisible, setChartVisibility] = useState(true);
+      const [isChartVisible, setChartVisibility] = useState(false);
 
   const toggleChartVisibility = () => {
     setChartVisibility(!isChartVisible);
@@ -99,7 +122,7 @@ const GraficoVotos2 = ({participantName}) => {
     return (
         <div>
             <TitleChart
-  firstPart='NOMINACIONES TOTALES RECIBIDAS'
+  firstPart='NOMINACIONES TOTALES RECIBIDAS (GENERAL)'
   participantName=''
   secondPart=''
   isChartVisible={isChartVisible}
@@ -107,7 +130,7 @@ const GraficoVotos2 = ({participantName}) => {
   />
         <Collapse in={isChartVisible}>
           <div>
-          <ReactEcharts option={option} style={{marginTop: '-50px', minHeight: '90vh'}} className='grafico'/>
+          <ReactEcharts option={option} style={{minHeight: '90vh'}} className='grafico'/>
           </div>
         </Collapse>
         </div>

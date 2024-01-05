@@ -4,6 +4,28 @@ import { Collapse } from "react-bootstrap";
 import { useData } from "../data/votacionesData";
 import {participantsChart} from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
+import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
+import { Bar, Doughnut, chart} from "react-chartjs-2";
+
+ChartJS.register(...registerablesjs);
+
+Chart.register(
+  ArcElement,
+  RadialLinearScale,
+  PointElement,
+  LineElement);
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const GraficoVotos5 = ({ participantName }) => {
 
@@ -165,6 +187,13 @@ const seriesData = competitorNames.map(name => {
     legend: {
       data: legendData
     },
+    grid: {
+      top: '20%',
+      left: '5%',
+      right: '10%',
+      bottom: '0%',
+      containLabel: true
+    },
     xAxis: [
       {
         type: 'category',
@@ -183,7 +212,7 @@ const seriesData = competitorNames.map(name => {
     series: seriesData
   };
 
-  const [isChartVisible, setChartVisibility] = useState(true);
+  const [isChartVisible, setChartVisibility] = useState(false);
 
   const toggleChartVisibility = () => {
     setChartVisibility(!isChartVisible);
@@ -202,7 +231,7 @@ const seriesData = competitorNames.map(name => {
 
     <Collapse in={isChartVisible}>
       <div>
-      <ReactEcharts key={participantName} option={option} className='grafico'/>
+      <ReactEcharts key={participantName} option={option} style={{marginTop: 10}} className='grafico'/>
       </div>
       </Collapse>
       

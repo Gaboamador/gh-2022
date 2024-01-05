@@ -23,9 +23,9 @@ const DataTable = ({ week, data }) => {
     <Table striped bordered hover className="center">
       <thead style={{background:'rgba(40,43,242,0.5)'}}>
         <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-          <th className='tituloTablaDetalleVotosJugador'>Rol</th>
-          <th className='tituloTablaDetalleVotosJugador'>Nombre</th>
-          <th className='tituloTablaDetalleVotosJugador'>Resultado</th>
+          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Rol</th>
+          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Nombre</th>
+          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Resultado</th>
         </tr>
       </thead>
       <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>

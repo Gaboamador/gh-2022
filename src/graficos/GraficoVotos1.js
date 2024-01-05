@@ -4,13 +4,14 @@ import {AiOutlineUp, AiOutlineDown} from 'react-icons/ai';
 import { Container, Collapse} from "react-bootstrap";
 import { useData } from "../data/votacionesData";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
-import { Bar, Doughnut} from "react-chartjs-2";
-import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement} from 'chart.js'
+import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
+import { Bar, Doughnut, chart} from "react-chartjs-2";
 import {participantsChart} from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
 import { participantsToImage } from "../data/participantsToImage";
 import Context from "../context";
 
+ChartJS.register(...registerablesjs);
 
 Chart.register(
   ArcElement,
@@ -22,6 +23,8 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  LineElement,
+  PointElement,
   Title,
   Tooltip,
   Legend
@@ -238,7 +241,7 @@ const chartData = {
 };
   
 
-const [isChartVisible, setChartVisibility] = useState(true);
+const [isChartVisible, setChartVisibility] = useState(false);
 
   const toggleChartVisibility = () => {
     setChartVisibility(!isChartVisible);
@@ -246,8 +249,6 @@ const [isChartVisible, setChartVisibility] = useState(true);
 
   return (
 <div>
-
-  <Container>
 
   <TitleChart
   firstPart='NOMINACIONES DE '
@@ -263,9 +264,6 @@ const [isChartVisible, setChartVisibility] = useState(true);
       className='grafico'/>
       </div>
       </Collapse>
-
-    </Container>
-
 
     </div>
   );

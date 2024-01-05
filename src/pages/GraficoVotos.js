@@ -4,7 +4,7 @@ import Context from "../context";
 import {participantsChart} from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
 import LineaDivisoria1 from "../componentes/LineaDivisoria1";
-import LineaDivisoria2 from "../componentes/LineaDivisoaria2";
+import LineaDivisoria2 from "../componentes/LineaDivisoria2";
 import GraficoVotos1 from "../graficos/GraficoVotos1";
 import GraficoVotos2 from "../graficos/GraficoVotos2";
 import GraficoVotos3 from "../graficos/GraficoVotos3";

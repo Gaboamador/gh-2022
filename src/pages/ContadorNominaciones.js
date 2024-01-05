@@ -571,7 +571,7 @@ return (
             <Col xs={1} style={{marginLeft:'-7px'}}>
               <FormCheck
               type="checkbox"
-              style={{marginTop: '2.5px', marginBottom: '2.5px'}}
+              style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}
               checked={row.checked}
               onChange={() => handleCheckbox(row.participant, index)}
               onClick={handleCheckboxClick}
@@ -583,7 +583,7 @@ return (
             <Col xs={1}>
               <FormCheck
               type="checkbox"
-              style={{marginTop: '2.5px', marginBottom: '2.5px'}}
+              style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}
               checked={row.checkedF}
               onChange={() => handleCheckboxF(row.participant, index)}
               onClick={handleCheckboxClickF}
@@ -596,11 +596,11 @@ return (
               <ListGroup
               // className={`columnaJugadoresNegrita ${row.checkedF ? 'espfulmFont' : ''} ${row.checked ? 'espfulmFont' : ''} `}
               className={`columnaJugadoresNegrita ${row.checkedF ? 'espfulmFont' : ''} ${row.checked ? 'espfulmFont' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''} `}
-              style={{marginTop: '2.5px', marginBottom: '2.5px'}}>
+              style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}>
               {row.participant}
               </ListGroup>
               {row.participant === eliminado && (
-              <div className="columnaJugadoresNegrita espfulmFont">{eliminado}</div>
+              <div className="columnaJugadoresNegrita espfulmFont" style={{backgroundColor: 'transparent'}}>{eliminado}</div>
               )}
             </Col>
             <Col>
@@ -611,6 +611,7 @@ return (
                 style={{
                 marginTop: '2.5px',
                 marginBottom: '2.5px',
+                backgroundColor: 'transparent'
                 }}
                 onChange={e => handleFirstPlaceChange(index, e.target.value)}
                 disabled={row.participant === eliminado}
@@ -623,7 +624,7 @@ return (
                 ))}
               </FormSelect>
               {row.participant === eliminado && (
-              <div className="columnaJugadoresNegrita espfulmFont">{votoFinal}</div>
+              <div className="columnaJugadoresNegrita espfulmFont" style={{backgroundColor: 'transparent'}}>{votoFinal}</div>
               )}
             </Col>
             <Col>
@@ -635,6 +636,7 @@ return (
                 style={{
                   marginTop: '2.5px',
                   marginBottom: '2.5px',
+                  backgroundColor: 'transparent'
                   }}
                 onChange={e => handleSecondPlaceChange(index, e.target.value)}>
                 <option value="">-</option>
@@ -645,7 +647,7 @@ return (
                 ))}
               </FormSelect>
               {row.participant === eliminado && (
-              <div className="columnaJugadoresNegrita espfulmFont votoFinalSecondPlaceRow">(voto final)</div>
+              <div className="columnaJugadoresNegrita espfulmFont votoFinalSecondPlaceRow" style={{backgroundColor: 'transparent'}}>(voto final)</div>
               )}
             </Col>
           </Row>

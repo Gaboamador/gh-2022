@@ -3,6 +3,28 @@ import ReactEcharts from "echarts-for-react";
 import { Row, Col, Accordion, Collapse } from "react-bootstrap";
 import { useData } from "../data/votacionesData";
 import TitleChart from "../componentes/TitleChart";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
+import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
+import { Bar, Doughnut, chart} from "react-chartjs-2";
+
+ChartJS.register(...registerablesjs);
+
+Chart.register(
+  ArcElement,
+  RadialLinearScale,
+  PointElement,
+  LineElement);
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const GraficoVotos4 = ({participantName}) => {
 
@@ -79,6 +101,13 @@ const GraficoVotos4 = ({participantName}) => {
             formatter: '{c}',
             position: 'right',
           },
+          grid: {
+            top: '10%',
+            left: '5%',
+            right: '5%',
+            bottom: '10%',
+            containLabel: true
+          },
       };
    
 
@@ -152,7 +181,7 @@ data.forEach((week, weekIndex) => {
 });
 
 // const [isChartVisible, setChartVisibility] = useState(totalVotesReceived >= 1 && true);
-const [isChartVisible, setChartVisibility] = useState(true);
+const [isChartVisible, setChartVisibility] = useState(false);
 
   const toggleChartVisibility = () => {
     setChartVisibility(!isChartVisible);
@@ -161,8 +190,8 @@ const [isChartVisible, setChartVisibility] = useState(true);
     return (
         <div>
 
-{totalVotesReceived >= 1 && (
-<>
+{/* {totalVotesReceived >= 1 && (
+<> */}
 
   <TitleChart
   firstPart='NOMINACIONES RECIBIDAS POR SEMANA POR '
@@ -174,11 +203,18 @@ const [isChartVisible, setChartVisibility] = useState(true);
 
 <Collapse in={isChartVisible}>
   <div>
-<ReactEcharts option={option} style={{marginTop: '-30px'}} className='grafico'/>
+{totalVotesReceived > 0 ? (
+<ReactEcharts option={option} className='grafico'/>
+) : (
+<div className="mensajeNoVotado" style={{marginTop: 10}}>
+  {participantName} no ha recibido votos en contra
+  </div>
+)
+}
 </div>
 </Collapse>
-</>
-)}
+{/* </>
+)} */}
 
 <Collapse in={isChartVisible}>
 <Accordion defaultActiveKey="0" style={{marginBottom: 30}} className="custom-accordion">

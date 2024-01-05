@@ -4,6 +4,28 @@ import { Collapse, Table } from "react-bootstrap";
 import { useData } from "../data/votacionesData";
 import { participantsChart } from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
+import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
+import { Bar, Doughnut, chart} from "react-chartjs-2";
+
+ChartJS.register(...registerablesjs);
+
+Chart.register(
+  ArcElement,
+  RadialLinearScale,
+  PointElement,
+  LineElement);
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const GraficoVotos3 = ({participantName}) => {
 
@@ -53,8 +75,8 @@ const GraficoVotos3 = ({participantName}) => {
       <Table striped bordered hover className="center" style={{marginBottom: 30}}>
         <thead>
           <tr className='encabezadoVotaciones' style={{ backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})` }}>
-            <th className='tituloTablaDetalleVotosJugador'>Participante</th>
-            <th className='tituloTablaDetalleVotosJugador'>Nominaciones</th>
+            <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Participante</th>
+            <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Nominaciones</th>
           </tr>
         </thead>
         <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})` }}>
@@ -71,7 +93,7 @@ const GraficoVotos3 = ({participantName}) => {
       );
       
 
-      const [isChartVisible, setChartVisibility] = useState(true);
+      const [isChartVisible, setChartVisibility] = useState(false);
 
       const toggleChartVisibility = () => {
         setChartVisibility(!isChartVisible);
@@ -79,7 +101,7 @@ const GraficoVotos3 = ({participantName}) => {
 
     return (
         <div>
-{totalVotesReceived >= 1 && (
+{/* {totalVotesReceived >= 1 && ( */}
 <div>
 
     <TitleChart
@@ -92,12 +114,23 @@ const GraficoVotos3 = ({participantName}) => {
   />
   
   <Collapse in={isChartVisible}>
+  <div style={{marginTop: 10}}>
+  {totalVotesReceived > 0 ? (
+    
     <div>
   {generateVotesTable()}
   </div>
+  ) : (
+    <div className="mensajeNoVotado">
+      {participantName} no ha recibido votos en contra
+      </div>
+  )}
+  
+  </div>
   </Collapse>
+
 </div>
-)}
+{/* )} */}
 
 </div>
   );

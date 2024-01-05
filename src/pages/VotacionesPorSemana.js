@@ -108,11 +108,12 @@ minHeight: '100vh'
 
   <Container style={{paddingBottom: 5}}> {/*TABLA CON DETALLE DE VOTACIONES DE SEMANA SELECCIONADA*/}
     <Table striped bordered hover className="center">
+    <caption>Your Table Caption</caption>
       <thead>
         <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-          <th className='tituloTablaDetalleVotosJugador'>Jugador</th>
-          <th className='tituloTablaDetalleVotosJugador'>Primer Lugar</th>
-          <th className='tituloTablaDetalleVotosJugador'>Segundo Lugar</th>
+          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Jugador</th>
+          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Primer Lugar</th>
+          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Segundo Lugar</th>
         </tr>
       </thead>
       <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
@@ -146,15 +147,16 @@ minHeight: '100vh'
       <tr>
         <td colSpan={3}>
           {data[selectedOption].some(row => row.espontanea) && (
-            <span style={{ backgroundColor: 'rgba(36,38,212,0.7)', color: 'white', padding: '5px', borderRadius: '10px' }}>Espontánea</span>
+            <span style={{ backgroundColor: 'rgba(36,38,212,0.9)', color: 'white', padding: '5px', borderRadius: '10px' }}>Espontánea</span>
           )}
           {data[selectedOption].some(row => row.fulminante) && (
-            <span style={{ backgroundColor: 'rgba(171,52,191,0.7)', color: 'white', padding: '5px', borderRadius: '10px' }}>Fulminante</span>
+            <span style={{ backgroundColor: 'rgba(171,52,191,0.9)', color: 'white', padding: '5px', borderRadius: '10px' }}>Fulminante</span>
           )}
         </td>
       </tr>
     </tfoot>
   )}
+  
     </Table>
   </Container>
       
