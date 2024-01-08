@@ -1,5 +1,5 @@
 export const participants = [
-"Agostina","Alan","Bautista","Carla","Catalina","Denisse","Emmanuel","Federico","Florencia","Isabel","Joel","Juliana","Lisandro","Lucía","Martín","Nicolás","Rosina","Sabrina","Zoe"
+"Agostina","Alan","Bautista","Carla","Catalina","Denisse","Emmanuel","Federico","Florencia","Joel","Juliana","Lisandro","Lucía","Martín","Nicolás","Rosina","Sabrina","Zoe"
 ];
 
 
