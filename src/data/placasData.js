@@ -36,11 +36,11 @@ export const dataPlaca = [
           data: [  
             { role: 'Líder', name: 'Alan', result: '-' },
             { role: 'Nominado', name: 'Lisandro', result: 'Salvado por el líder' },
-            { role: 'Nominado por el líder', name: 'Rosina', result: '-' },
-            { role: 'Nominado', name: 'Nicolás', result: '-' },
-            { role: 'Nominado', name: 'Carla', result: '-' },
-            { role: 'Nominado', name: 'Isabel', result: '-' },
-            { role: 'Nominado', name: 'Florencia', result: '-' },
+            { role: 'Nominado por el líder', name: 'Rosina', result: '5,20% (Entre 5)' },
+            { role: 'Nominado', name: 'Florencia', result: '4,00% (Entre 4)' },
+            { role: 'Nominado', name: 'Nicolás', result: '27,00% (Entre 3)' },
+            { role: 'Nominado', name: 'Carla', result: '43,40% (Entre 2)' },
+            { role: 'Nominado', name: 'Isabel', result: 'Eliminado (56,60%)' },
 
           ],
           },
