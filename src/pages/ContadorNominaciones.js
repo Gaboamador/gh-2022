@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import '../App.css';
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
 import { dataPlaca } from "../data/placasData";
-import { votoFinal } from "../data/placasData";
 import { participants } from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
-import { sancionado } from "../data/placasData";
+import { votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra } from "../data/modificadores";
 
 
 // Find the last 'Eliminado' of the last week
@@ -24,18 +23,23 @@ dataPlaca.forEach(weekData => {
 const eliminado = lastEliminadoName
 
 // const initialRows = [
-//   { participant: eliminado, firstPlace: votoFinal, secondPlace: '' },
-//   ...participants.map(participant => ({ participant, firstPlace: '', secondPlace: '' }))
+//   ...(votoFinal !== ""
+//     ? [{ participant: eliminado, firstPlace: votoFinal, secondPlace: "" }]
+//     : []),
+//   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' }))
 // ];
 
 const initialRows = [
   ...(votoFinal !== ""
-    ? [{ participant: eliminado, firstPlace: votoFinal, secondPlace: "" }]
-    : []),
-  ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' }))
+  ? [{ participant: eliminado, firstPlace: votoFinal, secondPlace: "" }]
+  : []),
+  
+  ...(dosVotosEnContra !== ""
+  ? [{ participant: "Teléfono", firstPlace: dosVotosEnContra, secondPlace: "" }]
+  : []),
+  ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' })),
 ];
 
-// const initialRows = participants.map(participant => ({ participant, firstPlace: '', secondPlace: ''}));
 
 function ContadorNominaciones() {
   
@@ -60,7 +64,10 @@ function ContadorNominaciones() {
   
     useEffect(() => {
     const updatedCounts = {};
-    rows.forEach(({ firstPlace, secondPlace, checked, checkedF }) => {
+
+    // rows.forEach(({ firstPlace, secondPlace, checked, checkedF }) => {
+    rows.forEach(({ firstPlace, secondPlace, checked, checkedF, participant }) => {
+
       if (checkedF) {
         if (firstPlace) {
           setFulminado(fulminado)
@@ -78,12 +85,20 @@ function ContadorNominaciones() {
 
       if (!checkedF) {
         
+        const isVotoValeDoble = votoValeDoble.includes(participant);
+        
         if (firstPlace) {
-          updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) + (checked ? 3 : 2);
+
+          // updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) + (checked ? 3 : 2);
+          updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) + (checked ? (isVotoValeDoble ? 5 : 3) : (isVotoValeDoble ? 4 : 2));
+
         }        
         
         if (secondPlace) {
-          updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) + (checked ? 2 : 1);
+
+          // updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) + (checked ? 2 : 1);
+          updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) + (checked ? (isVotoValeDoble ? 3 : 2) : (isVotoValeDoble ? 2 : 1));
+
           }
       }
     });
@@ -337,11 +352,11 @@ return (
     <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: -10}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
 
     
-    {sancionado && sancionado.map((participant) => {
+    {nominado && nominado.map((participant) => {
     return (
       <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
-        {/*TEXTO SANCIONADO*/}
-        {sancionado !== null ? (
+        {/*TEXTO NOMINADO*/}
+        {nominado !== null ? (
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -350,7 +365,8 @@ return (
                 fontSize: 23,
                 fontFamily: 'Oswald-Regular',
                 fontWeight: 600,
-                background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
+                // background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
+                background: "transparent",
                 marginBottom: -14,
                 borderBottomLeftRadius: 0,
                 borderTopLeftRadius: 15,
@@ -359,11 +375,11 @@ return (
                 width: 45,
                 zIndex: 1
                 }}>
-                S
+                
               </div>
         ) : null}
-        {/*IMAGEN SANCIONADO*/}
-        {sancionado !== null ? (
+        {/*IMAGEN NOMINADO*/}
+        {nominado !== null ? (
                   <div style={{
                     marginLeft: -45,
                     paddingTop: 5,
@@ -556,18 +572,23 @@ return (
           </Row>
           
         {rows.map((row, index) => (
+
+// FORMATO DE COLOR PARA CADA UNA DE LAS FILAS COMPLETAS
           <Row
           key={index}
-          style={row.checked ?
+          style={
+            row.checked ?
             {background: "linear-gradient(to right, rgba(36,38,212,1) 0%, rgba(36,38,212,0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)",borderRadius: "20px"} :
             row.checkedF ?
             {background: "linear-gradient(to right, rgba(171,52,191,1) 0%, rgba(171,52,191,0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)",borderRadius: "20px"} :
             row.participant === eliminado ?
-            {background: "linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(20, 91, 158,0.5) 10%, rgba(20, 91, 158,1) 50%, rgba(20, 91, 158,0.5) 90%, rgba(255,255,255,0) 99%)",
-          
-          } :
+            {background: "linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(20, 91, 158,0.5) 10%, rgba(20, 91, 158,1) 50%, rgba(20, 91, 158,0.5) 90%, rgba(255,255,255,0) 99%)"} :
+            row.participant === "Teléfono" ?
+            {background: "linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 10%, rgba(178,0,0,1) 50%, rgba(178,0,0,0.5) 90%, rgba(255,255,255,0) 99%)"} :
             {}
-            }>              
+            }>
+
+{/* COLUMNA 1, CON EL CHECKBOX PARA LA ESPONTÁNEA */}
             <Col xs={1} style={{marginLeft:'-7px'}}>
               <FormCheck
               type="checkbox"
@@ -576,10 +597,14 @@ return (
               onChange={() => handleCheckbox(row.participant, index)}
               onClick={handleCheckboxClick}
               disabled={index !== selectedIndex && selectedIndex !== -1}
-              className={`${row.checkedF ? 'votoFinalDisabler' : ''} ${row.participant === eliminado || (sancionado !== null && sancionado.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
+              className={`
+              ${row.checkedF ? 'votoFinalDisabler' : ''}
+              ${row.participant === eliminado || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
+
+{/* COLUMNA 2, CON EL CHECKBOX PARA LA FULMINANTE */}
             <Col xs={1}>
               <FormCheck
               type="checkbox"
@@ -588,26 +613,43 @@ return (
               onChange={() => handleCheckboxF(row.participant, index)}
               onClick={handleCheckboxClickF}
               disabled={index !== selectedIndexF && selectedIndexF !== -1}
-              className={`${row.checked ? 'votoFinalDisabler' : ''} ${row.participant === eliminado || (sancionado !== null && sancionado.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
+              className={`
+              ${row.checked ? 'votoFinalDisabler' : ''}
+              ${row.participant === eliminado || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
+
+{/* COLUMNA 3, CON LA LISTA DE NOMBRES DE PARTICIPANTES */}
             <Col className="columnaJugadoresNegrita">
               <ListGroup
               // className={`columnaJugadoresNegrita ${row.checkedF ? 'espfulmFont' : ''} ${row.checked ? 'espfulmFont' : ''} `}
-              className={`columnaJugadoresNegrita ${row.checkedF ? 'espfulmFont' : ''} ${row.checked ? 'espfulmFont' : ''} ${row.participant === eliminado ? 'votoFinalDisabler' : ''} `}
+              className={`columnaJugadoresNegrita
+              ${row.checkedF ? 'espfulmFont' : ''}
+              ${row.checked ? 'espfulmFont' : ''}
+              ${row.participant === eliminado || row.participant === "Teléfono" ? 'votoFinalDisabler' : ''}
+              ${votoValeDoble.includes(row.participant) ? 'votoValeDoble' : ''} `}
               style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}>
               {row.participant}
+              {votoValeDoble.includes(row.participant) && "*"}
               </ListGroup>
               {row.participant === eliminado && (
               <div className="columnaJugadoresNegrita espfulmFont" style={{backgroundColor: 'transparent'}}>{eliminado}</div>
               )}
+              {row.participant === "Teléfono" && (
+              <div className="columnaJugadoresNegrita telefono" style={{backgroundColor: 'transparent'}}>Teléfono</div>
+              )}
             </Col>
+
+{/* COLUMNA 4, CON EL FORM SELECT PARA EL VOTO DE PRIMER LUGAR */}
             <Col>
               <FormSelect
                 value={row.firstPlace}
                 // className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalFirstPlace' : ''}`}
-                className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado || (sancionado !== null && sancionado.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
+                className={`comboBox
+                ${row.checkedF ? 'fulminanteColor' : ''}
+                ${row.checked ? 'espontanea' : ''}
+                ${row.participant === eliminado || row.participant === "Teléfono" || (noVota!== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
                 style={{
                 marginTop: '2.5px',
                 marginBottom: '2.5px',
@@ -617,7 +659,9 @@ return (
                 disabled={row.participant === eliminado}
                 >
                 <option value="">-</option>
-                {participants.map(participant => (
+                {participants
+                .filter(participant => !inmune.includes(participant))
+                .map(participant => (
                 <option key={participant} value={participant}>
                 {participant}
                 </option>
@@ -626,13 +670,21 @@ return (
               {row.participant === eliminado && (
               <div className="columnaJugadoresNegrita espfulmFont" style={{backgroundColor: 'transparent'}}>{votoFinal}</div>
               )}
+              {row.participant === "Teléfono" && (
+              <div className="columnaJugadoresNegrita espfulmFont" style={{backgroundColor: 'transparent'}}>{dosVotosEnContra}</div>
+              )}
             </Col>
+
+{/* COLUMNA 5, CON EL FORM SELECT PARA EL VOTO DE SEGUNDO LUGAR */}
             <Col>
               <FormSelect
                 as="select"
                 disabled={row.checkedF || row.participant === eliminado }
                 value={row.secondPlace}
-                className={`comboBox ${row.checkedF ? 'disabled' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado || (sancionado !== null && sancionado.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
+                className={`comboBox
+                ${row.checkedF ? 'disabled' : ''}
+                ${row.checked ? 'espontanea' : ''}
+                ${row.participant === eliminado || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
                 style={{
                   marginTop: '2.5px',
                   marginBottom: '2.5px',
@@ -640,7 +692,9 @@ return (
                   }}
                 onChange={e => handleSecondPlaceChange(index, e.target.value)}>
                 <option value="">-</option>
-                {participants.map(participant => (
+                {participants
+                .filter(participant => !inmune.includes(participant))
+                .map(participant => (
                 <option key={participant} value={participant}>
                 {participant}
                 </option>
@@ -652,6 +706,11 @@ return (
             </Col>
           </Row>
         ))}
+        <footer className="columnaJugadoresNegrita votoValeDoble" style={{marginTop:10}}>
+        {votoValeDoble.length !== 0 && (
+          <span>* Los votos valen doble</span>
+          )}
+        </footer>
       </Table>
       </Container>
 </Container>  

@@ -386,6 +386,16 @@ label {
   text-shadow:none !important;
 }
 
+.columnaJugadoresNegrita.telefono {
+  color:white !important;
+  text-shadow:none !important;
+  font-style: italic;
+}
+
+.votoValeDoble {
+  color: var(--color-terciario) !important;
+}
+
 .tituloTablaDetalleVotosJugador {
   font-weight:bold;
   color: white !important;
