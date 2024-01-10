@@ -10,6 +10,7 @@ import GraficoVotos2 from "../graficos/GraficoVotos2";
 import GraficoVotos3 from "../graficos/GraficoVotos3";
 import GraficoVotos4 from "../graficos/GraficoVotos4";
 import GraficoVotos5 from "../graficos/GraficoVotos5";
+import GraficoVotos6 from "../graficos/GraficoVotos6";
 
 const GraficoVotos = () => {
   
@@ -55,7 +56,13 @@ const GraficoVotos = () => {
 </Container>
 
 <LineaDivisoria1/>
+{/* prueba grafico 6 */}
+{/* <Container>
+<GraficoVotos6 participantName={selectedParticipant} className='grafico'/>
+</Container>
 
+<LineaDivisoria2/> */}
+{/* prueba grafico 6 */}
 <Container>
 <GraficoVotos1 participantName={selectedParticipant} className='grafico'/>
 </Container>

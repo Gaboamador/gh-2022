@@ -2,10 +2,10 @@
     export const votoFinal = "Catalina"
     
     // export const nominado = null;
-    export const nominado = ["Zoe"];
+    export const nominado = ["Zoe", "Lisandro"];
 
     // export const noVota = "";
-    export const noVota = ["Juliana"];
+    export const noVota = ["Juliana", "Carla"];
 
     // export const inmune = "";
     export const inmune = ["Juliana"];

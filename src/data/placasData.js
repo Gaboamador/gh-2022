@@ -44,4 +44,17 @@ export const dataPlaca = [
 
           ],
           },
+        {week: 4,
+          data: [  
+            { role: 'Líder', name: 'Martín', result: '-' },
+            { role: 'Nominado', name: 'Zoe', result: '-' },
+            { role: 'Nominado', name: 'Lisandro', result: '-' },
+            // { role: 'Nominado por el líder', name: '-', result: '-' },
+            // { role: 'Nominado', name: '-', result: '-' },
+            // { role: 'Nominado', name: '-', result: '-' },
+            // { role: 'Nominado', name: '-', result: '-' },
+            // { role: 'Nominado', name: '-', result: '-' },
+
+          ],
+          },
     ];
