@@ -2,7 +2,7 @@
     export const votoFinal = "Catalina"
     
     // export const nominado = null;
-    export const nominado = ["Zoe", "Lisandro"];
+    export const nominado = ["Zoe", "Lisandro", "Alan"];
 
     // export const noVota = "";
     export const noVota = ["Juliana", "Carla"];

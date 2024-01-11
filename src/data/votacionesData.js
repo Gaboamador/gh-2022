@@ -95,6 +95,25 @@ export const useData = () => {
     ['Sabrina', 'Catalina', 'Juliana'],
     ['Zoe', 'Isabel', 'Florencia']
 ],
+/*SEMANA 5*/
+[
+    ['Agostina', 'Emmanuel', 'Florencia'],
+    ['Alan', 'Agostina', 'Catalina'],
+    ['Bautista', 'Carla', 'Catalina'],
+    ['Catalina', 'Emmanuel', 'Florencia'],
+    ['Denisse', 'Emmanuel', 'Carla'],
+    ['Emmanuel', 'Agostina', 'Catalina'],
+    ['Federico', 'Agostina', 'Rosina'],
+    ['Florencia', 'Carla', 'Agostina'],
+    ['Joel', 'Agostina', 'Catalina'],
+    ['Lisandro', 'Carla', 'Emmanuel'],
+    ['Lucía', 'Florencia', 'Carla'],
+    ['Martín', 'Catalina', 'Carla'],
+    ['Nicolás', 'Catalina', 'Carla'],
+    ['Rosina', 'Sabrina', 'Emmanuel'],
+    ['Sabrina', 'Joel', 'Emmanuel'],
+    ['Zoe', 'Carla', 'Emmanuel']
+],
 
     ]);
     data[0][13].espontanea = true; /*semana 1*/    
