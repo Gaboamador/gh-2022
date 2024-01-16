@@ -6,21 +6,56 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import { FaVoteYea } from 'react-icons/fa';
 import {BsFillPersonLinesFill, BsReverseLayoutTextWindowReverse, BsCalendarWeek, BsXCircle, BsAward, BsCalendar2Check, BsFillBarChartLineFill} from 'react-icons/bs';
-import { participants, participantsChart } from "../data/participantsData";
+// import { participants, participantsChart } from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
+
 
 function Home() {
 
-  // const icons = [
-  //   { icon: FaVoteYea, label: 'Contador Nominaciones', to: '/ContadorNominaciones' },
-  //   { icon: BsFillPersonLinesFill, label: 'Votaciones por Jugador (Lista)', to: 'VotacionesPorJugador' },
-  //   { icon: BsFillBarChartLineFill, label: 'Votaciones por Jugador (Gráf.)', to: '/GraficoVotos' },
-  //   { icon: BsCalendar2Check, label: 'Votaciones por Semana', to: '/VotacionesPorSemana' },
-  //   { icon: BsCalendarWeek, label: 'Placas de Nominados por Semana', to: '/PlacasPorSemana' },
-  //   { icon: BsReverseLayoutTextWindowReverse, label: 'Placas de Nominados en Lista', to: '/PlacasEnContinuado' },
-  //   { icon: BsAward, label: 'Listado de Líderes', to: '/ListadoLideres' },
-  //   { icon: BsXCircle, label: 'Listado de Eliminados', to: '/ListadoEliminados' },
-  // ];
+/*inicio llamado de datos automaticos*/
+const [participants, setParticipants] = useState([]);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json');
+      const jsonData = await response.json();
+        // Check if the response has a "participants" property
+        if (jsonData.participants && Array.isArray(jsonData.participants)) {
+          setParticipants(jsonData.participants);
+        } else {
+          console.error('Invalid data format:', jsonData);
+        }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+}, []);
+/*fin llamado de datos automaticos*/
+
+/*inicio llamado de datos automaticos*/
+const [participantsChart, setParticipantsChart] = useState([]);
+
+useEffect(() => {
+const fetchData = async () => {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+    const jsonData = await response.json();
+      // Check if the response has a "participants" property
+      if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+        setParticipantsChart(jsonData.participantsChart);
+      } else {
+        console.error('Invalid data format:', jsonData);
+      }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+fetchData();
+}, []);
+/*fin llamado de datos automaticos*/
+
   const context= useContext(Context)
   
     // Separate participantsChart into non-eliminated and eliminated participants

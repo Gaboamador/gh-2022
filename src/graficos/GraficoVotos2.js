@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
 import { Collapse } from "react-bootstrap";
-import { useData } from "../data/votacionesData";
-import { participantsChart } from "../data/participantsData";
+// import { useData } from "../data/votacionesData";
+// import { participantsChart } from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
@@ -29,7 +29,45 @@ ChartJS.register(
 
 const GraficoVotos2 = ({participantName}) => {
 
-    const [data] = useData();
+  const [data, setData] = useState([]);
+  const [participantsChart, setParticipantsChart] = useState([]);
+  
+  useEffect(() => {
+  const fetchData = async () => {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+    const jsonData = await response.json();
+
+    if (jsonData && jsonData.data) {
+      setData(jsonData.data);
+
+    } else {
+      console.error('Invalid data format:', jsonData);
+    }
+
+// Fetch data from the second URL
+const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+const jsonData2 = await response2.json();
+
+// Check if the response has a "participants" property
+// if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+  if (jsonData2 && Array.isArray(jsonData2.participantsChart)) {
+    setParticipantsChart(jsonData2.participantsChart);
+} else {
+  console.error('Invalid data format:', jsonData2);
+}
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+
+  fetchData();
+}, []);  
+  
+  
+  // const [data] = useData();
   const [chartData, setChartData] = useState({
     xAxisData: [], // for storing names
     seriesData: [], // for storing counts
@@ -66,7 +104,7 @@ const GraficoVotos2 = ({participantName}) => {
       seriesData: sortedSeriesData,
     });
 
-  }, [data]);
+  }, [data, participantsChart]);
 
   const selectedColor = 'rgba(193, 56, 219, 1)';
   const defaultColor = 'rgba(32, 42, 234, 1)';

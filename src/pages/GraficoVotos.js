@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext} from "react";
 import { Container, FormSelect, Image} from "react-bootstrap";
 import Context from "../context";
-import {participantsChart} from "../data/participantsData";
+// import {participantsChart} from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
 import LineaDivisoria1 from "../componentes/LineaDivisoria1";
 import LineaDivisoria2 from "../componentes/LineaDivisoria2";
@@ -21,11 +21,46 @@ const GraficoVotos = () => {
 
   const context= useContext(Context)
 
-  const participantes = participantsChart;
+/*inicio llamado de datos automaticos*/
+const [participantsChart, setParticipantsChart] = useState([]);
 
+useEffect(() => {
+const fetchData = async () => {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+    const jsonData = await response.json();
+      // Check if the response has a "participants" property
+      if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+        setParticipantsChart(jsonData.participantsChart);
+      } else {
+        console.error('Invalid data format:', jsonData);
+      }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+fetchData();
+}, []);
+/*fin llamado de datos automaticos*/
+
+  // const participantes = participantsChart;
+
+  // const [selectedParticipant, setSelectedParticipant] = useState(
+  //   context.selectedParticipant !== '' ? context.selectedParticipant : participantsChart[0]
+  // );
   const [selectedParticipant, setSelectedParticipant] = useState(
-    context.selectedParticipant !== '' ? context.selectedParticipant : participantes[0]
+    context.selectedParticipant !== '' ? context.selectedParticipant : (participantsChart[0] || '')
   );
+  useEffect(() => {
+    if (participantsChart.length > 0) {
+      // Execute your code here
+      // For example, you might want to update the selected participant
+      setSelectedParticipant((prevSelected) => {
+        // Ensure the previously selected participant is still in the updated participantsChart
+        return participantsChart.includes(prevSelected) ? prevSelected : participantsChart[0];
+      });
+    }
+  }, [participantsChart]);
   
   const selectedParticipantData = participantsChart.filter(participant => participant === selectedParticipant);
 
@@ -48,7 +83,7 @@ const GraficoVotos = () => {
     onChange={handleParticipantChange}
     style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
     className="selectNominAnteriores">
-    {participantes.map((participant) => (
+    {participantsChart.map((participant) => (
     <option key={participant}>
     {participant}
     </option>))}

@@ -1,19 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} from 'react-bootstrap';
+import { Container, Table, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useData } from '../data/votacionesData';
-import { participants } from '../data/participantsData';
-
-const participantes = participants;
 
 const VotacionesPorSemana = () => {
+
+const [data, setData] = useState(Array.from({ length: 1 }, () => []));
+
+const applyModifications = (data, modifications) => {
+  if (data && data.length && modifications) {
+
+    const newData = data.map((week, weekIndex) =>
+      week.map((row, rowIndex) => {
+        const modifiedRow = [ ...row ];
+
+        if (modifications[`week${weekIndex + 1}`]) {
+          const { espontanea, anuladoUno, anuladoDos } = modifications[`week${weekIndex + 1}`];
+
+          if (espontanea && espontanea.some(mod => mod[0] === weekIndex && mod[1] === rowIndex)) {
+            modifiedRow.espontanea = true;
+          }
+
+          if (anuladoUno && anuladoUno.some(mod => mod[0] === weekIndex && mod[1] === rowIndex)) {
+            modifiedRow.anulado1 = true;
+          }
+
+          if (anuladoDos && anuladoDos.some(mod => mod[0] === weekIndex && mod[1] === rowIndex)) {
+            modifiedRow.anulado2 = true;
+          }
+        }
+
+        return modifiedRow;
+      })
+    );
+
+    setData(newData);
+  }
+};
+
+useEffect(() => {
+  const fetchDataAndApplyModifications = async () => {
+    try {
+      const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+      const jsonData = await response.json();
+
+      if (jsonData && jsonData.data && jsonData.modifications) {
+        applyModifications(jsonData.data, jsonData.modifications);
+      } else {
+        console.error('Invalid data format:', jsonData);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchDataAndApplyModifications();
+}, []);
+
+
 const [selectedOption, setSelectedOption] = useState(0);
-const [selectedName, setSelectedName] = useState(participantes[0]);
-const [data, setData] = useData();
-
-
-const [results, setResults] = useState([]);
 
     const options = data.map((_, index) => (
       <option key={index} value={index}>
@@ -21,66 +66,8 @@ const [results, setResults] = useState([]);
       </option>
     ));
     
-    const Footer = ({ data }) => {
-        let hasStar = false;
-        data.forEach(weekData => {
-          weekData.forEach(row => {
-            if (row.includes("(e)")) {
-              hasStar = true;
-            }
-          });
-        });
-        return hasStar ? <p>(e) Espontánea</p> : null;
-      };
-
-     const handleChange = (event) => {
-  const selectedName = event.target.value;
-  let results = [];
-  data.forEach((week, index) => {
-    week.forEach((vote) => {
-      if (vote[0] === selectedName) {
-        results.push({
-          week: index + 1,
-          vote: vote.slice(1),
-        });
-      }
-    });
-  });
-  setResults(results);
-  setSelectedName(selectedName);
-};
-
-useEffect(() => {
-  setSelectedName(participantes[0]);
-  handleChange({ target: { value: participantes[0] } });
-}, []);
-
 
 const weekNumber = parseInt(selectedOption) + 1;
-
-const DataTable = ({ week, data }) => {
-  return (
-    <Table striped bordered hover className="center">
-      <thead style={{background:'rgba(40,43,242,0.5)'}}>
-        <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-          <th className='tituloTablaDetalleVotosJugador'>Rol</th>
-          <th className='tituloTablaDetalleVotosJugador'>Nombre</th>
-          <th className='tituloTablaDetalleVotosJugador'>Resultado</th>
-        </tr>
-      </thead>
-      <tbody style={{background:'rgba(255,255,255,0.6)'}}>
-        {data.map((row, index) => (
-          <tr key={index}>
-            <td className='comboBoxNominAnteriores'>{row.role}</td>
-            <td>{row.name}</td>
-            <td>{row.result}</td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
-  );
-};
-
 
 return (
 <div className="content" style={{
@@ -108,7 +95,6 @@ minHeight: '100vh'
 
   <Container style={{paddingBottom: 5}}> {/*TABLA CON DETALLE DE VOTACIONES DE SEMANA SELECCIONADA*/}
     <Table striped bordered hover className="center">
-    <caption>Your Table Caption</caption>
       <thead>
         <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
           <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Jugador</th>
@@ -118,7 +104,9 @@ minHeight: '100vh'
       </thead>
       <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
         {data[selectedOption].map((row, index) => (
-        <tr key={index} className={
+        <tr
+        key={index}
+        className={
           row.espontanea && row.anulado ? 'espontanea-anulado-row' :
           row.espontanea && row.anulado1 ? 'espontanea-anulado1-row' :
           row.espontanea && row.anulado2 ? 'espontanea-anulado2-row' :
@@ -128,7 +116,8 @@ minHeight: '100vh'
           row.anulado ? 'anulado-row' :
           row.anulado1 ? 'anulado1-row' :
           row.anulado2 ? 'anulado2-row' : ''
-        }>        
+        }
+        >        
           <td className='comboBoxNominAnteriores'>{row[0]}</td>
           {row.length === 2 && (
           <td colSpan={2}>{row[1]}</td>

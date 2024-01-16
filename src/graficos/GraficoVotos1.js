@@ -2,11 +2,11 @@ import React, { useState, useEffect, useContext} from "react";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {AiOutlineUp, AiOutlineDown} from 'react-icons/ai';
 import { Container, Collapse} from "react-bootstrap";
-import { useData } from "../data/votacionesData";
+// import { useData } from "../data/votacionesData";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
 import { Bar, Doughnut, chart} from "react-chartjs-2";
-import {participantsChart} from "../data/participantsData";
+// import {participantsChart} from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
 import { participantsToImage } from "../data/participantsToImage";
 import Context from "../context";
@@ -33,37 +33,76 @@ ChartJS.register(
 
 const GraficoVotos1 = ({participantName}) => {
   
-    const participantes = participantsChart;
-
-  const [data] = useData();
+  const [data, setData] = useState([]);
+  const [participantsChart, setParticipantsChart] = useState([]);
   
-  const countVotes = (data) => {
-    const participants = {};
-    for (const week of data) {
-      for (const [i, [participant, ...competitors]] of week.entries()) {
-        if (!participants[participant]) {
-          participants[participant] = {};
-        }
-        for (const competitor of competitors) {
-          if (participantes.includes(competitor)) {
-            if (!participants[participant][competitor]) {
-              participants[participant][competitor] = 0;
+  useEffect(() => {
+  const fetchData = async () => {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+    const jsonData = await response.json();
+
+    if (jsonData && jsonData.data) {
+      setData(jsonData.data);
+    } else {
+      console.error('Invalid data format:', jsonData);
+    }
+
+// Fetch data from the second URL
+const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+const jsonData2 = await response2.json();
+
+// Check if the response has a "participants" property
+// if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+  if (jsonData2 && Array.isArray(jsonData2.participantsChart)) {
+    setParticipantsChart(jsonData2.participantsChart);
+} else {
+  console.error('Invalid data format:', jsonData2);
+}
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+  fetchData();
+}, []);
+
+  // CÁLCULO VECES VOTADO A CADA COMPETIDOR
+  const [voteCounts, setVoteCounts] = useState({});
+  useEffect(() => {
+    const countVotes = (data) => {
+      const participants = {};
+      for (const week of data) {
+        for (const [i, [participant, ...competitors]] of week.entries()) {
+          if (!participants[participant]) {
+            participants[participant] = {};
+          }
+          for (const competitor of competitors) {
+            if (participantsChart.includes(competitor)) {
+              if (!participants[participant][competitor]) {
+                participants[participant][competitor] = 0;
+              }
+              participants[participant][competitor] += 1;
             }
-            participants[participant][competitor] += 1;
           }
         }
       }
-    }
-    return participants;
-  };
-  const voteCounts = countVotes(data);
+      return participants;
+    };
+    setVoteCounts(countVotes(data));
+  }, [data, participantsChart]);
+  
+const dataEntries = voteCounts[participantName] ? Object.entries(voteCounts[participantName]).sort((a, b) => a[1] - b[1]) : [];
 
-  const dataEntries = Object.entries(voteCounts[participantName]).sort((a, b) => a[1] - b[1]);
+// const dataEntries = Object.entries(voteCounts[participantName]).sort((a, b) => a[1] - b[1]);
   
   const sortedLabels = dataEntries.map(([label, _]) => label);
   const sortedData = dataEntries.map(([_, value]) => value);
 
- 
+  // CÁLCULO VOTOS DADOS A CADA COMPETIDOR
+  const [votesGiven, setVotesGiven] = useState({});
+  useEffect(() => {
   const countVotesGiven = (data) => {
     const participants = {};
     for (const week of data) {
@@ -73,7 +112,7 @@ const GraficoVotos1 = ({participantName}) => {
         }
         for (let j = 0; j < competitors.length; j++) {
           const competitor = competitors[j];
-          if (participantes.includes(competitor)) {
+          if (participantsChart.includes(competitor)) {
             if (!participants[participant][competitor]) {
               participants[participant][competitor] = 0;
             }
@@ -85,68 +124,20 @@ const GraficoVotos1 = ({participantName}) => {
     }
     return participants;
   };
-  
-  const votesGiven = countVotesGiven(data);
+    setVotesGiven(countVotesGiven(data));
+}, [data, participantsChart]);
 
   const dataEntriesGiven = [];
     for (let i = 0; i < dataEntries.length; i++) {
       const [participant, count] = dataEntries[i];
-      const givenCount = votesGiven[participantName][participant];
+      const givenCount =  votesGiven[participantName] ? votesGiven[participantName][participant] : [];
       dataEntriesGiven.push([participant, givenCount]);
     }
 
   const sortedDataGiven = dataEntriesGiven.map(([_, value]) => value);
-
-/*PROMEDIOS DE VOTACIÓN POR SEMANA*/
-const voteStats = {};
-
-for (const [voter, votes] of Object.entries(votesGiven)) {
-  for (const [participant, count] of Object.entries(votes)) {
-    // If the participant has not been seen yet, initialize the stats object for them
-    if (!voteStats[participant]) {
-      voteStats[participant] = { votes: 0, weeks: 0 };
-    }
-
-    // Add the current count to the participant's total vote count and increment the weeks voted for
-    voteStats[participant].votes += count;
-    voteStats[participant].weeks += 1;
-  }
-}
-
-// Calculate the average vote for each participant and create an array of [participant, average]
-const voteAverages = Object.entries(voteStats).map(([participant, stats]) => {
-  const average = stats.votes / stats.weeks;
-  return [participant, Number(average.toFixed(1))];
-});
-
-// Sort the array by average vote, highest first
-voteAverages.sort((a, b) => b[1] - a[1]);
-
-const labelsAverages = voteAverages.map(([participant]) => participant);
-const dataAverages = voteAverages.map(([, average]) => average);
-
-/*PROMEDIOS DE VOTACIÓN POR VECES VOTADO*/
-const participantsData = participantes.map((participant) => {
-  const timesVoted = Object.values(voteCounts[participant]).reduce((a, b) => a + b, 0);
-  const votesReceived = Object.values(votesGiven[participant]).reduce((a, b) => a + b, 0);
-  const averageReceived = (votesReceived / timesVoted).toFixed(2);
-  return {
-    participant: participant,
-    timesVoted,
-    votesReceived,
-    averageReceived,
-  };
-});
-
-// Sort the participantsData array in the order of dataAverages
-participantsData.sort((a, b) => {
-  const averageA = dataAverages[labelsAverages.indexOf(a.participant)];
-  const averageB = dataAverages[labelsAverages.indexOf(b.participant)];
-  return averageB - averageA;
-});
-
-
-const chartData = {
+  
+  
+  const chartData = {
   labels: sortedLabels,
   datasets: [
     {

@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
 import { Row, Col, Accordion, Collapse } from "react-bootstrap";
-import { useData } from "../data/votacionesData";
+// import { useData } from "../data/votacionesData";
 import TitleChart from "../componentes/TitleChart";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
@@ -28,7 +28,31 @@ ChartJS.register(
 
 const GraficoVotos4 = ({participantName}) => {
 
-    const [data] = useData();
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+  const fetchData = async () => {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+    const jsonData = await response.json();
+
+    if (jsonData && jsonData.data) {
+      setData(jsonData.data);
+
+    } else {
+      console.error('Invalid data format:', jsonData);
+    }
+    
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+
+  fetchData();
+}, []);    
+
+    // const [data] = useData();
 
   const countVotesReceivedByWeek = (data) => {
     const participantsByWeek = {};

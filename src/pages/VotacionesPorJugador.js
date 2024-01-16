@@ -2,21 +2,59 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import {Button, Row, Col, Container, ListGroup, Table, Image, FormCheck, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useData } from '../data/votacionesData';
-import { participantsChart } from '../data/participantsData';
+// import { useData } from '../data/votacionesData';
+// import { participantsChart } from '../data/participantsData';
 import { participantsToImage } from '../data/participantsToImage';
 
-const participantes = participantsChart;
+
 
 const VotacionesPorJugador = () => {
 
-const [selectedName, setSelectedName] = useState(participantes[0]);
-const [data, setData] = useData();
-const selectedParticipantData = participantes.filter(participant => participant === selectedName);
+  const [data, setData] = useState([]);
+  const [participantsChart, setParticipantsChart] = useState([]);
+  
+
+  const fetchData = async () => {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+    const jsonData = await response.json();
+
+    if (jsonData && jsonData.data) {
+      setData(jsonData.data);
+
+    } else {
+      console.error('Invalid data format:', jsonData);
+    }
+
+// Fetch data from the second URL
+const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+const jsonData2 = await response2.json();
+
+// Check if the response has a "participants" property
+// if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+  if (jsonData2 && Array.isArray(jsonData2.participantsChart)) {
+    setParticipantsChart(jsonData2.participantsChart);
+} else {
+  console.error('Invalid data format:', jsonData2);
+}
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+useEffect(() => {
+  fetchData();
+}, []);
+
+// const [selectedName, setSelectedName] = useState(participantsChart[0]);
+const [selectedName, setSelectedName] = useState('Agostina');
+
+const selectedParticipantData = participantsChart.filter(participant => participant === selectedName);
 
 const [results, setResults] = useState([]);
     
-     const handleChange = (event) => {
+  const handleChange = (event) => {
   const selectedName = event.target.value;
   let results = [];
   data.forEach((week, index) => {
@@ -34,9 +72,11 @@ const [results, setResults] = useState([]);
 };
 
 useEffect(() => {
-  setSelectedName(participantes[0]);
-  handleChange({ target: { value: participantes[0] } });
-}, []);
+  // setSelectedName(participantsChart[0]);
+  // handleChange({ target: { value: participantsChart[0] } });
+  setSelectedName('Agostina');
+  handleChange({ target: { value: 'Agostina' } });
+}, [data]);
 
 
 return (
@@ -59,7 +99,7 @@ minHeight: '100vh'
     <FormSelect onChange={handleChange}
     style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
     className="selectNominAnteriores">
-    {participantes.map((option, index) => (
+    {participantsChart.map((option, index) => (
     <option key={index} value={option}>
     {option}
     </option>

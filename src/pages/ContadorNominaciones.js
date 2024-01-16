@@ -1,13 +1,62 @@
 import React, { useState, useEffect } from "react";
 import '../App.css';
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
-import { dataPlaca } from "../data/placasData";
-import { participants } from "../data/participantsData";
+// import { dataPlaca } from "../data/placasData";
+// import { participants } from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
-import { votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra } from "../data/modificadores";
+// import { votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra } from "../data/modificadores";
 
+function ContadorNominaciones() {
+  
+  const [dataPlaca, setData] = useState([]);
+  const [participants, setParticipants] = useState([]);
+  const [eliminado, setLastEliminado] = useState("")
+  // Declaración modificadores
+  const [votoFinal, setVotoFinal] = useState("");
+  // const [nominado, setNominado] = useState([]);
+  const [nominado, setNominado] = useState(null);
+  const [noVota, setNoVota] = useState([]);
+  const [inmune, setInmune] = useState([]);
+  const [votoValeDoble, setVotoValeDoble] = useState([]);
+  const [dosVotosEnContra, setDosVotosEnContra] = useState("");
+    
+  const fetchData = async () => {
+  try {
+
+// Fetch data from the first URL (ÚLTIMO ELIMINADO)
+  const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/placasNominados.json');
+  const jsonData = await response.json();
+  setData(jsonData);
+
+// Fetch data from the second URL (PARTICIPANTES)
+  const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json');
+  const jsonData2 = await response2.json();
+  setParticipants(jsonData2.participants);
+
+  // Fetch data from the third URL (MODIFICADORES)
+  const response3 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/modificadores.json');
+  const jsonData3 = await response3.json();
+  setVotoFinal(jsonData3.votoFinal);
+  setNominado(jsonData3.nominado);
+  setNoVota(jsonData3.noVota);
+  setInmune(jsonData3.inmune);
+  setVotoValeDoble(jsonData3.votoValeDoble);
+  setDosVotosEnContra(jsonData3.dosVotosEnContra);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+useEffect(() => {
+  fetchData();
+}, []);
+
+
+/*FIN LLAMADAS API*/
 
 // Find the last 'Eliminado' of the last week
+
+useEffect(() => {
 let lastEliminadoName = null;
 let lastEliminadoWeek = -1;
 
@@ -19,8 +68,10 @@ dataPlaca.forEach(weekData => {
     lastEliminadoName = weekData.data[eliminadoIndex].name;
   }
 });
+setLastEliminado(lastEliminadoName)
 
-const eliminado = lastEliminadoName
+}, [dataPlaca, eliminado]);
+// const eliminado = lastEliminadoName
 
 // const initialRows = [
 //   ...(votoFinal !== ""
@@ -40,10 +91,45 @@ const initialRows = [
   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' })),
 ];
 
+// useEffect(() => {
 
-function ContadorNominaciones() {
+//   if (localStorage.getItem('rows') !== null) {
+//     setRows([JSON.parse(localStorage.getItem('rows'))]);
+//   } else {
+//     setRows([...initialRows]);
+//   }  
   
-  const [rows, setRows] = useState(localStorage.getItem('rows') ? JSON.parse(localStorage.getItem('rows')) : initialRows);
+// }, [participants]);
+useEffect(() => {
+  const storedRows = localStorage.getItem('rows');
+  
+  if (storedRows !== null) {
+    setRows(JSON.parse(storedRows));
+  } else {
+    setRows(initialRows);
+  }
+}, [participants, votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra]);
+
+const [rows, setRows] = useState(() => {
+  const storedRows = localStorage.getItem('rows');
+  return storedRows ? JSON.parse(storedRows) : initialRows;
+});
+
+// ESTA ES LA INITIAL ROWS QUE FUNCIONA BIEN
+// const initialRows = [
+//   ...(votoFinal !== ""
+//   ? [{ participant: eliminado, firstPlace: votoFinal, secondPlace: "" }]
+//   : []),
+  
+//   ...(dosVotosEnContra !== ""
+//   ? [{ participant: "Teléfono", firstPlace: dosVotosEnContra, secondPlace: "" }]
+//   : []),
+//   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' })),
+// ];
+
+
+
+  // const [rows, setRows] = useState(localStorage.getItem('rows') ? JSON.parse(localStorage.getItem('rows')) : initialRows);
   const [counts, setCounts] = useState(localStorage.getItem('counts') ? JSON.parse(localStorage.getItem('counts')) : {});
   const [selectedIndex, setSelectedIndex] = useState(() => {
         const selectedIndexFromLocalStorage = localStorage.getItem('selectedIndex');
@@ -106,7 +192,7 @@ function ContadorNominaciones() {
     localStorage.setItem('fulminado', fulminado);
     localStorage.setItem('selectedIndex', JSON.stringify(selectedIndex));
     localStorage.setItem('selectedIndexF', JSON.stringify(selectedIndexF));
-  }, [rows, fulminado, selectedIndex, selectedIndexF]);
+  }, [rows, fulminado, selectedIndex, selectedIndexF, votoValeDoble]);
 
 
   const handleFirstPlaceChange = (index, value) => {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import ReactEcharts from "echarts-for-react";
 import { Collapse } from "react-bootstrap";
-import { useData } from "../data/votacionesData";
-import {participantsChart} from "../data/participantsData";
+// import { useData } from "../data/votacionesData";
+// import {participantsChart} from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
@@ -29,10 +29,45 @@ ChartJS.register(
 
 const GraficoVotos5 = ({ participantName }) => {
 
-const participantes = participantsChart;
+  const [data, setData] = useState([]);
+  const [participantsChart, setParticipantsChart] = useState([]);
+  
+  useEffect(() => {
+  const fetchData = async () => {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+    const jsonData = await response.json();
 
-const [data] = useData();
+    if (jsonData && jsonData.data) {
+      setData(jsonData.data);
+    } else {
+      console.error('Invalid data format:', jsonData);
+    }
 
+// Fetch data from the second URL
+const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+const jsonData2 = await response2.json();
+
+// Check if the response has a "participants" property
+// if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+  if (jsonData2 && Array.isArray(jsonData2.participantsChart)) {
+    setParticipantsChart(jsonData2.participantsChart);
+} else {
+  console.error('Invalid data format:', jsonData2);
+}
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+  fetchData();
+}, []);
+
+// const participantes = participantsChart;
+
+const [voteCounts, setVoteCounts] = useState({});
+  useEffect(() => {
 const countVotes = (data) => {
   const participants = {};
   for (const week of data) {
@@ -41,7 +76,7 @@ const countVotes = (data) => {
         participants[participant] = {};
       }
       for (const competitor of competitors) {
-        if (participantes.includes(competitor)) {
+        if (participantsChart.includes(competitor)) {
           if (!participants[participant][competitor]) {
             participants[participant][competitor] = 0;
           }
@@ -52,10 +87,17 @@ const countVotes = (data) => {
   }
   return participants;
 };
-const voteCounts = countVotes(data);
+setVoteCounts(countVotes(data));
+}, [data, participantsChart]);
 
-const dataEntries = Object.entries(voteCounts[participantName]).sort((a, b) => a[1] - b[1]);
+// const voteCounts = countVotes(data);
 
+// const dataEntries = Object.entries(voteCounts[participantName]).sort((a, b) => a[1] - b[1]);
+const dataEntries = voteCounts[participantName] ? Object.entries(voteCounts[participantName]).sort((a, b) => a[1] - b[1]) : [];
+
+
+const [votesGiven, setVotesGiven] = useState({});
+useEffect(() => {
 const countVotesGiven = (data) => {
   const participants = {};
 
@@ -82,18 +124,26 @@ const countVotesGiven = (data) => {
 
   return participants;
 };
+setVotesGiven(countVotesGiven(data));
+}, [data, participantsChart]);
 
 
+// const votesGiven = countVotesGiven(data);
 
-const votesGiven = countVotesGiven(data);
-
-const dataEntriesGiven = [];
+// const dataEntriesGiven = [];
+//     for (let i = 0; i < dataEntries.length; i++) {
+//       const [participant, count] = dataEntries[i];
+//       const givenCount = votesGiven[participantName][participant];
+//       dataEntriesGiven.push([participant, givenCount]);
+//     }
+    
+    const dataEntriesGiven = [];
     for (let i = 0; i < dataEntries.length; i++) {
       const [participant, count] = dataEntries[i];
-      const givenCount = votesGiven[participantName][participant];
+      const givenCount =  votesGiven[participantName] ? votesGiven[participantName][participant] : [];
       dataEntriesGiven.push([participant, givenCount]);
     }
-    
+
   const accumulateVotes = (votesGiven) => {
     const accumulatedVotes = {};
   
