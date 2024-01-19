@@ -1,10 +1,11 @@
 {
   "files": {
     "main.css": "/gh-2022/static/css/main.d39d0de1.css",
-    "main.js": "/gh-2022/static/js/main.e825d98d.js",
+    "main.js": "/gh-2022/static/js/main.50f1a233.js",
     "static/js/787.22608d2e.chunk.js": "/gh-2022/static/js/787.22608d2e.chunk.js",
     "static/media/FondoPlaca.jpg": "/gh-2022/static/media/FondoPlaca.614c7bee6dfbe61b4db9.jpg",
     "static/media/FondoPlaca2.jpg": "/gh-2022/static/media/FondoPlaca2.b86d4d6a67b5aa914d4d.jpg",
+    "static/media/Virginia.png": "/gh-2022/static/media/Virginia.c4f4d04b8a982f7eb2b6.png",
     "static/media/Isabel.png": "/gh-2022/static/media/Isabel.9517171326395de6c25f.png",
     "static/media/Zoe.png": "/gh-2022/static/media/Zoe.f9d75f7abcae5ddc890d.png",
     "static/media/Carla.png": "/gh-2022/static/media/Carla.09fe9ac75891efeaba0b.png",
@@ -33,11 +34,11 @@
     "static/media/HeaderVotaciones.jpg": "/gh-2022/static/media/HeaderVotaciones.3b24045241405e533eda.jpg",
     "index.html": "/gh-2022/index.html",
     "main.d39d0de1.css.map": "/gh-2022/static/css/main.d39d0de1.css.map",
-    "main.e825d98d.js.map": "/gh-2022/static/js/main.e825d98d.js.map",
+    "main.50f1a233.js.map": "/gh-2022/static/js/main.50f1a233.js.map",
     "787.22608d2e.chunk.js.map": "/gh-2022/static/js/787.22608d2e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d39d0de1.css",
-    "static/js/main.e825d98d.js"
+    "static/js/main.50f1a233.js"
   ]
 }
