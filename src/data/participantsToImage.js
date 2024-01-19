@@ -18,6 +18,7 @@ import Martín from '../pictures/Martin.png'
 import Nicolás from '../pictures/Nicolas.png'
 import Rosina from '../pictures/Rosina.png'
 import Sabrina from '../pictures/Sabrina.png'
+import Virginia from '../pictures/Virginia.png'
 import Williams from '../pictures/Williams.png'
 import Zoe from '../pictures/Zoe.png'
 
@@ -42,6 +43,7 @@ export const participantsToImage = {
     Nicolás: Nicolás,
     Rosina: Rosina,
     Sabrina: Sabrina,
+    Virginia: Virginia,
     Williams: Williams,
     Zoe: Zoe,
   };

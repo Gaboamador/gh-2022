@@ -87,14 +87,14 @@ const GraficoVotos4 = ({participantName}) => {
   };
   
   const votesReceivedByWeek = countVotesReceivedByWeek(data);
-  
+
   const weeks = Array.from(
     new Set(
       Object.values(votesReceivedByWeek)
         .flat()
         .map((entry) => entry.week)
     )
-  );
+  ).sort((a, b) => a - b);;
 
   const filteredSeries = Object.entries(votesReceivedByWeek)
   .filter(([participant]) => participant === participantName)
@@ -111,9 +111,12 @@ const GraficoVotos4 = ({participantName}) => {
     const option = {
         xAxis: {
             type: 'category',
-            data: weeks.map((week) => `Semana ${week}`),
+            data: weeks.map((week) => `S. ${week}`),
             axisLabel: {
-              color: 'black'
+              color: 'black',
+              interval: 0, // muestra todas las etiquetas
+              // rotate: 90,
+              // margin: 20,
           },
           },
           yAxis: {

@@ -399,23 +399,29 @@ if (fulminatedIndex !== -1) {
       }
 
     const handleExport = () => {
+      
+       // Exclude rows where row.participant is "eliminado" and row.firstPlace is "votoFinal"
+      const filteredRows = rows.filter(row => !(row.participant === eliminado && row.firstPlace === votoFinal));
+      
       // Convert the 'rows' array to the desired format
-      const exportedArray = rows.map(row => [
-        `'${row.participant}'`,
-        `'${row.firstPlace}'`,
-        `'${row.secondPlace}'`,
+      const exportedArray = filteredRows.map(row => [
+        `"${row.participant}"`,
+        `"${row.firstPlace}"`,
+        `"${row.secondPlace}"`,
       ]);
     
-      // Convert the array to a string
-      const formattedArray = `[${exportedArray.map(row => `[${row.join(', ')}]`).join(',\n')}]`;
-    
       // Create a Blob with the formatted data
-      const blob = new Blob([formattedArray], { type: 'application/json' });
+        const blob = new Blob([`[\n${exportedArray.map(row => `  [${row.join(', ')}],`).join('\n')}\n]`], { type: 'application/json' });
     
+      // Get the current date and time for the filename
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString().split('T')[0];
+
       // Create a link element to download the JSON file
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'exported_rows.json';
+      // a.download = 'exported_rows.json';
+      a.download = `nominaciones_${formattedDate}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
