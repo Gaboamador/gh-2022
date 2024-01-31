@@ -21,7 +21,6 @@ const PlacasEnContinuado = () => {
         console.error('Error fetching data:', error);
       }
     };
-console.log(dataPlaca, "data placa")
     fetchData();
   }, []);
 /*fin llamado de datos automaticos*/

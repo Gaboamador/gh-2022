@@ -209,9 +209,6 @@ const adaptedArray = Object.entries(participantData).flatMap(([week, participant
 //     ];
 //   }, [participantData]);
 
-console.log(adaptedArray, "adapted array");
-
-
   const [isChartVisible, setChartVisibility] = useState(true);
 
   const toggleChartVisibility = () => {
