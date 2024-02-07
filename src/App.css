@@ -286,10 +286,16 @@ hr {
   }
 }
 
-/*
-.containerVotaciones{
+.containerPlaca {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
 }
-*/
+
+.containerVotaciones {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
 
 .detalleDeVotos {
   background-image: linear-gradient(to left, #ab34bf, #2426d4);
@@ -379,6 +385,7 @@ label {
 .columnaJugadoresNegrita {
   font-weight:bold;
   text-shadow: 0px 0px 6px white;
+  padding-right: 0px !important;
 }
 
 .columnaJugadoresNegrita.espfulmFont {
@@ -529,13 +536,13 @@ label {
       display: none !important;
       }
 
-    @media (max-width: 410px) {
+    @media (max-width: 374px) {
       .comboBox {
         font-size:12px !important;
         padding-left: 2px !important;        
       }
       .votoFinalSecondPlaceRow {
-        font-size:13px !important;
+        /* font-size:13px !important; */
       }
     }
 

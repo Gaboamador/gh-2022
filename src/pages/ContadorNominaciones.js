@@ -4,6 +4,7 @@ import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Im
 // import { dataPlaca } from "../data/placasData";
 // import { participants } from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
+
 // import { votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra } from "../data/modificadores";
 
 function ContadorNominaciones() {
@@ -22,6 +23,7 @@ function ContadorNominaciones() {
   const [inmune, setInmune] = useState([]);
   const [votoValeDoble, setVotoValeDoble] = useState([]);
   const [dosVotosEnContra, setDosVotosEnContra] = useState("");
+  const [invitado, setInvitado] = useState("");
     
   const fetchData = async () => {
   try {
@@ -47,6 +49,7 @@ function ContadorNominaciones() {
   setInmune(jsonData3.inmune);
   setVotoValeDoble(jsonData3.votoValeDoble);
   setDosVotosEnContra(jsonData3.dosVotosEnContra);
+  setInvitado(jsonData3.invitado);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -123,6 +126,16 @@ const initialRows = [
   ...(dosVotosEnContra !== ""
   ? [{ participant: "Teléfono", firstPlace: dosVotosEnContra, secondPlace: "" }]
   : []),
+
+  ...(invitado !== ""
+  // ? [{ participant: invitado + '+', firstPlace: "", secondPlace: "" }]
+  ? [{ participant: '\u2295\u00A0' + invitado, firstPlace: "", secondPlace: "" }]
+  : []),
+
+  ...(invitado !== ""
+  ? [{ participant: '\u2296\u00A0' + invitado, firstPlace: "", secondPlace: "" }]
+  : []),
+
   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' })),
 ];
 
@@ -143,7 +156,7 @@ useEffect(() => {
   } else {
     setRows(initialRows);
   }
-}, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra]);
+}, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra, invitado]);
 
 const [rows, setRows] = useState(() => {
   const storedRows = localStorage.getItem('rows');
@@ -209,17 +222,21 @@ const [rows, setRows] = useState(() => {
         const isVotoValeDoble = votoValeDoble.includes(participant);
         
         if (firstPlace) {
-
+          if (participant === '\u2295\u00A0' + invitado) {
+            updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) -2;
+          } else {
           // updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) + (checked ? 3 : 2);
           updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) + (checked ? (isVotoValeDoble ? 5 : 3) : (isVotoValeDoble ? 4 : 2));
-
+          }
         }        
         
         if (secondPlace) {
-
+          if (participant === '\u2295\u00A0' + invitado) {
+            updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) -1;
+          } else {
           // updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) + (checked ? 2 : 1);
           updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) + (checked ? (isVotoValeDoble ? 3 : 2) : (isVotoValeDoble ? 2 : 1));
-
+          }
           }
       }
     });
@@ -227,7 +244,7 @@ const [rows, setRows] = useState(() => {
     localStorage.setItem('fulminado', fulminado);
     localStorage.setItem('selectedIndex', JSON.stringify(selectedIndex));
     localStorage.setItem('selectedIndexF', JSON.stringify(selectedIndexF));
-  }, [rows, fulminado, selectedIndex, selectedIndexF, votoValeDoble]);
+  }, [rows, fulminado, selectedIndex, selectedIndexF, votoValeDoble, invitado]);
 
 
   const handleFirstPlaceChange = (index, value) => {
@@ -437,7 +454,11 @@ if (fulminatedIndex !== -1) {
       
        // Exclude rows where row.participant is "eliminado" and row.firstPlace is "votoFinal"
       // const filteredRows = rows.filter(row => !(row.participant === eliminado && row.firstPlace === votoFinal));
-      const filteredRows = rows.filter(row => !(row.participant === eliminados && (row.firstPlace === votoFinal1 || row.firstPlace === votoFinal2)));
+      const filteredRows = rows.filter(row => !(
+        ((row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2) && (row.firstPlace === votoFinal1 || row.firstPlace === votoFinal2))
+        ||
+        (row.participant.includes(invitado))
+        ));
       
       // Convert the 'rows' array to the desired format
       const exportedArray = filteredRows.map(row => [
@@ -476,8 +497,8 @@ return (
   minHeight: '100vh'
   }}>
   
-<Container> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
-    <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: -10}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
+<Container className="containerPlaca"> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
+    <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: -10}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
 
     
     {nominado && nominado.map((participant) => {
@@ -622,8 +643,8 @@ return (
     </Container>
 </Container>
 
-<Container> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
-    <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
+<Container className="containerPlaca"> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
+    <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
     {sortedEntries.map(([participant, count], index) => {          
       return (
         <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 30 }}>
@@ -727,7 +748,7 @@ return (
               disabled={index !== selectedIndex && selectedIndex !== -1}
               className={`
               ${row.checkedF ? 'votoFinalDisabler' : ''}
-              ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
+              ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || row.participant.includes(invitado) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
@@ -743,7 +764,7 @@ return (
               disabled={index !== selectedIndexF && selectedIndexF !== -1}
               className={`
               ${row.checked ? 'votoFinalDisabler' : ''}
-              ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
+              ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || row.participant.includes(invitado) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
