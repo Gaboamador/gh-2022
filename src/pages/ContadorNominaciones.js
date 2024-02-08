@@ -191,7 +191,13 @@ const [rows, setRows] = useState(() => {
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedF, setIsCheckedF] = useState(false);
 
-  const sortedEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  // const sortedEntries = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+  
+  // nuevo sortedEntries para excluir participantes con 0 votos:
+  const sortedEntries = Object.entries(counts)
+  .filter(([participant, count]) => count !== 0)
+  .sort((a, b) => b[1] - a[1]);
+
   const fourthCount = sortedEntries.length > 4 ? sortedEntries[3][1] : 0;
   const thirdCount = sortedEntries.length > 3 ? sortedEntries[2][1] : 0;
 
@@ -457,7 +463,7 @@ if (fulminatedIndex !== -1) {
       const filteredRows = rows.filter(row => !(
         ((row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2) && (row.firstPlace === votoFinal1 || row.firstPlace === votoFinal2))
         ||
-        (row.participant.includes(invitado))
+        (invitado !== "" && row.participant.includes(invitado))
         ));
       
       // Convert the 'rows' array to the desired format
@@ -467,8 +473,20 @@ if (fulminatedIndex !== -1) {
         `"${row.secondPlace}"`,
       ]);
     
+      // // Create a Blob with the formatted data
+      //   const blob = new Blob([`[\n${exportedArray.map(row => `  [${row.join(', ')}],`).join('\n')}\n]`], { type: 'application/json' });
+      
       // Create a Blob with the formatted data
-        const blob = new Blob([`[\n${exportedArray.map(row => `  [${row.join(', ')}],`).join('\n')}\n]`], { type: 'application/json' });
+      const exportedArrayString = exportedArray.map((row, index) => {
+      if (index === exportedArray.length - 1) {
+      return `  [${row.join(', ')}]`; // Exclude comma for the last array
+      } else {
+      return `  [${row.join(', ')}],`;
+      }
+      }).join('\n');
+
+      const blob = new Blob([`[\n${exportedArrayString}\n]`], { type: 'application/json' });
+
     
       // Get the current date and time for the filename
       const currentDate = new Date();
@@ -748,7 +766,7 @@ return (
               disabled={index !== selectedIndex && selectedIndex !== -1}
               className={`
               ${row.checkedF ? 'votoFinalDisabler' : ''}
-              ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || row.participant.includes(invitado) ? 'votoFinalDisabler' : ''}`}
+              ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || (invitado !== "" && row.participant.includes(invitado)) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
@@ -764,7 +782,7 @@ return (
               disabled={index !== selectedIndexF && selectedIndexF !== -1}
               className={`
               ${row.checked ? 'votoFinalDisabler' : ''}
-              ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || row.participant.includes(invitado) ? 'votoFinalDisabler' : ''}`}
+              ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || (invitado !== "" && row.participant.includes(invitado)) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
             </Col>
