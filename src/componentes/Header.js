@@ -175,29 +175,5 @@ const Header = () => {
 
     );
   };
-  
-/*function Header() {
-    return (
-    <div className="GeneralFont">
-        <header id="header"
-        className={`header ${sticky ? "header--sticky" : ""}`}>
-            <Container>
-                <Row className="d-flex align-items-center justify-content-center">
-                    <Col xs={1} className="mx-auto align-items-right">
-                        <img src={gh} alt={""} width="40px" height="40px" className="App-logo"/>
-                    </Col>
-                    <Col xs={10}>
-                        <div class="col10-class">
-                            <h3 class="title-word-class">
-                            <span class="title-word">GRAN</span>&nbsp;&nbsp;
-                            <span class="title-word second-word">HERMANO</span>
-                            </h3>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </header>
-    </div>
-);
-} */ 
+
 export default Header;

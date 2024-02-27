@@ -9,8 +9,6 @@ import GraficoVotos1 from "../graficos/GraficoVotos1";
 import GraficoVotos2 from "../graficos/GraficoVotos2";
 import GraficoVotos3 from "../graficos/GraficoVotos3";
 import GraficoVotos4 from "../graficos/GraficoVotos4";
-import GraficoVotos5 from "../graficos/GraficoVotos5";
-import GraficoVotos6 from "../graficos/GraficoVotos6";
 
 const GraficoVotos = () => {
   
@@ -75,7 +73,7 @@ fetchData();
 <Container style={{display:'flex', alignItems: 'center'}}>
   {selectedParticipantData.map((participant) => (
           <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5}}>
-            <Image src={participantsToImage[selectedParticipant]} width="99px" height="105px" />
+            <Image src={participantsToImage[selectedParticipant]} width="99px" height="105px"/>
           </div>
         ))}
   <FormSelect
@@ -91,36 +89,32 @@ fetchData();
 </Container>
 
 <LineaDivisoria1/>
-{/* prueba grafico 6 */}
-{/* <Container>
-<GraficoVotos6 participantName={selectedParticipant} className='grafico'/>
-</Container>
 
-<LineaDivisoria2/> */}
-{/* prueba grafico 6 */}
+<h6 className="titleChartType">Gráfico de Nominaciones Realizadas</h6>
+
+{/* <LineaDivisoria2/> */}
+
 <Container>
 <GraficoVotos1 participantName={selectedParticipant} className='grafico'/>
 </Container>
 
 <LineaDivisoria2/>
 
-<Container>
-<GraficoVotos5 participantName={selectedParticipant} className='grafico'/>
-</Container>
+<h6 className="titleChartType">Gráficos de Nominaciones Recibidas</h6>
 
-<LineaDivisoria1/>
+{/* <LineaDivisoria2/> */}
 
 <Container>
 <GraficoVotos2 participantName={selectedParticipant} className='grafico'/>
 </Container>
 
-<LineaDivisoria2/>
+<LineaDivisoria1/>
 
 <Container>
 <GraficoVotos3 participantName={selectedParticipant} className='grafico'/>
 </Container>
 
-<LineaDivisoria1/>
+<LineaDivisoria2/>
 
 <Container>
 <GraficoVotos4 participantName={selectedParticipant} className='grafico'/>

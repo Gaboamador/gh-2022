@@ -16,7 +16,7 @@ import GraficoVotos from './pages/GraficoVotos';
 
 function App() {  
 return (
-  <div className="GeneralFont">    
+  <div className="GeneralFont">
     <Router>
     <GlobalState>
       <Header/>

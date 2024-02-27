@@ -9,22 +9,26 @@
   --color-terciario: #c138db;
   --color-terciario-claro: #d868ee;
   --color-terciario-oscuro: #7b238d;
+  --fuente-titulos: 'TacticSans';
+  --fuente-contenido: 'Assistant';
+  --fuente-header: 'Michroma';
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Assistant&family=BIZ+UDGothic&family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant&family=Michroma&display=swap');
 
 @font-face {
   font-family: 'TacticSans';
   src: url('./fonts/TacticSansExtExd-Blk.otf') format('opentype');
 }
 
+/* Oswald-Regular: FUENTE PARA SUMA DE VOTOS EN FOTO DE PARTICIPANTE, EN ContadorNominaciones.js */
 @font-face {
   font-family: 'Oswald-Regular';
   src: url('fonts/Oswald-Regular.ttf') format('truetype');
 }
 
 .GeneralFont {
-font-family: 'Assistant', sans-serif;
+font-family: var(--fuente-contenido);
 font-weight: 500;
 }
 
@@ -89,15 +93,11 @@ font-weight: 500;
 
 .content {
   padding-top: 60px !important;
-  font-family: 'Assistant', sans-serif !important;
-  font-weight: 500 !important;
 }
 
 
 .contentHome {
   padding-top: 60px;
-  font-family: 'Assistant', sans-serif !important;
-  font-weight: 500 !important;
   position: relative;
   z-index: 1;
   min-height: 100vh;
@@ -122,8 +122,6 @@ font-weight: 500;
 
 .contentChart {
   padding-top: 60px;
-  font-family: 'Assistant', sans-serif !important;
-  font-weight: 500 !important;
   position: relative;
   z-index: 1;
   min-height: 100vh;
@@ -148,7 +146,7 @@ font-weight: 500;
 
 .title-word {
   color:white;
-  font-family: 'Michroma', sans-serif;
+  font-family: var(--fuente-header);
   font-size:x-large;
   text-align:center;
   justify-content:center;
@@ -208,7 +206,7 @@ hr {
 }
 
 .tituloParticipantes {
-  font-family: 'TacticSans', sans-serif;
+  font-family: var(--fuente-titulos);
   color: white;
   text-align:center;
   text-shadow: 0px -2.5px 2px #e700ee;
@@ -219,8 +217,7 @@ hr {
 }
 
 .placaNominados{
-  /*background-color:#a934c0;*/
-  font-family: 'TacticSans', sans-serif;
+  font-family: var(--fuente-titulos);
   color: white;
   text-align:center;
   text-shadow: 0px -2.5px 2px #e700ee;
@@ -294,19 +291,6 @@ hr {
 .containerVotaciones {
   padding-left: 0px !important;
   padding-right: 0px !important;
-}
-
-
-.detalleDeVotos {
-  background-image: linear-gradient(to left, #ab34bf, #2426d4);
-  font-family: 'Michroma', sans-serif;
-  color:white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 5px;
-  /*font-weight:bold;*/
 }
 
 label {
@@ -939,6 +923,27 @@ label {
   align-items: center;
   cursor: pointer;
   /* padding: 0 10px; */
+}
+
+.titleChartType {
+  width: 100%;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  border: 1px solid var(--color-primario-claro);
+  border-left: none;
+  border-right: none;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 6px;
+  /* background-color: var(--color-secundario); */
+  background-image: linear-gradient(to right,
+  transparent 0%,
+  var(--color-secundario-claro) 20%,
+  var(--color-secundario) 50%,
+  var(--color-secundario-claro) 80%,
+  transparent 100%);
+  margin-bottom: 10px;
 }
 
 .titleWithArrow {
