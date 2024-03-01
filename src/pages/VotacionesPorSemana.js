@@ -68,7 +68,7 @@ const [selectedOption, setSelectedOption] = useState(0);
     
 
 const weekNumber = parseInt(selectedOption) + 1;
-
+console.log(data, "data")
 return (
 <div className="content" style={{
 backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,

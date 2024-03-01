@@ -763,7 +763,7 @@ label {
   background-color: var(--color-primario);
   transition: 0.5s;
   z-index: 1;
-  border-radius: 10px;
+  border-radius: 0px 0px 15px 0px;
   padding: 10px 0px;
 }
 
@@ -860,7 +860,7 @@ label {
   padding: 10px 15px;
   border: none;
   /* width: fit-content; */
-  border-radius: 0px 10px 0px 28px;
+  border-radius: 0px 15px 0px 0px;
   display: inline-block;
   width: 60px;
   text-align: center;
@@ -984,4 +984,119 @@ justify-content: center;
   background-color: var(--color-secundario-oscuro);
   color: var(--color-texto);
   border-radius: 25px;
+}
+
+/* SIDEBAR ANULAR VOTOS */
+.navMenuInfo {
+  width: 40px;
+  height: 55px;
+  position: fixed;
+  top: 3.2rem;
+  right: -1.5rem;
+  transition: 1s;
+  z-index: 2;
+  padding: 10px 15px 10px 10px;
+  border: solid 2px var(--color-secundario-claro);
+  border-right: none;
+  box-shadow: 0px 4px 12px 0px var(--color-primario-claro);
+  border-radius: 5px;
+  background-color: var(--color-terciario-claro);
+}
+
+.navMenuInfo.active {
+  right: -1%;
+  width: 280px;
+  min-height: 50px;
+  height: fit-content;
+  /* background-color: white; */
+  background-image: url('./pictures/FondoPlaca2.jpg');
+  
+}
+
+.openbtnInfo {  
+  cursor: pointer;
+  color: var(--color-primario);
+  display: inline-block;
+  transform: translateX(-90%) translateY(0%);
+  border-radius: 50px;
+}
+
+.openbtnInfo:hover {
+  color: var(--color-primario-claro);
+}
+
+.openbtnInfo.active {
+  color: var(--color-secundario-claro);
+}
+
+.sidebarInfo {
+  margin: 0;
+  padding: 0;
+  font-family: var(--fuente-contenido);
+  font-size: 0.9rem;
+}
+
+.sidebarInfo.active {
+  margin-top: -20px;
+  padding: 0px 5px;
+  overflow-y: scroll;
+  max-height: 75vh;
+  display: flex;
+  justify-content: center;
+}
+
+.iconInfo {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 50px;
+}
+
+.centered-table {
+  margin: 0 auto;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.centered-table th {
+  background-image: url('./pictures/HeaderVotaciones.jpg') !important;
+  color: white !important;
+}
+
+.centered-table td {
+  vertical-align: middle;
+}
+
+.centered-table tr:first-child {
+  border-top: 1px solid white !important;
+}
+
+.centered-table tr:nth-child(odd) {
+  border-top: 2px solid var(--color-terciario-oscuro);
+}
+
+.botonAnular {
+  padding: 0px 3px !important;
+}
+
+.botonAnular.valido {
+  background-color: green;
+  color: white;
+  border: 1px solid grey;
+  font-size: 0.85rem;
+}
+
+.botonAnular.no-valido {
+  background-color: whitesmoke;
+  color: red;
+  border: 1px solid red;
+  font-size: 0.85rem;
+}
+
+.anulado {
+  text-decoration:line-through !important;
+  padding: 12px !important;
+  display: flex;
+  flex-direction: column;
+  
 }

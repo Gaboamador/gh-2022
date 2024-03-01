@@ -4,7 +4,7 @@ import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Im
 // import { dataPlaca } from "../data/placasData";
 // import { participants } from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
-
+import AnularVotos from "../componentes/AnularVotos";
 // import { votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra } from "../data/modificadores";
 
 function ContadorNominaciones() {
@@ -93,61 +93,39 @@ useEffect(() => {
   setEliminados({ eliminado1, eliminado2 });
 }, [dataPlaca]);
 
-// useEffect(() => {
-// let lastEliminadoName = null;
-// let lastEliminadoWeek = -1;
+// const initialRows = [
+//   ...(votoFinal1 !== ""
+//   ? [{ participant: eliminados.eliminado1, firstPlace: votoFinal1, secondPlace: "" }]
+//   : []),
 
-// dataPlaca.forEach(weekData => {
-//   const eliminadoIndex = weekData.data.findIndex(entry => entry.result.includes('Eliminado'));
+//   ...(votoFinal2 !== ""
+//   ? [{ participant: eliminados.eliminado2, firstPlace: votoFinal2, secondPlace: "" }]
+//   : []),
   
-//   if (eliminadoIndex !== -1 && weekData.week > lastEliminadoWeek) {
-//     lastEliminadoWeek = weekData.week;
-//     lastEliminadoName = weekData.data[eliminadoIndex].name;
-//   }
-// });
-// setLastEliminado(lastEliminadoName)
+//   ...(dosVotosEnContra !== ""
+//   ? [{ participant: "Teléfono", firstPlace: dosVotosEnContra, secondPlace: "" }]
+//   : []),
 
-// }, [dataPlaca, eliminado]);
+//   ...(invitado !== ""
+//   ? [{ participant: '\u2295\u00A0' + invitado, firstPlace: "", secondPlace: "" }]
+//   : []),
 
+//   ...(invitado !== ""
+//   ? [{ participant: '\u2296\u00A0' + invitado, firstPlace: "", secondPlace: "" }]
+//   : []),
 
-
+//   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' })),
+// ];
 const initialRows = [
-  // ...(votoFinal !== ""
-  // ? [{ participant: eliminado, firstPlace: votoFinal, secondPlace: "" }]
-  // : []),
-  ...(votoFinal1 !== ""
-  ? [{ participant: eliminados.eliminado1, firstPlace: votoFinal1, secondPlace: "" }]
-  : []),
-
-  ...(votoFinal2 !== ""
-  ? [{ participant: eliminados.eliminado2, firstPlace: votoFinal2, secondPlace: "" }]
-  : []),
-  
-  ...(dosVotosEnContra !== ""
-  ? [{ participant: "Teléfono", firstPlace: dosVotosEnContra, secondPlace: "" }]
-  : []),
-
-  ...(invitado !== ""
-  // ? [{ participant: invitado + '+', firstPlace: "", secondPlace: "" }]
-  ? [{ participant: '\u2295\u00A0' + invitado, firstPlace: "", secondPlace: "" }]
-  : []),
-
-  ...(invitado !== ""
-  ? [{ participant: '\u2296\u00A0' + invitado, firstPlace: "", secondPlace: "" }]
-  : []),
-
-  ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' })),
+  ...(votoFinal1 !== "" ? [{ participant: eliminados.eliminado1, firstPlace: votoFinal1, secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
+  ...(votoFinal2 !== "" ? [{ participant: eliminados.eliminado2, firstPlace: votoFinal2, secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
+  ...(dosVotosEnContra !== "" ? [{ participant: "Teléfono", firstPlace: dosVotosEnContra, secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
+  ...(invitado !== "" ? [{ participant: '\u2295\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
+  ...(invitado !== "" ? [{ participant: '\u2296\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
+  ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '', firstPlaceCanceled: false, secondPlaceCanceled: false })),
 ];
 
-// useEffect(() => {
 
-//   if (localStorage.getItem('rows') !== null) {
-//     setRows([JSON.parse(localStorage.getItem('rows'))]);
-//   } else {
-//     setRows([...initialRows]);
-//   }  
-  
-// }, [participants]);
 useEffect(() => {
   const storedRows = localStorage.getItem('rows');
   
@@ -157,6 +135,15 @@ useEffect(() => {
     setRows(initialRows);
   }
 }, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra, invitado]);
+
+// useEffect(() => {
+//   const storedRows = localStorage.getItem('rows');
+//   if (!storedRows) {
+//     localStorage.setItem('rows', JSON.stringify(initialRows));
+//   } else {
+//     setRows(JSON.parse(storedRows));
+//   }
+// }, []);
 
 const [rows, setRows] = useState(() => {
   const storedRows = localStorage.getItem('rows');
@@ -174,7 +161,6 @@ const [rows, setRows] = useState(() => {
 //   : []),
 //   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '' })),
 // ];
-
 
 
   // const [rows, setRows] = useState(localStorage.getItem('rows') ? JSON.parse(localStorage.getItem('rows')) : initialRows);
@@ -205,13 +191,12 @@ const [rows, setRows] = useState(() => {
     useEffect(() => {
     const updatedCounts = {};
 
-    // rows.forEach(({ firstPlace, secondPlace, checked, checkedF }) => {
-    rows.forEach(({ firstPlace, secondPlace, checked, checkedF, participant }) => {
+    // rows.forEach(({ firstPlace, secondPlace, checked, checkedF, participant }) => {
+      rows.forEach(({ firstPlace, secondPlace, checked, checkedF, participant, firstPlaceCanceled, secondPlaceCanceled }) => {
 
       if (checkedF) {
         if (firstPlace) {
           setFulminado(fulminado)
-          /**/
           const updatedRows = [...rows];
           for (let i = 0; i < updatedRows.length; i++) {
             if (!updatedRows[i].checkedF) {
@@ -220,27 +205,26 @@ const [rows, setRows] = useState(() => {
             }
           }
           setRows(updatedRows);
-          /**/
         }}
 
       if (!checkedF) {
         
         const isVotoValeDoble = votoValeDoble.includes(participant);
         
-        if (firstPlace) {
+        // if (firstPlace) {
+          if (firstPlace && !firstPlaceCanceled) {
           if (participant === '\u2295\u00A0' + invitado) {
             updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) -2;
           } else {
-          // updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) + (checked ? 3 : 2);
           updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) + (checked ? (isVotoValeDoble ? 5 : 3) : (isVotoValeDoble ? 4 : 2));
           }
         }        
         
-        if (secondPlace) {
+        // if (secondPlace) {
+          if (secondPlace && !secondPlaceCanceled) {
           if (participant === '\u2295\u00A0' + invitado) {
             updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) -1;
           } else {
-          // updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) + (checked ? 2 : 1);
           updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) + (checked ? (isVotoValeDoble ? 3 : 2) : (isVotoValeDoble ? 2 : 1));
           }
           }
@@ -251,6 +235,26 @@ const [rows, setRows] = useState(() => {
     localStorage.setItem('selectedIndex', JSON.stringify(selectedIndex));
     localStorage.setItem('selectedIndexF', JSON.stringify(selectedIndexF));
   }, [rows, fulminado, selectedIndex, selectedIndexF, votoValeDoble, invitado]);
+
+  // useEffect(() => {
+  //   const updatedCounts = {};
+
+  //   rows.forEach(({ firstPlace, secondPlace, checked, checkedF, participant, firstPlaceCanceled, secondPlaceCanceled }) => {
+  //     if (!checkedF) {
+  //       const isVotoValeDoble = votoValeDoble.includes(participant);
+
+  //       if (firstPlace && !firstPlaceCanceled) {
+  //         updatedCounts[firstPlace] = (updatedCounts[firstPlace] || 0) + (checked ? (isVotoValeDoble ? 5 : 3) : (isVotoValeDoble ? 4 : 2));
+  //       }
+
+  //       if (secondPlace && !secondPlaceCanceled) {
+  //         updatedCounts[secondPlace] = (updatedCounts[secondPlace] || 0) + (checked ? (isVotoValeDoble ? 3 : 2) : (isVotoValeDoble ? 2 : 1));
+  //       }
+  //     }
+  //   });
+
+  //   setCounts(updatedCounts);
+  // }, [rows, votoValeDoble]);
 
 
   const handleFirstPlaceChange = (index, value) => {
@@ -503,7 +507,37 @@ if (fulminatedIndex !== -1) {
     };
     
     
+// Function to toggle cancellation of a vote (firstPlace, secondPlace, or both)
+const toggleCancel = (index, place) => {
+  setRows(prevRows => {
+    const updatedRows = prevRows.map((row, rowIndex) => {
+      if (rowIndex === index) {
+        if (place === 'firstPlace') {
+          return {
+            ...row,
+            firstPlaceCanceled: !row.firstPlaceCanceled
+          };
+        } else if (place === 'secondPlace') {
+          return {
+            ...row,
+            secondPlaceCanceled: !row.secondPlaceCanceled
+          };
+        } else if (place === 'both') {
+          return {
+            ...row,
+            firstPlaceCanceled: !row.firstPlaceCanceled,
+            secondPlaceCanceled: !row.secondPlaceCanceled
+          };
+        }
+      }
+      return row;
+    });
+    localStorage.setItem('rows', JSON.stringify(updatedRows)); // Update local storage
+    return updatedRows;
+  });
+};
 
+console.log("counts: ", counts)
 return (
 <div className="content"  style={{
   backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
@@ -515,6 +549,8 @@ return (
   minHeight: '100vh'
   }}>
   
+  {/* <AnularVotos rows={rows} toggleCancel={toggleCancel} eliminados={eliminados} /> */}
+
 <Container className="containerPlaca"> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
     <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: -10}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
 
@@ -727,7 +763,9 @@ return (
   </Row>
 </Container>
 <Container className="containerVotaciones"> {/* CONTAINER CON LAS VOTACIONES */}
+<AnularVotos rows={rows} toggleCancel={toggleCancel} eliminados={eliminados} counts={counts}/>
       <Container style={{paddingBottom: 1, marginTop: '0px', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
+      
       <Table>
           <Row className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
             <Col className='tituloEspontanea' xs={1}>E</Col>
@@ -819,6 +857,7 @@ return (
                 className={`comboBox
                 ${row.checkedF ? 'fulminanteColor' : ''}
                 ${row.checked ? 'espontanea' : ''}
+                ${row.firstPlaceCanceled ? 'votoFinalDisabler' : ''}
                 ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota!== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
                 style={{
                 marginTop: '2.5px',
@@ -846,6 +885,9 @@ return (
               {row.participant === "Teléfono" && (
               <div className="columnaJugadoresNegrita espfulmFont" style={{backgroundColor: 'transparent'}}>{dosVotosEnContra}</div>
               )}
+              {row.firstPlaceCanceled && (
+              <div className="anulado" style={{backgroundColor: 'transparent'}}>{row.firstPlace}</div>
+              )}
             </Col>
 
 {/* COLUMNA 5, CON EL FORM SELECT PARA EL VOTO DE SEGUNDO LUGAR */}
@@ -857,6 +899,7 @@ return (
                 className={`comboBox
                 ${row.checkedF ? 'disabled' : ''}
                 ${row.checked ? 'espontanea' : ''}
+                ${row.secondPlaceCanceled ? 'votoFinalDisabler' : ''}
                 ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
                 style={{
                   marginTop: '2.5px',
@@ -878,6 +921,9 @@ return (
               )}
               {row.participant === eliminados.eliminado2 && (
               <div className="columnaJugadoresNegrita espfulmFont votoFinalSecondPlaceRow" style={{backgroundColor: 'transparent'}}>(voto final)</div>
+              )}
+              {row.secondPlaceCanceled && (
+              <div className="anulado" style={{backgroundColor: 'transparent'}}>{row.secondPlace}</div>
               )}
             </Col>
           </Row>
