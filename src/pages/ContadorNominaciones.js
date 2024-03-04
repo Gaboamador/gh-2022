@@ -537,7 +537,7 @@ const toggleCancel = (index, place) => {
   });
 };
 
-console.log("counts: ", counts)
+
 return (
 <div className="content"  style={{
   backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,

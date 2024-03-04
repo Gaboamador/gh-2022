@@ -1,12 +1,13 @@
-/*import React from "react";*/
 import React, { useState, useEffect } from "react";
 import '../App.css';
+import {Container, Row, Col, Button} from 'react-bootstrap'
 import gh from '../logo.png';
-import {Row, Col} from 'react-bootstrap';
-import {BsFillHouseFill} from 'react-icons/bs';
+import ghFooter from '../logoFooter.png';
 import { Link } from 'react-router-dom';
 import { navlist } from "./navMenu";
-import {AiOutlineRight, AiOutlineDown} from 'react-icons/ai';
+import { AiOutlineRight, AiOutlineDown } from 'react-icons/ai';
+import { BsChevronRight } from "react-icons/bs";
+import { TfiClose } from "react-icons/tfi";
 
 const Header = () => {
     const [sticky, setSticky] = useState(false);
@@ -27,8 +28,6 @@ const Header = () => {
       };
     }, []);
   
-  /*comienzo intento sidebar menu*/  
-
   const SidebarItem = ({ item, activeSubmenus, toggleSubmenu, closeSidebar, collapseAllSubmenus }) => {
     const isActive = activeSubmenus.includes(item);
     const hasSubmenu = item.submenu && item.submenu.length > 0;
@@ -105,6 +104,7 @@ const Header = () => {
           updatedNavlist[2].submenuOpen = false;
           updatedNavlist[3].submenuOpen = false;
           setNavlistState(updatedNavlist);
+          document.body.classList.toggle('sidebar-open', !sidebarOpen);
       }
     
 
@@ -125,54 +125,75 @@ const Header = () => {
 
     const closeSidebar = () => {
       setSidebarOpen(false);
+      document.body.classList.toggle('sidebar-open', !sidebarOpen);
     };
-  /*fin intento sidebar menu*/
     
-    return (
+return (
+  
+  <div className={`${sidebarOpen ? 'sidebar-open' : ''}`} >
+    
+    <div className="sidebar-overlay" onClick={toggleSidebar}></div>
 
-  <header id="header" className={`header ${sticky ? "header--sticky" : ""}`}>
+<header id="header" className={`header ${sticky ? "header--sticky" : ""} ${sidebarOpen ? "header-sidebarOpen" : ""}`}>
   
   <div className={`navMenu ${sidebarOpen ? 'active' : ''}`}>
-<ul className="sidebar">
-        {navlist.map((item, index) => (
-          <SidebarItem
-            key={index}
-            item={item}
-            activeSubmenus={activeSubmenus}
-            toggleSubmenu={toggleSubmenu}
-            closeSidebar={closeSidebar}
-            collapseAllSubmenus={collapseAllSubmenus}
-          />
-        ))}
-      </ul>
+    <div className="navMenuHeader">
+    <div className="ml-auto">
+      <img src={gh} alt={""} width="40px" height="40px" style={{marginRight: '1rem'}}/>
+    </div>
+    <div className="d-flex align-items-center">
+      <h3 className="title-word-class">
+        <span className="title-word-nav">GRAN</span>
+        <span> </span>
+        <span className="title-word-nav second-word-nav">HERMANO</span>
+      </h3>
+    </div>
+    </div>
+    <ul className="sidebar">
+      {navlist.map((item, index) => (
+        <SidebarItem
+          key={index}
+          item={item}
+          activeSubmenus={activeSubmenus}
+          toggleSubmenu={toggleSubmenu}
+          closeSidebar={closeSidebar}
+          collapseAllSubmenus={collapseAllSubmenus}
+        />
+      ))}
+    </ul>
+    <footer className="navMenuFooter">
+    <div className="logoFooter">
+      <img src={ghFooter} alt={""} width="60px" height="60px"/>
+    </div>
+    </footer>
+  </div>
+    
+  <div className="d-flex justify-content-between align-items-center w-100 header-padding">
+    <button className={`openbtn ${sidebarOpen ? 'active' : ''}`} onClick={toggleSidebar}>
+    {sidebarOpen ? <TfiClose className={`iconNavMenu ${sidebarOpen ? 'active' : ''}`} /> : <BsChevronRight className={`iconNavMenu ${sidebarOpen ? 'active' : ''}`} />}
+    </button>
+
+    {/* {`d-flex align-items-center ${sidebarOpen ? 'hideHeader' : ''}`} */}
+    {/* <div className="d-flex align-items-center"> */}
+    <div className={`d-flex align-items-center ${sidebarOpen ? 'hideHeader' : 'showHeader'}`}>
+      <h3 className="title-word-class">
+        <span className="title-word">GRAN</span>
+        <span> </span>
+        <span className="title-word second-word">HERMANO</span>
+      </h3>
     </div>
     
-
-    <div className={`openbtn ${sidebarOpen ? 'active' : ''}`} onClick={toggleSidebar}>
-    {/* &#9776;  */}
-    {sidebarOpen ? '✖' : '☰'}
+{!sidebarOpen && (
+    // <div className="ml-auto">
+    <div className={`ml-auto ${sidebarOpen ? 'hideHeader' : 'showHeader'}`}>
+      <img src={gh} alt={""} width="40px" height="40px"/>
     </div>
+)}
+</div>
 
-    <div className="d-flex justify-content-between align-items-center w-100">
-    <div className="d-flex align-items-center">
-        <h3 className="title-word-class">
-          <span className="title-word">GRAN</span>
-          <span> </span>
-          <span className="title-word second-word">HERMANO</span>
-        </h3>
-        </div>
-        <div className="ml-auto">
-        {/* <Link to="/"> */}
-        <img src={gh} alt={""} width="40px" height="40px" style={{marginRight:10}}/>
-        {/* </Link> */}
-        </div>
-        {/* <Link to="/">
-          <BsFillHouseFill size={32} className="homeIcon" style={{marginLeft:10}}/>
-        </Link> */}
-      
-  </div>
 </header>
 
+    </div>
     );
   };
 
