@@ -7,6 +7,7 @@ import TitleChart from "../componentes/TitleChart";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
 import { Bar, Doughnut, chart} from "react-chartjs-2";
+import Context from "../context";
 
 ChartJS.register(...registerablesjs);
 
@@ -31,6 +32,8 @@ const GraficoVotos2 = ({participantName}) => {
 
   const [data, setData] = useState([]);
   const [participantsChart, setParticipantsChart] = useState([]);
+
+  const context= useContext(Context)
   
   useEffect(() => {
   const fetchData = async () => {
@@ -106,8 +109,8 @@ const jsonData2 = await response2.json();
 
   }, [data, participantsChart]);
 
-  const selectedColor = 'rgba(193, 56, 219, 1)';
-  const defaultColor = 'rgba(32, 42, 234, 1)';
+  const selectedColor = context.paleta.secundarioClaro;
+  const defaultColor = context.paleta.primario;
 
   const updatedSeriesData = chartData.seriesData.map((item, index) => ({
     value: item,
@@ -131,6 +134,9 @@ const jsonData2 = await response2.json();
         },
         xAxis: {
             type: 'value',
+            axisLabel: {
+              show: false,
+            }
           },
           yAxis: {
             type: 'category',

@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import { useData } from '../data/votacionesData';
 // import { participantsChart } from '../data/participantsData';
 import { participantsToImage } from '../data/participantsToImage';
+import Titulos from '../componentes/Titulos';
 
 
 
@@ -80,14 +81,7 @@ useEffect(() => {
 
 
 return (
-<div className="content" style={{
-backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
-backgroundSize: 'cover',
-backgroundRepeat: 'no-repeat',
-backgroundPosition: 'center center',
-zIndex: -1,
-minHeight: '100vh'
-}}>
+<div className="content">
  
   {/* <Container style={{marginBottom:10}}> */}
   <Container style={{display:'flex', alignItems: 'center'}}>
@@ -120,24 +114,21 @@ minHeight: '100vh'
   </Row>
 </Container>
 
-    
-  <Container style={{marginBottom:5}}>
-  <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE VOTACIONES DE {selectedName.toUpperCase()}</h6>
-  </Container>
+  <Titulos titulo = "detalle de votaciones de" participante={selectedName}/>
 
   <Container style={{paddingBottom: 5}}> {/*TABLA CON DETALLE DE VOTACIONES DE JUGADOR SELECCIONADO*/}
-    <Table striped bordered hover className="center">
+    <Table striped bordered hover className="tablaGeneral">
       <thead>
-        <tr className='encabezadoVotaciones' style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Semana</th>
-        <th className='tituloTablaDetalleVotosJugador'style={{backgroundColor: 'transparent'}}>Primer Lugar</th>
-        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Segundo Lugar</th>
+        <tr>
+        <th>Semana</th>
+        <th>Primer Lugar</th>
+        <th>Segundo Lugar</th>
         </tr>
       </thead>
-      <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
+      <tbody>
         {results.map((result, index) => (
         <tr key={index}>
-        <td className='comboBoxNominAnteriores'>{result.week}</td>
+        <td>{result.week}</td>
         {result.vote.length === 1 && (
         <td colSpan={2}>{result.vote[0]}</td>
         )}

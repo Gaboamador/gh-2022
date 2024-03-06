@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { Container, Table, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Titulos from '../componentes/Titulos';
 
 const VotacionesPorSemana = () => {
 
@@ -70,15 +71,7 @@ const [selectedOption, setSelectedOption] = useState(0);
 const weekNumber = parseInt(selectedOption) + 1;
 console.log(data, "data")
 return (
-<div className="content" style={{
-backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
-backgroundSize: 'cover',
-backgroundRepeat: 'no-repeat',
-backgroundPosition: 'center center',
-zIndex: -1,
-paddingTop: 20,
-minHeight: '100vh'
-}}>
+<div className="content">
 
 <Container style={{marginBottom:10}}> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
     <FormSelect value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}
@@ -88,21 +81,18 @@ minHeight: '100vh'
     </FormSelect>
   </Container>
 
-  
-  <Container style={{marginBottom:5}}>
-  <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">DETALLE DE VOTACIONES {weekNumber}° SEMANA</h6>
-  </Container>
+  <Titulos titulo = "detalle de votaciones" semana= {weekNumber}/>
 
   <Container style={{paddingBottom: 5}}> {/*TABLA CON DETALLE DE VOTACIONES DE SEMANA SELECCIONADA*/}
-    <Table striped bordered hover className="center">
+    <Table striped bordered hover className="tablaGeneral">
       <thead>
-        <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Jugador</th>
-          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Primer Lugar</th>
-          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Segundo Lugar</th>
+        <tr >
+          <th>Jugador</th>
+          <th>Primer Lugar</th>
+          <th>Segundo Lugar</th>
         </tr>
       </thead>
-      <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
+      <tbody>
         {data[selectedOption].map((row, index) => (
         <tr
         key={index}
@@ -118,7 +108,7 @@ minHeight: '100vh'
           row.anulado2 ? 'anulado2-row' : ''
         }
         >        
-          <td className='comboBoxNominAnteriores'>{row[0]}</td>
+          <td>{row[0]}</td>
           {row.length === 2 && (
           <td colSpan={2}>{row[1]}</td>
           )}
@@ -136,10 +126,10 @@ minHeight: '100vh'
       <tr>
         <td colSpan={3}>
           {data[selectedOption].some(row => row.espontanea) && (
-            <span style={{ backgroundColor: 'rgba(36,38,212,0.9)', color: 'white', padding: '5px', borderRadius: '10px' }}>Espontánea</span>
+            <p style={{ backgroundColor: 'rgb(10, 51, 90)', color: 'white', padding: '5px 15px', borderRadius: '8px', marginBlockEnd: '0px' }}>Espontánea</p>
           )}
           {data[selectedOption].some(row => row.fulminante) && (
-            <span style={{ backgroundColor: 'rgba(171,52,191,0.9)', color: 'white', padding: '5px', borderRadius: '10px' }}>Fulminante</span>
+            <p style={{ backgroundColor: 'rgb(96, 38, 151)', color: 'white', padding: '5px 15px', borderRadius: '8px', marginBlockEnd: '0px' }}>Fulminante</p>
           )}
         </td>
       </tr>

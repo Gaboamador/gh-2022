@@ -96,14 +96,14 @@ const GraficoVotos3 = ({participantName}) => {
     }
 
     return (
-      <Table striped bordered hover className="center" style={{marginBottom: 30}}>
+      <Table striped bordered hover className="tablaGeneral">
         <thead>
-          <tr className='encabezadoVotaciones' style={{ backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})` }}>
-            <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Participante</th>
-            <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Nominaciones</th>
+          <tr>
+            <th>Participante</th>
+            <th>Nominaciones</th>
           </tr>
         </thead>
-        <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})` }}>
+        <tbody>
           {tableRows}
         </tbody>
       </Table>

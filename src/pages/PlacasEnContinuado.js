@@ -4,6 +4,7 @@ import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} fr
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import { dataPlaca } from '../data/placasData';
 import { ImSortNumbericDesc, ImTable2 } from 'react-icons/im';
+import Titulos from '../componentes/Titulos';
 
 const PlacasEnContinuado = () => {
 
@@ -48,49 +49,74 @@ const nominatedByWeek = nominated.reduce((acc, cur) => {
     }, {});
 
 return (
-    <div className="content" style={{
-    backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center center',
-    zIndex: -1,
-    paddingTop: 20,
-    minHeight: '100vh'
-    }}>
+    <div className="content">
 
-<Container style={{marginBottom:10}}>
-  <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">LISTADO DE PLACAS</h6>
-</Container>
-<Container style={{paddingBottom: 5}}>
-  <Table striped bordered hover className="center">
-    <thead style={{background:'rgba(40,43,242,0.5)'}}>
-      <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-      <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Semana</th>
-        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Nombre</th>
-        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Resultado</th>
+<Titulos titulo = "listado de placas"/>
+
+<Container>
+  {/* <Table striped bordered hover className="tablaGeneralEspecial">
+    <thead>
+      <tr>
+        <th>SEMANA</th>
+        <th>NOMBRE</th>
+        <th>RESULTADO</th>
       </tr>
     </thead>
-    <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`, backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat'}}>
+    <tbody>
   {Object.values(nominatedByWeek).map((nominee, index) => (
     <React.Fragment key={index}>
       <tr>
-        <td rowSpan={nominee.names.length} className='comboBoxNominAnteriores'>{nominee.week}</td>
-        <td className='comboBoxNominAnteriores'>{nominee.names[0]}</td>
-        <td style={{backgroundColor: 'transparent'}}>{nominee.results[0]}</td>
+        <td rowSpan={nominee.names.length}>{nominee.week}</td>
+        <td>{nominee.names[0]}</td>
+        <td>{nominee.results[0]}</td>
       </tr>
       {nominee.names.slice(1).map((name, i) => (
         <tr key={i}>
-          <td style={{ backgroundColor: nominee.results[i + 1].includes('Eliminado') ? 'rgba(171,52,191,0.6)' : 'inherit',
-        color: nominee.results[i + 1].includes('Eliminado') ? 'white' : 'inherit' }}>{name}</td>
-          <td style={{ backgroundColor: nominee.results[i + 1].includes('Eliminado') ? 'rgba(171,52,191,0.6)' : 'inherit',
-        color: nominee.results[i + 1].includes('Eliminado') ? 'white' : 'inherit' }}>{nominee.results[i + 1]}</td>
+          <td>{name}</td>
+          <td style={{ backgroundColor: nominee.results[i + 1].includes('Eliminado') ? 'rgba(171,52,191,1)' : 'inherit',
+        color: nominee.results[i + 1].includes('Eliminado') ? 'black' : 'inherit' }}>{nominee.results[i + 1]}</td>
         </tr>
       ))}
     </React.Fragment>
   ))}
 </tbody>
-  </Table>
+  </Table> */}
+<Table striped bordered hover className="tablaGeneralEspecial">
+  <thead>
+    <tr>
+      <th>NOMBRE</th>
+      <th>RESULTADO</th>
+    </tr>
+  </thead>
+  <tbody>
+    {Object.values(nominatedByWeek).map((nominee, index) => (
+      <React.Fragment key={index}>
+        {nominee.names.map((name, i) => (
+          <tr key={`${index}-${i}`}>
+            {i - 1 === 0 && (
+            <td colSpan="3" className={nominee.week === 1 ? "separator2" : "separator"}></td>)} 
+          </tr>
+        ))}
+        {nominee.names.map((name, i) => (
+          <tr key={`${index}-${i}`}>
+            {i === 0 && (
+            <td colSpan="3" className="week-begin">{'SEMANA ' + nominee.week}</td>)}
+          </tr>
+        ))}
+        {nominee.names.map((name, i) => (
+          <tr key={`${index}-${i}`}>
+            <td className={nominee.results[i].includes('Eliminado') ? 'row-eliminado' : ''}>{name}</td>
+            <td className={nominee.results[i].includes('Eliminado') ? 'row-eliminado' : ''}>{nominee.results[i]}</td>
+          </tr>
+        ))}
+      </React.Fragment>
+    ))}
+  </tbody>
+</Table>
+
+
+
+
 </Container>
 
   </div>

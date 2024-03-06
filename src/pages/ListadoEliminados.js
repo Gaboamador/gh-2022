@@ -4,6 +4,7 @@ import { Button, Container, Table } from 'react-bootstrap';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { ImSortNumbericDesc } from 'react-icons/im';
 import { BsTable } from 'react-icons/bs';
+import Titulos from '../componentes/Titulos';
 
 const ListadoEliminados = () => {
 
@@ -49,47 +50,36 @@ const sortedData = sortOrder
   : eliminated;
 
 return (
-    <div className="content" style={{
-    backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center center',
-    zIndex: -1,
-    paddingTop: 20,
-    minHeight: '100vh'
-    }}>
+    <div className="content">
 
-<Container style={{marginBottom:10}}>
-  <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">LISTADO DE ELIMINADOS</h6>
-</Container>
+<Titulos titulo = "listado de eliminados"/>
 
-<Container style={{paddingBottom:10, marginTop:10}}>
-    <><Button onClick={handleSort} className='buttonSort'>
+<Container>
+    <Button onClick={handleSort} className='buttonSort'>
         {sortOrder ? "Mostrar por defecto " : "Ordenar "}
         {sortOrder ? <BsTable /> : <ImSortNumbericDesc />}
     </Button>
-    <Table striped bordered hover className="center">
-        <thead style={{ background: 'rgba(40,43,242,0.5)' }}>
-        <tr className='encabezadoVotaciones' style={{ marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})` }}>
-        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Semana</th>
-        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Nombre</th>
-        <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Resultado</th>
+    <Table striped bordered hover className="tablaGeneral">
+        <thead>
+        <tr>
+        <th>SEMANA</th>
+        <th>NOMBRE</th>
+        <th>RESULTADO</th>
         </tr>
         </thead>
-        <tbody style={{ background: 'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
+        <tbody>
         {sortedData.map(eliminatedPlayer => (
         <tr key={eliminatedPlayer.key}>
-        <td className='comboBoxNominAnteriores'>{eliminatedPlayer.week}</td>
+        <td>{eliminatedPlayer.week}</td>
         <td>{eliminatedPlayer.name}</td>
         <td>{eliminatedPlayer.result}</td>
         </tr>
         ))}
         </tbody>
-    </Table></>
-
+    </Table>
 </Container>
 
-  </div>
+</div>
 );
 };
 export default ListadoEliminados;

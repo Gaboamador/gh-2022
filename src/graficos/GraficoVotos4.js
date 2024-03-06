@@ -1,11 +1,12 @@
-import React, {useState, useEffect } from "react";
+import React, {useState, useEffect, useContext } from "react";
 import ReactEcharts from "echarts-for-react";
-import { Row, Col, Accordion, Collapse } from "react-bootstrap";
+import { Row, Col, Accordion, Collapse, Container} from "react-bootstrap";
 // import { useData } from "../data/votacionesData";
 import TitleChart from "../componentes/TitleChart";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
 import { Bar, Doughnut, chart} from "react-chartjs-2";
+import Context from "../context";
 
 ChartJS.register(...registerablesjs);
 
@@ -30,6 +31,8 @@ const GraficoVotos4 = ({participantName}) => {
 
   const [data, setData] = useState([]);
   
+  const context= useContext(Context)
+
   useEffect(() => {
   const fetchData = async () => {
   try {
@@ -109,24 +112,44 @@ const GraficoVotos4 = ({participantName}) => {
 
   
     const option = {
+        color: context.paleta.primario,
         xAxis: {
             type: 'category',
             data: weeks.map((week) => `S. ${week}`),
+            position: 'top',
+            offset: 7,
             axisLabel: {
-              color: 'black',
+              color: context.paleta.secundarioClaro,
               interval: 0, // muestra todas las etiquetas
               // rotate: 90,
               // margin: 20,
           },
+          splitLine: {
+            show: true, // Show the vertical lines
+          },
           },
           yAxis: {
             type: 'value',
+            max: function (value) {
+              return value.max + 1;
+          },
+            axisLabel: {
+              show: false,
+            },
           },
           series: filteredSeries,
           label: {
             show: true,
-            formatter: '{c}',
-            position: 'right',
+            formatter: function (props) {
+              console.log("props: ",props)
+              if(props.value === 0) {
+                // return props.seriesName
+                return null
+              } else {
+                return props.value
+              }
+            },
+            color: context.paleta.primario,
           },
           grid: {
             top: '10%',
@@ -244,7 +267,7 @@ const [isChartVisible, setChartVisibility] = useState(false);
 )} */}
 
 <Collapse in={isChartVisible}>
-<Accordion defaultActiveKey="0" style={{marginBottom: 30}} className="custom-accordion">
+<Accordion defaultActiveKey="0" style={{marginBottom: 10}} className="custom-accordion">
         {contributorsData.map((weekData, index) => {
           if (!weekData) {
             return null;

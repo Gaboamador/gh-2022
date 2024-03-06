@@ -67,7 +67,7 @@ fetchData();
   };
 
   return (
-<div className="contentChart">
+<div className="content">
 {/* <div className="contentChart" style={{minHeight: '100vh'}}> */}
 
 <Container style={{display:'flex', alignItems: 'center'}}>

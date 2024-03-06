@@ -6,6 +6,7 @@ import { Container, Collapse} from "react-bootstrap";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
 import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
 import { Bar, Doughnut, chart} from "react-chartjs-2";
+import ReactEcharts from "echarts-for-react";
 // import {participantsChart} from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
 import { participantsToImage } from "../data/participantsToImage";
@@ -35,6 +36,8 @@ const GraficoVotos1 = ({participantName}) => {
   
   const [data, setData] = useState([]);
   const [participantsChart, setParticipantsChart] = useState([]);
+
+  const context= useContext(Context)
   
   useEffect(() => {
   const fetchData = async () => {
@@ -230,7 +233,90 @@ const dataEntries = voteCounts[participantName] ? Object.entries(voteCounts[part
             },
             backgroundColor: "rgba(255, 255, 255, 0.5)", // set the background color to a semi-transparent white
 };
+
+const options = {
+  color: [context.paleta.secundarioClaro],
+  series: [
+    {
+      name: 'Veces votado',
+      data: sortedData,
+      type: 'bar',
+      itemStyle: {
+        color: context.paleta.primario,
+      },
+      label: {
+        show: true,
+      }
+    },
+    {
+      name: 'Votos dados',
+      data: sortedDataGiven,
+      type: 'effectScatter',
+      colorBy: 'series',
+      symbol: 'pin',
+      label: {
+        show: true,
+        position: 'top',
+        color: context.paleta.secundarioClaro,
+        fontWeight: 'bold',
+        distance: 10,
+      }
+    },
+  ],
+  legend: {
+    show: true,
+    top: 5,
+  },
+  xAxis: {
+    type: 'category',
+    data: sortedLabels,
+    axisLabel: {
+      color: 'black',
+      interval: 0, // muestra todas las etiquetas
+      rotate: 90,
+  },
+    axisTick: {
+      show: false,
+    },
+    splitLine: {
+      show: true,
+      lineStyle: {
+        color: 'rgba(0, 0, 0, 0.1)',
+      },
+    },
+  },
   
+  yAxis: {
+    type: 'value',
+    max: function (value) {
+      return value.max + 1;
+  },
+    axisLabel: {
+      show: false,
+    },
+    axisTick: {
+      show: false,
+    },
+    splitLine: {
+      show: true,
+      lineStyle: {
+        color: 'rgba(0, 0, 0, 0.1)',
+      },
+    },
+  },
+  grid: {
+    top: '15%',
+    left: '5%',
+    right: '5%',
+    bottom: '10%',
+    containLabel: true,
+  },
+  tooltip: {
+    trigger: 'axis',
+  },
+};
+
+
 
 const [isChartVisible, setChartVisibility] = useState(false);
 
@@ -251,8 +337,9 @@ const [isChartVisible, setChartVisibility] = useState(false);
 
        <Collapse in={isChartVisible}>
         <div>
-      <Bar data={chartData} plugins={[ChartDataLabels]} options={chartOptions}
-      className='grafico'/>
+      {/* <Bar data={chartData} plugins={[ChartDataLabels]} options={chartOptions} 
+      className='grafico'/> */}
+      <ReactEcharts option={options} className='grafico'/>
       </div>
       </Collapse>
 

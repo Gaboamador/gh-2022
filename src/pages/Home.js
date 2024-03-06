@@ -69,7 +69,7 @@ fetchData();
   
 
 return (
-<div className="contentHome">
+<div className="content">
 
 {/* <Container className="navigation">
   {icons.map((item, index) => (

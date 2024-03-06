@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import {Container, Table, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Titulos from '../componentes/Titulos';
 // import { useData } from '../data/votacionesData';
 // import { dataPlaca } from '../data/placasData';
 
@@ -37,18 +38,18 @@ const weekNumber = parseInt(selectedOption) + 1;
 
 const DataTable = ({ week, data }) => {
   return (
-    <Table striped bordered hover className="center">
-      <thead style={{background:'rgba(40,43,242,0.5)'}}>
-        <tr className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Rol</th>
-          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Nombre</th>
-          <th className='tituloTablaDetalleVotosJugador' style={{backgroundColor: 'transparent'}}>Resultado</th>
+    <Table striped bordered hover className="tablaGeneral">
+      <thead>
+        <tr>
+          <th>ROL</th>
+          <th>NOMBRE</th>
+          <th>RESULTADO</th>
         </tr>
       </thead>
-      <tbody style={{background:'rgba(255,255,255,0.6)', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
+      <tbody>
         {data.map((row, index) => (
           <tr key={index}>
-            <td className='comboBoxNominAnteriores'>{row.role}</td>
+            <td>{row.role}</td>
             <td>{row.name}</td>
             <td>{row.result}</td>
           </tr>
@@ -60,15 +61,7 @@ const DataTable = ({ week, data }) => {
 
 
 return (
-<div className="content" style={{
-backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
-backgroundSize: 'cover',
-backgroundRepeat: 'no-repeat',
-backgroundPosition: 'center center',
-zIndex: -1,
-paddingTop: 20,
-minHeight: '100vh'
-}}>
+<div className="content">
 
 <Container style={{marginBottom:10}}> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
     <FormSelect value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}
@@ -78,11 +71,9 @@ minHeight: '100vh'
     </FormSelect>
   </Container>
 
-<Container style={{marginBottom:5}}>
-  <h6 style={{backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}} className="tituloTablasNomAnteriores">PLACA NOMINACIONES {weekNumber}° SEMANA</h6>
-  </Container>
-  
-  <Container style={{}}> {/*TABLA CON RESULTADOS PLACA DE SEMANA SELECCIONADA*/}
+  <Titulos titulo = "placa nominaciones" semana = {weekNumber}/>
+
+  <Container> {/*TABLA CON RESULTADOS PLACA DE SEMANA SELECCIONADA*/}
     {dataPlaca.map(w => {
     if (w.week === Number(selectedOption)) {
     return <DataTable key={w} data={w.data}/>;

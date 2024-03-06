@@ -137,7 +137,9 @@ return (
 <header id="header" className={`header ${sticky ? "header--sticky" : ""} ${sidebarOpen ? "header-sidebarOpen" : ""}`}>
   
   <div className={`navMenu ${sidebarOpen ? 'active' : ''}`}>
-    <div className="navMenuHeader">
+          {/* <div className={`navMenuHeaderTop ${sidebarOpen ? 'active' : ''}`}></div> */}
+    {/* <div className="navMenuHeader"> */}
+    <div className={`navMenuHeader ${sidebarOpen ? 'active' : ''}`}>
     <div className="ml-auto">
       <img src={gh} alt={""} width="40px" height="40px" style={{marginRight: '1rem'}}/>
     </div>
@@ -161,9 +163,10 @@ return (
         />
       ))}
     </ul>
-    <footer className="navMenuFooter">
+    {/* <footer className="navMenuFooter"> */}
+    <footer className={`navMenuFooter ${sidebarOpen ? 'active' : ''}`}>
     <div className="logoFooter">
-      <img src={ghFooter} alt={""} width="60px" height="60px"/>
+      <img src={ghFooter} alt={""} className="footerImgSize"/>
     </div>
     </footer>
   </div>

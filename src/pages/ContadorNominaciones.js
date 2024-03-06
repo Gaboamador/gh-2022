@@ -539,15 +539,7 @@ const toggleCancel = (index, place) => {
 
 
 return (
-<div className="content"  style={{
-  backgroundImage: `url(${require('../pictures/FondoPlaca.jpg')})`,
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center center',
-  zIndex: -1,
-  paddingTop: 20,
-  minHeight: '100vh'
-  }}>
+<div className="content">
   
   {/* <AnularVotos rows={rows} toggleCancel={toggleCancel} eliminados={eliminados} /> */}
 
@@ -750,7 +742,7 @@ return (
     </Container>
 </Container>
 
-<Container style={{marginTop: '20px'}}>
+<Container style={{marginTop: '20px', marginBottom: '15px'}}>
 <Row>
   <Col xs={1}>
   </Col>
@@ -762,24 +754,26 @@ return (
   </Col>
   </Row>
 </Container>
-<Container className="containerVotaciones"> {/* CONTAINER CON LAS VOTACIONES */}
+{/* <Container className="containerVotaciones"> CONTAINER CON LAS VOTACIONES */}
+<Container> {/* CONTAINER CON LAS VOTACIONES */}
 <AnularVotos rows={rows} toggleCancel={toggleCancel} eliminados={eliminados} counts={counts}/>
-      <Container style={{paddingBottom: 1, marginTop: '0px', backgroundImage: `url(${require('../pictures/FondoPlaca2.jpg')})`}}>
       
-      <Table>
-          <Row className='encabezadoVotaciones' style={{marginBottom: '10px', backgroundImage: `url(${require('../pictures/HeaderVotaciones.jpg')})`}}>
-            <Col className='tituloEspontanea' xs={1}>E</Col>
-            <Col className='tituloFulminante' xs={1}>F</Col>
-            <Col className='tituloTablaDetalleVotosJugador'
-             style={{marginLeft: '-1px'}}>JUGADOR</Col>
-            <Col className='tituloTablaDetalleVotos1erLugar'>1er LUGAR</Col>
-            <Col className='tituloTablaDetalleVotos2doLugar'>2do LUGAR</Col>
-          </Row>
-          
-        {rows.map((row, index) => (
+      
+      <Table className="tablaNominaciones">
+         <thead>
+         <tr>
+            <th className='tituloEspontanea'>E</th>
+            <th className='tituloFulminante'>F</th>
+            <th className='tituloTablaDetalleVotosJugador'>JUGADOR</th>
+            <th className='tituloTablaDetalleVotos1erLugar'>1er LUGAR</th>
+            <th className='tituloTablaDetalleVotos2doLugar'>2do LUGAR</th>
+          </tr> 
+          </thead>
 
+<tbody>
+        {rows.map((row, index) => (
 // FORMATO DE COLOR PARA CADA UNA DE LAS FILAS COMPLETAS
-          <Row
+          <tr
           key={index}
           style={
             row.checked ?
@@ -794,7 +788,7 @@ return (
             }>
 
 {/* COLUMNA 1, CON EL CHECKBOX PARA LA ESPONTÁNEA */}
-            <Col xs={1} style={{marginLeft:'-7px'}}>
+            <td >
               <FormCheck
               type="checkbox"
               style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}
@@ -807,10 +801,10 @@ return (
               ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || (invitado !== "" && row.participant.includes(invitado)) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
-            </Col>
+            </td>
 
 {/* COLUMNA 2, CON EL CHECKBOX PARA LA FULMINANTE */}
-            <Col xs={1}>
+            <td >
               <FormCheck
               type="checkbox"
               style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}
@@ -823,10 +817,10 @@ return (
               ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || (invitado !== "" && row.participant.includes(invitado)) ? 'votoFinalDisabler' : ''}`}
               >
               </FormCheck>
-            </Col>
+            </td>
 
 {/* COLUMNA 3, CON LA LISTA DE NOMBRES DE PARTICIPANTES */}
-            <Col className="columnaJugadoresNegrita">
+            <td className="columnaJugadoresNegrita">
               <ListGroup
               // className={`columnaJugadoresNegrita ${row.checkedF ? 'espfulmFont' : ''} ${row.checked ? 'espfulmFont' : ''} `}
               className={`columnaJugadoresNegrita
@@ -839,18 +833,18 @@ return (
               {votoValeDoble.includes(row.participant) && "*"}
               </ListGroup>
               {row.participant === eliminados.eliminado1 && (
-              <div className="columnaJugadoresNegrita espfulmFont" style={{backgroundColor: 'transparent'}}>{eliminados.eliminado1}</div>
+              <div className="columnaJugadoresNegrita espfulmFont" style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}>{eliminados.eliminado1}</div>
               )}
               {row.participant === eliminados.eliminado2 && (
-              <div className="columnaJugadoresNegrita espfulmFont" style={{backgroundColor: 'transparent'}}>{eliminados.eliminado2}</div>
+              <div className="columnaJugadoresNegrita espfulmFont" style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}>{eliminados.eliminado2}</div>
               )}
               {row.participant === "Teléfono" && (
-              <div className="columnaJugadoresNegrita telefono" style={{backgroundColor: 'transparent'}}>Teléfono</div>
+              <div className="columnaJugadoresNegrita telefono" style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}>Teléfono</div>
               )}
-            </Col>
+            </td>
 
 {/* COLUMNA 4, CON EL FORM SELECT PARA EL VOTO DE PRIMER LUGAR */}
-            <Col>
+            <td>
               <FormSelect
                 value={row.firstPlace}
                 // className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalFirstPlace' : ''}`}
@@ -888,10 +882,10 @@ return (
               {row.firstPlaceCanceled && (
               <div className="anulado" style={{backgroundColor: 'transparent'}}>{row.firstPlace}</div>
               )}
-            </Col>
+            </td>
 
 {/* COLUMNA 5, CON EL FORM SELECT PARA EL VOTO DE SEGUNDO LUGAR */}
-            <Col>
+            <td>
               <FormSelect
                 as="select"
                 disabled={row.checkedF || row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 }
@@ -925,16 +919,22 @@ return (
               {row.secondPlaceCanceled && (
               <div className="anulado" style={{backgroundColor: 'transparent'}}>{row.secondPlace}</div>
               )}
-            </Col>
-          </Row>
+            </td>
+          </tr>
         ))}
-        <footer className="columnaJugadoresNegrita votoValeDoble" style={{marginTop:10}}>
+        <tr className="columnaJugadoresNegrita votoValeDoble">
         {votoValeDoble.length !== 0 && (
-          <span>* Los votos valen doble</span>
+          <td className="columnaJugadoresNegrita votoValeDoble" colSpan="5">* Los votos valen doble</td>
           )}
-        </footer>
+        </tr>
+</tbody>
+{/* <tfooter className="columnaJugadoresNegrita votoValeDoble">
+        {votoValeDoble.length !== 0 && (
+          <p colSpan="5">* Los votos valen doble</p>
+          )}
+</tfooter> */}
       </Table>
-      </Container>
+      
 </Container>  
 
 <Container style={{marginTop: '12px'}}>
