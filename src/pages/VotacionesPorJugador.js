@@ -86,8 +86,10 @@ return (
   {/* <Container style={{marginBottom:10}}> */}
   <Container style={{display:'flex', alignItems: 'center'}}>
   {selectedParticipantData.map((participant) => (
-          <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5}}>
-            <Image src={participantsToImage[selectedName]} width="99px" height="105px" />
+          <div key={participant} style={{ alignItems: 'flex-end', padding: 5}}>
+            {/* <Image src={participantsToImage[selectedName]} width="99px" height="105px" /> */}
+            <Image className="fotoJugador" src={participantsToImage[participant]}/>
+          <div className="zocaloImagen">{participant.toUpperCase()}</div>
           </div>
         ))}
     <FormSelect onChange={handleChange}

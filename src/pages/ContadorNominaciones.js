@@ -4,8 +4,11 @@ import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Im
 // import { dataPlaca } from "../data/placasData";
 // import { participants } from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
+import LineaDivisoria1 from "../componentes/LineaDivisoria1";
+import LineaDivisoria2 from "../componentes/LineaDivisoria2";
 import AnularVotos from "../componentes/AnularVotos";
 // import { votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra } from "../data/modificadores";
+
 
 function ContadorNominaciones() {
   
@@ -17,7 +20,6 @@ function ContadorNominaciones() {
   // const [votoFinal, setVotoFinal] = useState("");
   const [votoFinal1, setVotoFinal1] = useState("");
   const [votoFinal2, setVotoFinal2] = useState("");
-  // const [nominado, setNominado] = useState([]);
   const [nominado, setNominado] = useState(null);
   const [noVota, setNoVota] = useState([]);
   const [inmune, setInmune] = useState([]);
@@ -537,53 +539,28 @@ const toggleCancel = (index, place) => {
   });
 };
 
-
+console.log("rows: ", rows)
 return (
 <div className="content">
-  
+
   {/* <AnularVotos rows={rows} toggleCancel={toggleCancel} eliminados={eliminados} /> */}
 
 <Container className="containerPlaca"> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
-    <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginBottom: -10}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
-
+    
+    <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
     
     {nominado && nominado.map((participant) => {
     return (
       <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
         {/*TEXTO NOMINADO*/}
         {nominado !== null ? (
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                color: 'white',
-                fontSize: 23,
-                fontFamily: 'Oswald-Regular',
-                fontWeight: 600,
-                // background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
-                background: "transparent",
-                marginBottom: -14,
-                borderBottomLeftRadius: 0,
-                borderTopLeftRadius: 15,
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 0,
-                width: 45,
-                zIndex: 1
-                }}>
-                
-              </div>
+        <div className="numerosPlaca nominado"></div>
         ) : null}
         {/*IMAGEN NOMINADO*/}
         {nominado !== null ? (
-                  <div style={{
-                    marginLeft: -45,
-                    paddingTop: 5,
-                    marginBottom: -30,
-                    paddingLeft: 10,
-                    paddingRight: 10,
-                    zIndex: 0
-                    }}>
-        <Image src={participantsToImage[participant]} width="99px" height="105px"/>
+        <div className="imagenPlaca">
+        <Image className="fotoJugador" src={participantsToImage[participant]}/>
+          <div className="zocaloImagen">{participant.toUpperCase()}</div>
         </div>
         ) : null}
       </div>
@@ -593,35 +570,13 @@ return (
       {fulminado === '' ? null : (
       <div style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
       {/*TEXTO F FULMINADO*/}
-      <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                color: 'white',
-                fontSize: 23,
-                fontFamily: 'Oswald-Regular',
-                fontWeight: 600,
-                background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
-                marginBottom: -14,
-                borderBottomLeftRadius: 0,
-                borderTopLeftRadius: 15,
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 0,
-                width: 45,
-                zIndex: 1
-                }}>
-                X
+      <div className="numerosPlaca">
+        X
       </div>
       {/*IMAGEN FULMINADO*/}
-      <div style={{
-                    marginLeft: -45,
-                    paddingTop: 5,
-                    marginBottom: -30,
-                    paddingLeft: 10,
-                    paddingRight: 10,
-                    zIndex: 0
-                    }}>
-        <Image src={participantsToImage[fulminado]} width="99px" height="105px"/>
+      <div className="imagenPlaca">
+        <Image className="fotoJugador" src={participantsToImage[fulminado]}/>
+          <div className="zocaloImagen">{fulminado.toUpperCase()}</div>
         </div>
     </div>
   )}
@@ -630,37 +585,16 @@ return (
       <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
         {/*NUMEROS PLACA ORDENADA*/}
         {index < 3 || count >= fourthCount ? (        
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                color: 'white',
-                fontSize: 23,
-                fontFamily: 'Oswald-Regular',
-                fontWeight: 600,
-                background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
-                marginBottom: -14,
-                borderBottomLeftRadius: 0,
-                borderTopLeftRadius: 15,
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 0,
-                width: 45,
-                zIndex: 1
-                }}>
-                {count}
-              </div>
+        <div className="numerosPlaca">
+          {count}
+        </div>
         ) : null}
         {/*IMAGEN PLACA ORDENADA*/}
         {index < 3 || count >= fourthCount ? (
-                  <div style={{
-                    marginLeft: -45,
-                    paddingTop: 5,
-                    marginBottom: -30,
-                    paddingLeft: 10,
-                    paddingRight: 10,
-                    zIndex: 0
-                    }}>
-        <Image src={participantsToImage[participant]} width="99px" height="105px"/>
+        <div className="imagenPlaca">
+          {/* <Image src={participantsToImage[participant]} width="99px" height="105px"/> */}
+          <Image className="fotoJugador" src={participantsToImage[participant]}/>
+          <div className="zocaloImagen">{participant.toUpperCase()}</div>
         </div>
         ) : null}
       </div>
@@ -668,65 +602,77 @@ return (
   })}
     </Container>    
     <Container id="zocaloEstadoVotacion"> {/* CONTAINER DE ZOCALO VOTACION PARCIAL/FINAL */}
-    {/*
-    <h6 className="placaNominados" style={estiloPlacaDeNominados}>
-    {rows.every(row => (row.firstPlace !== '' && row.secondPlace !== '') || (row.firstPlace !== '' && row.checkedF)) 
-    ? 'VOTACIÓN FINAL'
-    : rows.some(row => row.firstPlace !== '' || row.secondPlace !== '') 
-    ? 'VOTACIÓN PARCIAL'
-    : ''
-    }
-    </h6>
-    */}
-    <h6 className="placaNominados" style={estiloPlacaDeNominados}>
-    {rows.filter(row => !row.fulminated).every(row => (row.firstPlace !== '' || row.secondPlace !== '') || (row.firstPlace !== '' && row.checkedF)) 
+
+
+<div className="centerLoginBox">
+      
+
+
+      <div className={
+  rows.filter(row => 
+    !row.fulminated && 
+    row.participant !== eliminados.eliminado1 && 
+    row.participant !== eliminados.eliminado2 && 
+    row.participant !== "Teléfono" && 
+    (noVota === null || !noVota.includes(row.participant))
+  ).every(row => 
+    (row.firstPlace !== '' && row.secondPlace !== '') || 
+    (row.firstPlace !== '' && row.checkedF)
+  ) 
+  ? 'neon-title'
+  : ''
+}>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+
+      <h6 className="placaNominados" style={estiloPlacaDeNominados}>
+    {/* {rows.filter(row => !row.fulminated).every(row => (row.firstPlace !== '' || row.secondPlace !== '') || (row.firstPlace !== '' && row.checkedF)) 
     ? 'VOTACIÓN FINAL'
     : rows.filter(row => !row.fulminated).some(row => row.firstPlace !== '' || row.secondPlace !== '') 
     ? 'VOTACIÓN PARCIAL'
     : ''
-    }
+    } */}
+{
+  rows.filter(row => 
+    !row.fulminated && 
+    row.participant !== eliminados.eliminado1 && 
+    row.participant !== eliminados.eliminado2 && 
+    row.participant !== "Teléfono" && 
+    (noVota === null || !noVota.includes(row.participant))
+  ).every(row => 
+    (row.firstPlace !== '' && row.secondPlace !== '') || 
+    (row.firstPlace !== '' && row.checkedF)
+  ) 
+  ? 'VOTACIÓN FINAL'
+  : 'VOTACIÓN PARCIAL'
+}
     </h6>
+    
+    </div>
+</div>
+
     </Container>
 </Container>
 
+{sortedEntries.some(([participant, count], index) => index >= 3 && count < fourthCount) ? (
 <Container className="containerPlaca"> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
     <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
     {sortedEntries.map(([participant, count], index) => {          
       return (
-        <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 30 }}>
+        <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
           {/*NUMEROS FUERA DE PLACA ORDENADA*/}
           {index < 3 || count >= fourthCount ? null : (        
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                color: 'white',
-                fontSize: 23,
-                fontFamily: 'Oswald-Regular',
-                fontWeight: 600,
-                background: "linear-gradient(to top right, #ab34bf 0%, #1f185b 30%)",
-                marginBottom: -14,
-                borderBottomLeftRadius: 0,
-                borderTopLeftRadius: 15,
-                borderBottomRightRadius: 10,
-                borderTopRightRadius: 0,
-                width: 45,
-                zIndex: 1
-                  }}>
-                  {count}
-                </div>
+          <div className="numerosPlaca">
+            {count}
+          </div>
           )}
           {/*IMAGEN PLACA ORDENADA*/}
           {index < 3 || count >= fourthCount ? null : (
-                    <div style={{
-                      marginLeft: -45,
-                      paddingTop: 5,
-                      marginBottom: -30,
-                      paddingLeft: 10,
-                      paddingRight: 10,
-                      zIndex: 0
-                      }}>
-          <Image src={participantsToImage[participant]} width="99px" height="105px"/>
+          <div className="imagenPlaca">
+            <Image className="fotoJugador" src={participantsToImage[participant]}/>
+            <div className="zocaloImagen">{participant.toUpperCase()}</div>
           </div>
           )}
         </div>
@@ -741,23 +687,13 @@ return (
     </h6>
     </Container>
 </Container>
+) : null}
 
-<Container style={{marginTop: '20px', marginBottom: '15px'}}>
-<Row>
-  <Col xs={1}>
-  </Col>
-  <Col xs={8} className="lineaDivisoria2" style={{width:'60%'}}>
-  </Col>
-  <Col xs={1}>
-  </Col>
-  <Col xs={2} className="lineaDivisoria2" style={{width:'20%'}}>
-  </Col>
-  </Row>
-</Container>
-{/* <Container className="containerVotaciones"> CONTAINER CON LAS VOTACIONES */}
+<LineaDivisoria1/>
+
 <Container> {/* CONTAINER CON LAS VOTACIONES */}
+
 <AnularVotos rows={rows} toggleCancel={toggleCancel} eliminados={eliminados} counts={counts}/>
-      
       
       <Table className="tablaNominaciones">
          <thead>
@@ -775,23 +711,17 @@ return (
 // FORMATO DE COLOR PARA CADA UNA DE LAS FILAS COMPLETAS
           <tr
           key={index}
-          style={
-            row.checked ?
-            {background: "linear-gradient(to right, rgba(36,38,212,1) 0%, rgba(36,38,212,0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)",borderRadius: "20px"} :
-            row.checkedF ?
-            {background: "linear-gradient(to right, rgba(171,52,191,1) 0%, rgba(171,52,191,0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)",borderRadius: "20px"} :
-            row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 ?
-            {background: "linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(20, 91, 158,0.5) 10%, rgba(20, 91, 158,1) 50%, rgba(20, 91, 158,0.5) 90%, rgba(255,255,255,0) 99%)"} :
-            row.participant === "Teléfono" ?
-            {background: "linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 10%, rgba(178,0,0,1) 50%, rgba(178,0,0,0.5) 90%, rgba(255,255,255,0) 99%)"} :
-            {}
-            }>
+          className={`
+            ${row.checked ? 'espontaneaRow' : ''}
+            ${row.checkedF ? 'fulminanteRow' : ''}
+            ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 ? 'eliminadoRow' : ''}
+            ${row.participant === "Teléfono" ? 'telefonoRow' : ''}
+          `}>
 
 {/* COLUMNA 1, CON EL CHECKBOX PARA LA ESPONTÁNEA */}
             <td >
               <FormCheck
               type="checkbox"
-              style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}
               checked={row.checked}
               onChange={() => handleCheckbox(row.participant, index)}
               onClick={handleCheckboxClick}
@@ -807,7 +737,6 @@ return (
             <td >
               <FormCheck
               type="checkbox"
-              style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}
               checked={row.checkedF}
               onChange={() => handleCheckboxF(row.participant, index)}
               onClick={handleCheckboxClickF}
@@ -822,13 +751,13 @@ return (
 {/* COLUMNA 3, CON LA LISTA DE NOMBRES DE PARTICIPANTES */}
             <td className="columnaJugadoresNegrita">
               <ListGroup
-              // className={`columnaJugadoresNegrita ${row.checkedF ? 'espfulmFont' : ''} ${row.checked ? 'espfulmFont' : ''} `}
               className={`columnaJugadoresNegrita
               ${row.checkedF ? 'espfulmFont' : ''}
               ${row.checked ? 'espfulmFont' : ''}
               ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" ? 'votoFinalDisabler' : ''}
               ${votoValeDoble.includes(row.participant) ? 'votoValeDoble' : ''} `}
-              style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}>
+              style={{marginTop: '2.5px', marginBottom: '2.5px'}}
+              >
               {row.participant}
               {votoValeDoble.includes(row.participant) && "*"}
               </ListGroup>
@@ -847,7 +776,6 @@ return (
             <td>
               <FormSelect
                 value={row.firstPlace}
-                // className={`comboBox ${row.checkedF ? 'fulminanteColor' : ''} ${row.checked ? 'espontanea' : ''} ${row.participant === eliminado ? 'votoFinalFirstPlace' : ''}`}
                 className={`comboBox
                 ${row.checkedF ? 'fulminanteColor' : ''}
                 ${row.checked ? 'espontanea' : ''}
@@ -856,7 +784,6 @@ return (
                 style={{
                 marginTop: '2.5px',
                 marginBottom: '2.5px',
-                backgroundColor: 'transparent'
                 }}
                 onChange={e => handleFirstPlaceChange(index, e.target.value)}
                 disabled={row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2}
@@ -898,7 +825,6 @@ return (
                 style={{
                   marginTop: '2.5px',
                   marginBottom: '2.5px',
-                  backgroundColor: 'transparent'
                   }}
                 onChange={e => handleSecondPlaceChange(index, e.target.value)}>
                 <option value="">-</option>
@@ -928,31 +854,14 @@ return (
           )}
         </tr>
 </tbody>
-{/* <tfooter className="columnaJugadoresNegrita votoValeDoble">
-        {votoValeDoble.length !== 0 && (
-          <p colSpan="5">* Los votos valen doble</p>
-          )}
-</tfooter> */}
       </Table>
       
 </Container>  
 
-<Container style={{marginTop: '12px'}}>
-<Row>
-  <Col xs={1} className="lineaDivisoria2" style={{width:'5%', marginLeft:20}}>
-  </Col>
-  <Col xs={2}>
-  </Col>
-  <Col xs={4} className="lineaDivisoria2" style={{width:'60%'}}>
-  </Col>
-  <Col xs={2}>
-  </Col>
-  </Row>
-</Container>
+<LineaDivisoria2/>
 
 
-<Container> {/* CONTAINER CON BOTÓN DE REINICIAR */}
-  <Container> {/*BOTÓN REINICIAR*/}
+  <Container className="containerBotonReiniciar"> {/*BOTÓN REINICIAR*/}
     <Row>
       <Col xs={12} style={{display: 'flex', justifyContent: 'center'}}>
       <>
@@ -975,7 +884,9 @@ return (
         </Col>
     </Row>
   </Container>
-</Container>
+
+
+
 
 
 </div>

@@ -94,8 +94,10 @@ return (
            style={{ textDecoration: "none" }}
            key={participant}
          >
-          <div style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5 }}>
-            <Image src={participantsToImage[participant]} width="99px" height="105px"/>
+          <div style={{ alignItems: 'flex-end', padding: 5 }}>
+            {/* <Image src={participantsToImage[participant]} width="99px" height="105px"/> */}
+            <Image className="fotoJugador" src={participantsToImage[participant]}/>
+          <div className="zocaloImagen">{participant.toUpperCase()}</div>
           </div>
           </Link>
         ))}
@@ -111,8 +113,10 @@ return (
           style={{ textDecoration: "none" }}
           key={participant} 
         >
-          <div style={{ display: 'inline-flex', alignItems: 'flex-end', padding: 5 }}>
-            <Image src={participantsToImage[participant]} width="99px" height="105px" />
+          <div style={{ alignItems: 'flex-end', padding: 5 }}>
+            {/* <Image src={participantsToImage[participant]} width="99px" height="105px" /> */}
+            <Image className="fotoJugador" src={participantsToImage[participant]}/>
+          <div className="zocaloImagen">{participant.toUpperCase()}</div>
           </div>
           </Link>
         ))}
