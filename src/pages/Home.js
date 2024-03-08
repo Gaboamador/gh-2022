@@ -85,7 +85,7 @@ return (
 </Container> */}
 
  {/* Container for non-eliminated participants */}
- <h6 className="tituloParticipantes">PARTICIPANTES</h6>
+ <h6 className="tituloParticipantes">JUGADORES</h6>
  <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', padding: 5, marginBottom: 10 }}>
         {nonEliminatedParticipants.map((participant) => (
            <Link

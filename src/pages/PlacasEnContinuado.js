@@ -49,7 +49,7 @@ const nominatedByWeek = nominated.reduce((acc, cur) => {
     }, {});
 
 return (
-    <div className="content">
+    <div className="content" style={{margin:"-10px 0px"}}>
 
 <Titulos titulo = "listado de placas"/>
 

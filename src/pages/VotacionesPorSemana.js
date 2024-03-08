@@ -69,11 +69,11 @@ const [selectedOption, setSelectedOption] = useState(0);
     
 
 const weekNumber = parseInt(selectedOption) + 1;
-console.log(data, "data")
+
 return (
 <div className="content">
 
-<Container style={{marginBottom:10}}> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
+<Container style={{margin:"10px 0px"}}> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
     <FormSelect value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}
       style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
       className="selectNominAnteriores">

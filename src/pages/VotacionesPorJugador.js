@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import { participantsChart } from '../data/participantsData';
 import { participantsToImage } from '../data/participantsToImage';
 import Titulos from '../componentes/Titulos';
+import LineaDivisoriaToRight from '../componentes/LineaDivisoriaToRight';
 
 
 
@@ -86,7 +87,7 @@ return (
   {/* <Container style={{marginBottom:10}}> */}
   <Container style={{display:'flex', alignItems: 'center'}}>
   {selectedParticipantData.map((participant) => (
-          <div key={participant} style={{ alignItems: 'flex-end', padding: 5}}>
+          <div key={participant} style={{ alignItems: 'flex-end', padding: "5px 5px 0px 5px"}}>
             {/* <Image src={participantsToImage[selectedName]} width="99px" height="105px" /> */}
             <Image className="fotoJugador" src={participantsToImage[participant]}/>
           <div className="zocaloImagen">{participant.toUpperCase()}</div>
@@ -103,7 +104,7 @@ return (
     </FormSelect>
   </Container>
 
-  <Container style={{marginTop: 20, marginBottom: 20}}>
+  {/* <Container style={{marginTop: 20, marginBottom: 20}}>
 <Row>
   <Col xs={1}>
   </Col>
@@ -114,11 +115,12 @@ return (
   <Col xs={2} className="lineaDivisoria2" style={{width:'20%'}}>
   </Col>
   </Row>
-</Container>
+</Container> */}
+{/* <LineaDivisoriaToRight/> */}
 
   <Titulos titulo = "detalle de votaciones de" participante={selectedName}/>
 
-  <Container style={{paddingBottom: 5}}> {/*TABLA CON DETALLE DE VOTACIONES DE JUGADOR SELECCIONADO*/}
+  <Container> {/*TABLA CON DETALLE DE VOTACIONES DE JUGADOR SELECCIONADO*/}
     <Table striped bordered hover className="tablaGeneral">
       <thead>
         <tr>

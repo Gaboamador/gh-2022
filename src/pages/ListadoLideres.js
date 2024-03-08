@@ -51,7 +51,7 @@ dataPlaca.forEach(week => {
 });
 
 return (
-    <div className="content">
+    <div className="content" style={{margin:"-10px 0px"}}>
 
 <Titulos titulo = "listado de líderes"/>
 

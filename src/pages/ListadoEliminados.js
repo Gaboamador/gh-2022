@@ -50,13 +50,13 @@ const sortedData = sortOrder
   : eliminated;
 
 return (
-    <div className="content">
+    <div className="content" style={{margin:"-10px 0px"}}>
 
 <Titulos titulo = "listado de eliminados"/>
 
 <Container>
     <Button onClick={handleSort} className='buttonSort'>
-        {sortOrder ? "Mostrar por defecto " : "Ordenar "}
+        {sortOrder ? "Ordernar por semana " : "Ordenar de mayor a menor "}
         {sortOrder ? <BsTable /> : <ImSortNumbericDesc />}
     </Button>
     <Table striped bordered hover className="tablaGeneral">

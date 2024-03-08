@@ -5,6 +5,7 @@ import Context from "../context";
 import { participantsToImage } from "../data/participantsToImage";
 import LineaDivisoria1 from "../componentes/LineaDivisoria1";
 import LineaDivisoria2 from "../componentes/LineaDivisoria2";
+import LineaDivisoriaToRight from "../componentes/LineaDivisoriaToRight";
 import GraficoVotos1 from "../graficos/GraficoVotos1";
 import GraficoVotos2 from "../graficos/GraficoVotos2";
 import GraficoVotos3 from "../graficos/GraficoVotos3";
@@ -72,7 +73,7 @@ fetchData();
 
 <Container style={{display:'flex', alignItems: 'center'}}>
   {selectedParticipantData.map((participant) => (
-          <div key={participant} style={{ alignItems: 'flex-end', padding: 5}}>
+          <div key={participant} style={{ alignItems: 'flex-end', padding: "5px 5px 0px 5px"}}>
             {/* <Image src={participantsToImage[selectedParticipant]} width="99px" height="105px"/> */}
             <Image className="fotoJugador" src={participantsToImage[participant]}/>
           <div className="zocaloImagen">{participant.toUpperCase()}</div>
@@ -90,7 +91,8 @@ fetchData();
   </FormSelect>
 </Container>
 
-<LineaDivisoria1/>
+{/* <LineaDivisoria1/> */}
+<LineaDivisoriaToRight/>
 
 <h6 className="titleChartType">Gráfico de Nominaciones Realizadas</h6>
 

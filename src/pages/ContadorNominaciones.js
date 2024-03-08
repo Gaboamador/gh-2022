@@ -43,7 +43,6 @@ function ContadorNominaciones() {
   // Fetch data from the third URL (MODIFICADORES)
   const response3 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/modificadores.json');
   const jsonData3 = await response3.json();
-  // setVotoFinal(jsonData3.votoFinal);
   setVotoFinal1(jsonData3.votoFinal1);
   setVotoFinal2(jsonData3.votoFinal2);
   setNominado(jsonData3.nominado);
@@ -421,6 +420,22 @@ if (fulminatedIndex !== -1) {
   };
   
   const [isConfirming, setIsConfirming] = useState(false);
+  
+  useEffect(() => {
+    if (isConfirming) {
+      // Disable scrolling when the confirmation dialog is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Re-enable scrolling when the confirmation dialog is closed
+      document.body.style.overflow = 'auto';
+    }
+
+    // Cleanup function to reset overflow style when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isConfirming]);
+
   const handleReset = () => {
     setRows(initialRows);
     setCounts({});
@@ -540,6 +555,7 @@ const toggleCancel = (index, place) => {
 };
 
 console.log("rows: ", rows)
+console.log("counts: ", counts)
 return (
 <div className="content">
 
@@ -619,13 +635,13 @@ return (
     (row.firstPlace !== '' && row.secondPlace !== '') || 
     (row.firstPlace !== '' && row.checkedF)
   ) 
-  ? 'neon-title'
+  ? 'neon-line'
   : ''
 }>
       <span></span>
       <span></span>
-      <span></span>
-      <span></span>
+      {/* <span></span>
+      <span></span> */}
 
       <h6 className="placaNominados" style={estiloPlacaDeNominados}>
     {/* {rows.filter(row => !row.fulminated).every(row => (row.firstPlace !== '' || row.secondPlace !== '') || (row.firstPlace !== '' && row.checkedF)) 
@@ -634,7 +650,7 @@ return (
     ? 'VOTACIÓN PARCIAL'
     : ''
     } */}
-{
+{/* {
   rows.filter(row => 
     !row.fulminated && 
     row.participant !== eliminados.eliminado1 && 
@@ -647,6 +663,22 @@ return (
   ) 
   ? 'VOTACIÓN FINAL'
   : 'VOTACIÓN PARCIAL'
+} */}
+{
+   (Object.keys(counts).length === 0 ? 'GALA DE NOMINACIÓN' :
+    rows.filter(row => 
+      !row.fulminated && 
+      row.participant !== eliminados.eliminado1 && 
+      row.participant !== eliminados.eliminado2 && 
+      row.participant !== "Teléfono" && 
+      (noVota === null || !noVota.includes(row.participant))
+    ).every(row => 
+      (row.firstPlace !== '' && row.secondPlace !== '') || 
+      (row.firstPlace !== '' && row.checkedF)
+    ) 
+    ? 'PLACA FINAL'
+    : 'PLACA PARCIAL'
+  )
 }
     </h6>
     
@@ -689,7 +721,10 @@ return (
 </Container>
 ) : null}
 
-<LineaDivisoria1/>
+{/* <LineaDivisoria1/> */}
+<div className="neon-line-divisoria-toRight">
+  <span></span>
+</div>
 
 <Container> {/* CONTAINER CON LAS VOTACIONES */}
 
@@ -749,7 +784,7 @@ return (
             </td>
 
 {/* COLUMNA 3, CON LA LISTA DE NOMBRES DE PARTICIPANTES */}
-            <td className="columnaJugadoresNegrita">
+            <td>
               <ListGroup
               className={`columnaJugadoresNegrita
               ${row.checkedF ? 'espfulmFont' : ''}
@@ -762,13 +797,13 @@ return (
               {votoValeDoble.includes(row.participant) && "*"}
               </ListGroup>
               {row.participant === eliminados.eliminado1 && (
-              <div className="columnaJugadoresNegrita espfulmFont" style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}>{eliminados.eliminado1}</div>
+              <div className="columnaJugadoresNegrita espfulmFont" style={{marginTop: '2.5px', marginBottom: '2.5px'}}>{eliminados.eliminado1}</div>
               )}
               {row.participant === eliminados.eliminado2 && (
-              <div className="columnaJugadoresNegrita espfulmFont" style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}>{eliminados.eliminado2}</div>
+              <div className="columnaJugadoresNegrita espfulmFont" style={{marginTop: '2.5px', marginBottom: '2.5px'}}>{eliminados.eliminado2}</div>
               )}
               {row.participant === "Teléfono" && (
-              <div className="columnaJugadoresNegrita telefono" style={{marginTop: '2.5px', marginBottom: '2.5px', backgroundColor: 'transparent'}}>Teléfono</div>
+              <div className="columnaJugadoresNegrita telefono" style={{marginTop: '2.5px', marginBottom: '2.5px'}}>Teléfono</div>
               )}
             </td>
 
@@ -790,7 +825,12 @@ return (
                 >
                 <option value="">-</option>
                 {participants
-                .filter(participant => !inmune.includes(participant))
+                // .filter(participant => !inmune.includes(participant))
+                .filter(participant =>
+                  participant !== row.participant &&
+                  !inmune.includes(participant) &&
+                  !row.secondPlace.includes(participant)
+                  )
                 .map(participant => (
                 <option key={participant} value={participant}>
                 {participant}
@@ -829,7 +869,11 @@ return (
                 onChange={e => handleSecondPlaceChange(index, e.target.value)}>
                 <option value="">-</option>
                 {participants
-                .filter(participant => !inmune.includes(participant))
+                // .filter(participant => !inmune.includes(participant))
+                .filter(participant =>
+                  participant !== row.participant &&
+                  !inmune.includes(participant) &&
+                  !row.firstPlace.includes(participant))
                 .map(participant => (
                 <option key={participant} value={participant}>
                 {participant}
@@ -848,9 +892,12 @@ return (
             </td>
           </tr>
         ))}
-        <tr className="columnaJugadoresNegrita votoValeDoble">
+        <tr>
         {votoValeDoble.length !== 0 && (
-          <td className="columnaJugadoresNegrita votoValeDoble" colSpan="5">* Los votos valen doble</td>
+          <>
+          <td></td>
+          <td></td>
+          <td className="columnaJugadoresNegrita votoValeDoble" colSpan="3">* Los votos valen doble</td></>
           )}
         </tr>
 </tbody>
@@ -858,7 +905,10 @@ return (
       
 </Container>  
 
-<LineaDivisoria2/>
+{/* <LineaDivisoria2/> */}
+<div className="neon-line-divisoria-toLeft">
+  <span></span>
+</div>
 
 
   <Container className="containerBotonReiniciar"> {/*BOTÓN REINICIAR*/}
@@ -866,10 +916,13 @@ return (
       <Col xs={12} style={{display: 'flex', justifyContent: 'center'}}>
       <>
             {isConfirming && (
-              <div className="container-neon-reiniciar" style={estiloBotonReiniciar}>
-                <h6>Esta acción eliminará todos los datos cargados. ¿Proceder?</h6>
-                <Button onClick={() => {handleReset(); setIsConfirming(false)}} variant="danger" className="fixed-width-reiniciar">Sí</Button>{' '}
-                <Button onClick={() => setIsConfirming(false)} variant="dark" className="fixed-width-reiniciar">No</Button>{' '}
+              <div className="sidebar-open">
+                <div className="sidebar-overlay"></div>
+                <div className="container-neon-reiniciar" style={estiloBotonReiniciar}>
+                  <h6>Esta acción eliminará todos los datos cargados. ¿Proceder?</h6>
+                  <Button onClick={() => {handleReset(); setIsConfirming(false)}} variant="danger" className="fixed-width-reiniciar">Sí</Button>{' '}
+                  <Button onClick={() => setIsConfirming(false)} variant="dark" className="fixed-width-reiniciar">No</Button>{' '}
+                </div>
               </div>
             )}
           </>
