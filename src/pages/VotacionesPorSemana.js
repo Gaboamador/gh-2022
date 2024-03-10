@@ -73,15 +73,15 @@ const weekNumber = parseInt(selectedOption) + 1;
 return (
 <div className="content">
 
-<Container style={{margin:"10px 0px"}}> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
-    <FormSelect value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}
-      style={{display:'flex', justifyContent:'center', alignItems:'center', width:'50%', margin:'auto'}}
-      className="selectNominAnteriores">
+  <Titulos titulo = "detalle de votaciones" semana= {weekNumber}/>
+
+<Container className="containerSelectNominAnteriores"> {/*COMBOBOX PARA SELECCIONAR SEMANA*/}
+    <FormSelect value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)} className="selectNominAnteriores">
       {options}
     </FormSelect>
   </Container>
 
-  <Titulos titulo = "detalle de votaciones" semana= {weekNumber}/>
+
 
   <Container style={{paddingBottom: 5}}> {/*TABLA CON DETALLE DE VOTACIONES DE SEMANA SELECCIONADA*/}
     <Table striped bordered hover className="tablaGeneral">

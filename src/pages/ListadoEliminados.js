@@ -50,7 +50,7 @@ const sortedData = sortOrder
   : eliminated;
 
 return (
-    <div className="content" style={{margin:"-10px 0px"}}>
+    <div className="content">
 
 <Titulos titulo = "listado de eliminados"/>
 

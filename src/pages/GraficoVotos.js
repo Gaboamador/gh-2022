@@ -70,7 +70,7 @@ fetchData();
   return (
 <div className="content">
 {/* <div className="contentChart" style={{minHeight: '100vh'}}> */}
-
+<div className="paddingContent"></div>
 <Container style={{display:'flex', alignItems: 'center'}}>
   {selectedParticipantData.map((participant) => (
           <div key={participant} style={{ alignItems: 'flex-end', padding: "5px 5px 0px 5px"}}>

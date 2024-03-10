@@ -83,6 +83,8 @@ useEffect(() => {
 
 return (
 <div className="content">
+
+<div className="paddingContent"></div>
  
   {/* <Container style={{marginBottom:10}}> */}
   <Container style={{display:'flex', alignItems: 'center'}}>

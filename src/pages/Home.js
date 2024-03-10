@@ -70,7 +70,7 @@ fetchData();
 
 return (
 <div className="content">
-
+<div className="paddingContent"></div>
 {/* <Container className="navigation">
   {icons.map((item, index) => (
     <Link to={item.to} key={index} className='icon'>

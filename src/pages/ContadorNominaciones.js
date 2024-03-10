@@ -554,23 +554,89 @@ const toggleCancel = (index, place) => {
   });
 };
 
+// Logica para actualizar el título y formatos según el título
+const [status, setStatus] = useState("");
+useEffect(() => {
+  var status;
+
+  if (Object.keys(counts).length === 0) {
+    status = "sin iniciar";
+  } else {
+    const isTerminated = rows.filter(row =>
+      !row.fulminated &&
+      row.participant !== eliminados.eliminado1 &&
+      row.participant !== eliminados.eliminado2 &&
+      row.participant !== "Teléfono" &&
+      (noVota === null || !noVota.includes(row.participant))
+    ).every(row =>
+      (row.firstPlace !== '' && row.secondPlace !== '') ||
+      (row.firstPlace !== '' && row.checkedF)
+    );
+
+    status = isTerminated ? "finalizado" : "en desarrollo";
+  }
+
+  setStatus(status);
+}, [counts]);
+let title;
+  if (status === "sin iniciar") {
+    title = <h6 className="placaNominados noIniciado" style={estiloPlacaDeNominados}><span>GALA DE NOMINACIÓN</span></h6>;
+  } else if (status === "finalizado") {
+    title = <h6 className="placaNominados" style={estiloPlacaDeNominados}>PLACA FINAL</h6>;
+  } else if (status === "en desarrollo") {
+    title = <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}><span>PLACA PARCIAL</span></h6>;
+  }
+
+
+  //Linea Divisoria hacia la derecha
+  let lineaDivisoriaToRight;
+  if (status === "sin iniciar" || status === "en desarrollo") {
+    lineaDivisoriaToRight = (
+      <div className="neon-line-divisoria-toRight">
+        <span></span>
+      </div>
+    );
+  } else if (status === "finalizado") {
+    lineaDivisoriaToRight = (
+      <div className="neon-line-divisoria-fija">
+        <span></span>
+      </div>
+    );
+  }
+
+  //Linea Divisoria hacia la izquierda
+  let lineaDivisoriaToLeft;
+  if (status === "sin iniciar" || status === "en desarrollo") {
+    lineaDivisoriaToLeft = (
+      <div className="neon-line-divisoria-toLeft">
+        <span></span>
+      </div>
+    );
+  } else if (status === "finalizado") {
+    lineaDivisoriaToLeft = (
+      <div className="neon-line-divisoria-fija">
+        <span></span>
+      </div>
+    );
+  }
+
 console.log("rows: ", rows)
 console.log("counts: ", counts)
 return (
 <div className="content">
-
+<div className="paddingContent"></div>
   {/* <AnularVotos rows={rows} toggleCancel={toggleCancel} eliminados={eliminados} /> */}
 
 <Container className="containerPlaca"> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
     
-    <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
+    <Container className="containerPlaca containerPlacaNominados" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
     
     {nominado && nominado.map((participant) => {
     return (
-      <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
+      <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
         {/*TEXTO NOMINADO*/}
         {nominado !== null ? (
-        <div className="numerosPlaca nominado"></div>
+        <div className="containerNumerosPlaca nominado"></div>
         ) : null}
         {/*IMAGEN NOMINADO*/}
         {nominado !== null ? (
@@ -584,10 +650,12 @@ return (
   })}
 
       {fulminado === '' ? null : (
-      <div style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
+      <div style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
       {/*TEXTO F FULMINADO*/}
-      <div className="numerosPlaca">
-        X
+      <div className="containerNumerosPlaca">
+        <div className="numerosPlaca">
+          X
+        </div>
       </div>
       {/*IMAGEN FULMINADO*/}
       <div className="imagenPlaca">
@@ -598,11 +666,13 @@ return (
   )}
   {sortedEntries.map(([participant, count], index) => {          
     return (
-      <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
+      <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
         {/*NUMEROS PLACA ORDENADA*/}
         {index < 3 || count >= fourthCount ? (        
-        <div className="numerosPlaca">
-          {count}
+        <div className="containerNumerosPlaca">
+          <div className="numerosPlaca">
+            {count}
+          </div>
         </div>
         ) : null}
         {/*IMAGEN PLACA ORDENADA*/}
@@ -635,37 +705,17 @@ return (
     (row.firstPlace !== '' && row.secondPlace !== '') || 
     (row.firstPlace !== '' && row.checkedF)
   ) 
-  ? 'neon-line'
+  ? 'neon-line-placaFinal'
   : ''
 }>
       <span></span>
       <span></span>
-      {/* <span></span>
-      <span></span> */}
 
-      <h6 className="placaNominados" style={estiloPlacaDeNominados}>
-    {/* {rows.filter(row => !row.fulminated).every(row => (row.firstPlace !== '' || row.secondPlace !== '') || (row.firstPlace !== '' && row.checkedF)) 
-    ? 'VOTACIÓN FINAL'
-    : rows.filter(row => !row.fulminated).some(row => row.firstPlace !== '' || row.secondPlace !== '') 
-    ? 'VOTACIÓN PARCIAL'
-    : ''
-    } */}
+      
 {/* {
-  rows.filter(row => 
-    !row.fulminated && 
-    row.participant !== eliminados.eliminado1 && 
-    row.participant !== eliminados.eliminado2 && 
-    row.participant !== "Teléfono" && 
-    (noVota === null || !noVota.includes(row.participant))
-  ).every(row => 
-    (row.firstPlace !== '' && row.secondPlace !== '') || 
-    (row.firstPlace !== '' && row.checkedF)
-  ) 
-  ? 'VOTACIÓN FINAL'
-  : 'VOTACIÓN PARCIAL'
-} */}
-{
-   (Object.keys(counts).length === 0 ? 'GALA DE NOMINACIÓN' :
+   (Object.keys(counts).length === 0 ?
+   <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}><span>GALA DE NOMINACIÓN</span></h6>
+   :
     rows.filter(row => 
       !row.fulminated && 
       row.participant !== eliminados.eliminado1 && 
@@ -676,11 +726,14 @@ return (
       (row.firstPlace !== '' && row.secondPlace !== '') || 
       (row.firstPlace !== '' && row.checkedF)
     ) 
-    ? 'PLACA FINAL'
-    : 'PLACA PARCIAL'
+    ?
+    <h6 className="placaNominados" style={estiloPlacaDeNominados}>PLACA FINAL</h6>
+    :
+    <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}><span>PLACA PARCIAL</span></h6>
   )
-}
-    </h6>
+} */}
+{title}
+    
     
     </div>
 </div>
@@ -689,18 +742,20 @@ return (
 </Container>
 
 {sortedEntries.some(([participant, count], index) => index >= 3 && count < fourthCount) ? (
-<Container className="containerPlaca"> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
+<Container className="containerPlaca" style={{ marginTop: -5 }}> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
     <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
     {sortedEntries.map(([participant, count], index) => {          
       return (
-        <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 40 }}>
+        <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
           {/*NUMEROS FUERA DE PLACA ORDENADA*/}
           {index < 3 || count >= fourthCount ? null : (        
-          <div className="numerosPlaca">
+          <div className="containerNumerosPlaca">
+            <div className="numerosPlaca">
             {count}
+            </div>
           </div>
           )}
-          {/*IMAGEN PLACA ORDENADA*/}
+          {/*IMAGEN FUERA DE PLACA ORDENADA*/}
           {index < 3 || count >= fourthCount ? null : (
           <div className="imagenPlaca">
             <Image className="fotoJugador" src={participantsToImage[participant]}/>
@@ -712,19 +767,22 @@ return (
     })}
     </Container>
     <Container> {/*CONTAINER CON EL ZOCALO FUERA DE PLACA*/}
-    <h6 className="placaNominados" style={estiloPlacaDeNominados}>
+    <h6 className="placaNominados fueraDePlaca" style={estiloPlacaDeNominados}>
       {sortedEntries.some(([participant, count], index) => {
         return (index >= 3 && count < fourthCount)
       }) ? 'FUERA DE PLACA' : null}
     </h6>
+
+    {/* <div className="neon-line-divisoria-toRight">
+      <span></span>
+    </div> */}
+    {lineaDivisoriaToRight}
     </Container>
 </Container>
 ) : null}
 
 {/* <LineaDivisoria1/> */}
-<div className="neon-line-divisoria-toRight">
-  <span></span>
-</div>
+
 
 <Container> {/* CONTAINER CON LAS VOTACIONES */}
 
@@ -902,13 +960,14 @@ return (
         </tr>
 </tbody>
       </Table>
-      
+ {lineaDivisoriaToLeft}     
 </Container>  
 
 {/* <LineaDivisoria2/> */}
-<div className="neon-line-divisoria-toLeft">
+{/* <div className="neon-line-divisoria-toLeft">
   <span></span>
-</div>
+</div> */}
+
 
 
   <Container className="containerBotonReiniciar"> {/*BOTÓN REINICIAR*/}
