@@ -423,16 +423,12 @@ if (fulminatedIndex !== -1) {
   
   useEffect(() => {
     if (isConfirming) {
-      // Disable scrolling when the confirmation dialog is open
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('sidebar-open');
     } else {
-      // Re-enable scrolling when the confirmation dialog is closed
-      document.body.style.overflow = 'auto';
+      document.body.classList.remove('sidebar-open');
     }
-
-    // Cleanup function to reset overflow style when component unmounts
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.classList.remove('sidebar-open');
     };
   }, [isConfirming]);
 
@@ -477,15 +473,27 @@ if (fulminatedIndex !== -1) {
       float: "left"
       }
 
-    const handleExport = () => {
+      const handleExport = () => {
       
-       // Exclude rows where row.participant is "eliminado" and row.firstPlace is "votoFinal"
-      // const filteredRows = rows.filter(row => !(row.participant === eliminado && row.firstPlace === votoFinal));
-      const filteredRows = rows.filter(row => !(
-        ((row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2) && (row.firstPlace === votoFinal1 || row.firstPlace === votoFinal2))
-        ||
-        (invitado !== "" && row.participant.includes(invitado))
-        ));
+        // Ask for the password
+        const password = prompt('Ingrese contraseña para exportar:', '');
+        // Check if the password is correct
+        if (password !== 'coradir') {
+        alert('Contraseña incorrecta.');
+        return; // Abort export if password is incorrect
+        }
+        // Continue with the export process if the password is correct
+  
+  
+         // Exclude rows where row.participant is "eliminado" and row.firstPlace is "votoFinal"
+        // const filteredRows = rows.filter(row => !(row.participant === eliminado && row.firstPlace === votoFinal));
+        const filteredRows = rows.filter(row => !(
+          ((row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2) && (row.firstPlace === votoFinal1 || row.firstPlace === votoFinal2))
+          ||
+          (invitado !== "" && row.participant.includes(invitado))
+          ||
+          (noVota.includes(row.participant))
+          ));
       
       // Convert the 'rows' array to the desired format
       const exportedArray = filteredRows.map(row => [
@@ -975,7 +983,7 @@ return (
       <Col xs={12} style={{display: 'flex', justifyContent: 'center'}}>
       <>
             {isConfirming && (
-              <div className="sidebar-open">
+              <div> {/* className="sidebar-open" */}
                 <div className="sidebar-overlay"></div>
                 <div className="container-neon-reiniciar" style={estiloBotonReiniciar}>
                   <h6>Esta acción eliminará todos los datos cargados. ¿Proceder?</h6>
@@ -989,7 +997,9 @@ return (
     </Row>
     <Row>
         <Col xs={6}>
+        {status === "finalizado" && (
           <Button style={estiloBotonExportar} onClick={handleExport} className="custom-class-exportar">Exportar</Button>
+          )}
         </Col>
         <Col xs={6}>
           <Button style={estiloBotonReiniciar} onClick={() => setIsConfirming(true)} className="custom-class-reiniciar">Reiniciar</Button>
