@@ -85,7 +85,11 @@ return (
 </Container> */}
 
  {/* Container for non-eliminated participants */}
+ <div className="neon-line-home">
+ <span></span>
+ <span></span>
  <h6 className="tituloParticipantes">JUGADORES</h6>
+ </div>
  <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', padding: 5, marginBottom: 10 }}>
         {nonEliminatedParticipants.map((participant) => (
            <Link
@@ -104,7 +108,11 @@ return (
       </Container>
 
       {/* Container for eliminated participants */}
-      <h6 className="tituloParticipantes" style={{ paddingTop: 10}}>ELIMINADOS</h6>
+      <div className="neon-line-home-eliminados">
+      <span></span>
+      <span></span>
+      <h6 className="tituloParticipantesEliminados" style={{ paddingTop: 10}}>ELIMINADOS</h6>
+      </div>
       <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', padding: 5, marginBottom: 10 }}>
         {eliminatedParticipants.map((participant) => (
           <Link

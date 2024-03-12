@@ -8,6 +8,7 @@ import { navlist } from "./navMenu";
 import { AiOutlineRight, AiOutlineDown } from 'react-icons/ai';
 import { BsChevronRight } from "react-icons/bs";
 import { TfiClose } from "react-icons/tfi";
+import ComponenteExportar from "./ComponenteExportar";
 
 const Header = () => {
     const [sticky, setSticky] = useState(false);
@@ -162,7 +163,9 @@ return (
           collapseAllSubmenus={collapseAllSubmenus}
         />
       ))}
+      <ComponenteExportar/>
     </ul>
+    
     {/* <footer className="navMenuFooter"> */}
     <footer className={`navMenuFooter ${sidebarOpen ? 'active' : ''}`}>
     <div className="logoFooter">
@@ -186,12 +189,11 @@ return (
       </h3>
     </div>
     
-{!sidebarOpen && (
-    // <div className="ml-auto">
+{/* {!sidebarOpen && ( */}
     <div className={`ml-auto ${sidebarOpen ? 'hideHeader' : 'showHeader'}`}>
       <img src={gh} alt={""} width="40px" height="40px"/>
     </div>
-)}
+{/* )} */}
 </div>
 
 </header>

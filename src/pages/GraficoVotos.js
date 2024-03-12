@@ -3,8 +3,7 @@ import { Container, FormSelect, Image} from "react-bootstrap";
 import Context from "../context";
 // import {participantsChart} from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
-import LineaDivisoria1 from "../componentes/LineaDivisoria1";
-import LineaDivisoria2 from "../componentes/LineaDivisoria2";
+import LineaDivisoria from "../componentes/LineaDivisoria";
 import LineaDivisoriaToRight from "../componentes/LineaDivisoriaToRight";
 import GraficoVotos1 from "../graficos/GraficoVotos1";
 import GraficoVotos2 from "../graficos/GraficoVotos2";
@@ -91,34 +90,29 @@ fetchData();
   </FormSelect>
 </Container>
 
-{/* <LineaDivisoria1/> */}
 <LineaDivisoriaToRight/>
 
 <h6 className="titleChartType">Gráfico de Nominaciones Realizadas</h6>
-
-{/* <LineaDivisoria2/> */}
 
 <Container>
 <GraficoVotos1 participantName={selectedParticipant} className='grafico'/>
 </Container>
 
-<LineaDivisoria2/>
+<LineaDivisoria nLine={1}/>
 
 <h6 className="titleChartType">Gráficos de Nominaciones Recibidas</h6>
-
-{/* <LineaDivisoria2/> */}
 
 <Container>
 <GraficoVotos2 participantName={selectedParticipant} className='grafico'/>
 </Container>
 
-<LineaDivisoria1/>
+<LineaDivisoria nLine={2}/>
 
 <Container>
 <GraficoVotos3 participantName={selectedParticipant} className='grafico'/>
 </Container>
 
-<LineaDivisoria2/>
+<LineaDivisoria nLine={1}/>
 
 <Container>
 <GraficoVotos4 participantName={selectedParticipant} className='grafico'/>

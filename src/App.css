@@ -4,6 +4,7 @@
   --color-primario: #145b9e;
   --color-primario-claro: #1e7cd4;
   --color-primario-oscuro: #0a335a;
+  --color-primario-oscuro2: #061e35;
   --color-secundario: #602697;
   --color-secundario-claro: #8436ce;
   --color-secundario-oscuro: #39155a;
@@ -15,6 +16,20 @@
   --fuente-header: 'Michroma';
   --animation-duration: 2s;
   --animation-delay: calc(var(--animation-duration)/4);
+}
+
+
+::-webkit-scrollbar {
+  width: .5rem;
+  background-color: var(--color-primario-claro);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primario-oscuro);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secundario);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Assistant&family=Michroma&display=swap');
@@ -242,27 +257,9 @@ animation: flicker 2s infinite alternate;
 @media (max-width: 410px) {
   .title-word {
     font-size: 20px !important;
-    /*margin-left: 15px;*/
+    
   }  
-  .tituloEspontanea {
-    height:25px;
-    padding:0px !important;
-    text-align:center;
-  }
-  .tituloFulminante {
-    height:25px;
-    padding:0px !important;
-    text-align:center;
-  }
-  .tituloTablaDetalleVotosJugador {
-    font-size: 14px !important;
-  }
-  .tituloTablaDetalleVotos1erLugar {
-    font-size: 14px !important;
-  }
-  .tituloTablaDetalleVotos2doLugar {
-    font-size: 14px !important;
-  }
+  
 }
 
 @media (max-width: 320px) {
@@ -287,21 +284,82 @@ hr {
   color: white;
   text-align:center;
   text-shadow: 0px -2.5px 2px #e700ee;
-  margin: 0px 0px 10px 0px !important;
+  margin: -3px 0px -3px 0px !important;
   padding: 10px !important;
-  /* box-shadow: 0px 0px 8px 6px #1afcfa; */
-  background-color: var(--color-primario);
-  animation: glowing 2s infinite;
+  background-color: var(--color-primario-oscuro2);
+  letter-spacing: 5px;
+  animation: flickerHome 1.5s infinite alternate;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-@keyframes glowing {
-  50% {
-    box-shadow: 0px 0px 8px 3px #1afcfa;
+@keyframes flickerHome {
+    
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+      text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 20px #e700ee,
+      0 0 30px #e700ee;
+      box-shadow: 0px 0px 5px 5px #e700ee;
   }
-  0%, 100% {
-    box-shadow: 0px 0px 8px 6px #1afcfa;
+  
+  20%, 24%, 55% {        
+      text-shadow: none;
+      box-shadow: none;
   }
 }
+
+/**/
+
+.tituloParticipantesEliminados {
+  font-family: var(--fuente-titulos);
+  color: white;
+  text-align:center;
+  margin: -3px 0px -3px 0px !important;
+  padding: 10px !important;
+  background-color: var(--color-primario-oscuro2);
+  letter-spacing: 5px;
+  animation: flickerHomeEliminados 1.5s infinite alternate;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@keyframes flickerHomeEliminados {
+    
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+      /* text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px #1afcfa,
+      0 0 80px #1afcfa,
+      0 0 90px #1afcfa,
+      0 0 100px #1afcfa,
+      0 0 150px #1afcfa; */
+      text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 20px #1afcfa,
+      0 0 30px #1afcfa;
+      box-shadow: 0px 0px 5px 5px #1afcfa;
+  }
+  
+  20%, 24%, 55% {        
+      text-shadow: none;
+      box-shadow: none;
+  }
+}
+
+/* #00FFFF */
 
 .placaNominados{
   font-family: var(--fuente-titulos);
@@ -461,66 +519,6 @@ hr {
 }
 }
 
-
-.diagonal-crop {
-  width: 100px; /* Adjust width as needed */
-  height: 100px; /* Adjust height as needed */
-  background-color: #007bff; /* Background color for demonstration */
-  clip-path: polygon(0 0, 10px 0, 99px 10px, 99px 99px, 99px 99px, 10px 99px, 0 80px, 0 0);
-}
-
-.lineaDivisoria {
-  height: 4px;
-  width: 50%;
-  margin-bottom: 10px;
-  border-radius: 20px;
-  background-image: linear-gradient(to right, 
-  rgba(0, 255, 255, 0.5),
-  rgba(0, 255, 255, 0.7),
-  rgba(0, 255, 255, 0.9),
-  rgba(0, 255, 255, 1),
-  rgba(0, 255, 255, 0.7),
-  rgba(0, 255, 255, 0.5));
-  background-size: 400% 100%;
-  animation: neon 2s ease-in-out infinite;
-  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff, 0 0 100px #00ffff, 0 0 150px #00ffff;
-}
-
-@keyframes neon {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
-.lineaDivisoriaFondo {
-  height: 4px;
-  width: 50%;
-  margin-bottom: 10px;
-  border-radius: 20px;
-  background-image: linear-gradient(to left, 
-  rgba(0, 255, 255, 0.5),
-  rgba(0, 255, 255, 0.7),
-  rgba(0, 255, 255, 0.9),
-  rgba(0, 255, 255, 1),
-  rgba(0, 255, 255, 0.7),
-  rgba(0, 255, 255, 0.5));
-  background-size: 400% 100%;
-  animation: neonFondo 2s ease-in-out infinite;
-  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff, 0 0 100px #00ffff, 0 0 150px #00ffff;
-}
-
-@keyframes neonFondo {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
 .containerPlaca {
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -571,20 +569,6 @@ label {
   padding: 1px;
   margin-top: 3px;
   margin-bottom: 3px;
-}
-
-.tituloEspontanea {
-  font-weight:bold;
-  color:white;
-  background:#2426d4;
-  /* border-radius:10px; */
-}
-
-.tituloFulminante {
-  font-weight:bold;
-  color:white;
-  background:#ab34bf;
-  /* border-radius:10px; */
 }
 
 .containerTituloPaginas {
@@ -655,24 +639,6 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
   color: var(--color-primario-claro) !important;
 }
 
-.tituloTablaDetalleVotosJugador {
-  font-weight:bold;
-  color: white !important;
-
-}
-
-.tituloTablaDetalleVotos1erLugar {
-  font-weight:bold;
-  /*color: #2426d4;*/
-  color: white;
-}
-
-.tituloTablaDetalleVotos2doLugar {
-  font-weight:bold;
-  /*color: #ab34bf;*/
-  color: white;
-}
-
 .containerBotonReiniciar {
   padding: 0px 24px 6px 24px !important;
 }
@@ -697,7 +663,8 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
   color: whitesmoke !important;
   /* border-color: var(--color-primario-claro) !important; */
   border: 1px solid rgba(138, 147, 153, 1) !important;
-  margin: 0px !important;
+  margin: 0px auto !important;
+  width: fit-content !important;
 }
 
 .custom-class-exportar{
@@ -775,6 +742,7 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
   .comboBox {
     background-color: rgba(255,255,255,0.4) !important;
     margin: 0px !important;
+    font-size: 16px !important;
     }
 
     .comboBox.disabled {
@@ -804,9 +772,13 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
       display: none !important;
       }
 
-    @media (max-width: 374px) {
+    @media (max-width: 376px) {
+      .tablaNominaciones {
+        font-size: 15px !important;
+      }
+      
       .comboBox {
-        font-size:12px !important;
+        font-size: 15px !important;
         padding-left: 2px !important;        
       }
       .votoFinalSecondPlaceRow {
@@ -832,17 +804,29 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
 
 
 
-    .lineaDivisoria2 {
-      height: 2px;
-      width: 50%;
+    .lineaDivisoria {
+      height: 1px;
       margin-bottom: 10px;
       border-radius: 0px;
-      /* background-color:#e9fbe9;
-      box-shadow: 0px 0px 8px 6px #1afcfa; */
-      background-color: #7fb5e7;
-      box-shadow: 0px 0px 4px 3px var(--color-primario-claro);
+      /* background-color: #7fb5e7; */
+      /* background-color: #9fc5e9;
+      box-shadow: 0px 0px 4px 3px var(--color-primario-claro); */
+      background-color: white;
+      box-shadow: 0px 0px 2px 1px #00FFFF;
+      /* animation: flickerLine 2s infinite alternate; */
     }
 
+    @keyframes flickerLine  {
+  
+      0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        background-color:white;
+        box-shadow: 0px 0px 2px 1px #00FFFF;
+      }
+      20%, 24%, 55% {
+        background-color:transparent;
+        box-shadow: 0 0 0 0;
+      }
+    }
 
 
 
@@ -1385,7 +1369,7 @@ justify-content: center;
   height: fit-content;
   /* background-color: white; */
   /* background-image: url('./pictures/FondoPlaca2.jpg'); */
-  background-color: var(--color-primario-oscuro);
+  background-color: var(--color-primario-oscuro2);
   box-shadow: none;
   
 }
@@ -1437,9 +1421,10 @@ justify-content: center;
 }
 
 .centered-table th {
-  background: var(--color-primario) !important;
+  background: var(--color-secundario) !important;
   border: none;
   color: white !important;
+  padding: 10px 0px !important;
 }
 
 .centered-table td {
@@ -1460,8 +1445,8 @@ justify-content: center;
   border: none;
 }
 
-.centered-table tr:nth-child(odd) {
-  /* border-top: 2px solid var(--color-terciario-oscuro); */
+.centered-table td:nth-child(2) {
+  
 }
 
 .botonAnular {
@@ -1541,6 +1526,7 @@ justify-content: center;
   #edc6f5 100%); */
   background-color: rgba(245, 240, 225, 0.9);
   margin-bottom: 0px !important;
+  font-size: 16px;
 }
 
 .tablaNominaciones th {
@@ -1558,8 +1544,13 @@ justify-content: center;
   background-color: #ab34bf !important;
 }
 
-.tablaNominaciones td:first-child {width: 10%; background-color: rgba(36, 38, 212,0.5) !important;}
-.tablaNominaciones td:nth-child(2) {width: 10%; background-color: rgba(171, 52, 191, 0.5) !important;}
+.tablaNominaciones th:nth-child(3) {
+  text-align: left;
+  padding-left: 2px;
+}
+
+.tablaNominaciones td:first-child {width: 7.5%; background-color: rgba(36, 38, 212,0.5) !important;}
+.tablaNominaciones td:nth-child(2) {width: 7.5%; background-color: rgba(171, 52, 191, 0.5) !important;}
 
 .tablaNominaciones td {
   padding: 4px 2px !important;
@@ -1796,8 +1787,6 @@ justify-content: center;
   height: 1px;
   animation: btn-anim-line1 4s linear infinite;
   border-radius: 0px;
-  /* background-color:#fbbdfd;
-  box-shadow: 0px 0px 4px 3px #e700ee; */
   background-color:white;
   box-shadow: 0px 0px 2px 2px #E031FB;
 }
@@ -1807,7 +1796,6 @@ justify-content: center;
     left: -100%;
   }
   100% {
-    /* left: calc(100% + 15px); */
     left: 100%;
   }
 }
@@ -1819,8 +1807,6 @@ justify-content: center;
   height: 1px;
   animation: btn-anim-line2 4s linear infinite;
   border-radius: 0px;
-  /* background-color:#fbbdfd;
-  box-shadow: 0px 0px 4px 3px #e700ee; */
   background-color:white;
   box-shadow: 0px 0px 2px 1px #00FFFF;
 }
@@ -1920,3 +1906,86 @@ justify-content: center;
   background-color:#fbbdfd;
   box-shadow: 0px 0px 1px 1px #E031FB;
 }
+
+.neon-line-home {
+  position: relative;
+  overflow: hidden;
+  padding: 15px 0px;
+}
+
+.neon-line-home span {
+  position: absolute;
+  display: block;
+}
+
+.neon-line-home span:nth-child(1) {
+  top: 10px;
+  width: 100%;
+  height: 1px;
+  animation: btn-anim-line-home 1.5s infinite alternate;
+  border-radius: 0px;
+  background-color:white;
+  
+}
+
+.neon-line-home span:nth-child(2) {
+  bottom: 10px;
+  width: 100%;
+  height: 1px;
+  animation: btn-anim-line-home 1.5s infinite alternate;
+  border-radius: 0px;
+  background-color:white;
+  
+}
+
+@keyframes btn-anim-line-home {
+  
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    box-shadow: 0px 0px 2px 2px #e700ee;
+}
+
+20%, 24%, 55% {        
+    box-shadow: none;
+}
+}
+
+
+.neon-line-home-eliminados {
+  position: relative;
+  overflow: hidden;
+  padding: 15px 0px;
+}
+
+.neon-line-home-eliminados span {
+  position: absolute;
+  display: block;
+}
+
+.neon-line-home-eliminados span:nth-child(1) {
+  top: 10px;
+  width: 100%;
+  height: 1px;
+  animation: btn-anim-line-home-eliminados 1.5s infinite alternate;
+  border-radius: 0px;
+  background-color:white;
+}
+
+.neon-line-home-eliminados span:nth-child(2) {
+  bottom: 10px;
+  width: 100%;
+  height: 1px;
+  animation: btn-anim-line-home-eliminados 1.5s infinite alternate;
+  border-radius: 0px;
+  background-color:white;
+}
+
+@keyframes btn-anim-line-home-eliminados {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    box-shadow: 0px 0px 2px 2px #1afcfa;
+}
+
+20%, 24%, 55% {        
+    box-shadow: none;
+}
+}
+

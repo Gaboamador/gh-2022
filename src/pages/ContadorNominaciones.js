@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import '../App.css';
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
 // import { dataPlaca } from "../data/placasData";
 // import { participants } from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
-import LineaDivisoria1 from "../componentes/LineaDivisoria1";
-import LineaDivisoria2 from "../componentes/LineaDivisoria2";
 import AnularVotos from "../componentes/AnularVotos";
+import Context from "../context";
 // import { votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra } from "../data/modificadores";
 
 
@@ -26,6 +25,7 @@ function ContadorNominaciones() {
   const [votoValeDoble, setVotoValeDoble] = useState([]);
   const [dosVotosEnContra, setDosVotosEnContra] = useState("");
   const [invitado, setInvitado] = useState("");
+  const context= useContext(Context)
     
   const fetchData = async () => {
   try {
@@ -135,6 +135,16 @@ useEffect(() => {
   } else {
     setRows(initialRows);
   }
+}, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra, invitado]);
+
+useEffect(() => {
+  context.setRowsExportar(rows)
+  context.setEliminadosExportar(eliminados)
+  context.setInvitadoExportar(invitado)
+  context.setVotoFinal1Exportar(votoFinal1)
+  context.setVotoFinal2Exportar(votoFinal2)
+  context.setNoVotaExportar(noVota)
+  context.setStatusExportar(status)
 }, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra, invitado]);
 
 // useEffect(() => {
@@ -473,63 +483,65 @@ if (fulminatedIndex !== -1) {
       float: "left"
       }
 
-      const handleExport = () => {
+
+      // TRANSFORMADO EN COMPONENTE SEPARADO
+    //   const handleExport = () => {
       
-        // Ask for the password
-        const password = prompt('Ingrese contraseña para exportar:', '');
-        // Check if the password is correct
-        if (password !== 'coradir') {
-        alert('Contraseña incorrecta.');
-        return; // Abort export if password is incorrect
-        }
-        // Continue with the export process if the password is correct
+    //     // Ask for the password
+    //     const password = prompt('Ingrese contraseña para exportar:', '');
+    //     // Check if the password is correct
+    //     if (password !== 'coradir') {
+    //     alert('Contraseña incorrecta.');
+    //     return; // Abort export if password is incorrect
+    //     }
+    //     // Continue with the export process if the password is correct
   
   
-         // Exclude rows where row.participant is "eliminado" and row.firstPlace is "votoFinal"
-        // const filteredRows = rows.filter(row => !(row.participant === eliminado && row.firstPlace === votoFinal));
-        const filteredRows = rows.filter(row => !(
-          ((row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2) && (row.firstPlace === votoFinal1 || row.firstPlace === votoFinal2))
-          ||
-          (invitado !== "" && row.participant.includes(invitado))
-          ||
-          (noVota.includes(row.participant))
-          ));
+    //      // Exclude rows where row.participant is "eliminado" and row.firstPlace is "votoFinal"
+    //     // const filteredRows = rows.filter(row => !(row.participant === eliminado && row.firstPlace === votoFinal));
+    //     const filteredRows = rows.filter(row => !(
+    //       ((row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2) && (row.firstPlace === votoFinal1 || row.firstPlace === votoFinal2))
+    //       ||
+    //       (invitado !== "" && row.participant.includes(invitado))
+    //       ||
+    //       (noVota.includes(row.participant))
+    //       ));
       
-      // Convert the 'rows' array to the desired format
-      const exportedArray = filteredRows.map(row => [
-        `"${row.participant}"`,
-        `"${row.firstPlace}"`,
-        `"${row.secondPlace}"`,
-      ]);
+    //   // Convert the 'rows' array to the desired format
+    //   const exportedArray = filteredRows.map(row => [
+    //     `"${row.participant}"`,
+    //     `"${row.firstPlace}"`,
+    //     `"${row.secondPlace}"`,
+    //   ]);
     
-      // // Create a Blob with the formatted data
-      //   const blob = new Blob([`[\n${exportedArray.map(row => `  [${row.join(', ')}],`).join('\n')}\n]`], { type: 'application/json' });
+    //   // // Create a Blob with the formatted data
+    //   //   const blob = new Blob([`[\n${exportedArray.map(row => `  [${row.join(', ')}],`).join('\n')}\n]`], { type: 'application/json' });
       
-      // Create a Blob with the formatted data
-      const exportedArrayString = exportedArray.map((row, index) => {
-      if (index === exportedArray.length - 1) {
-      return `  [${row.join(', ')}]`; // Exclude comma for the last array
-      } else {
-      return `  [${row.join(', ')}],`;
-      }
-      }).join('\n');
+    //   // Create a Blob with the formatted data
+    //   const exportedArrayString = exportedArray.map((row, index) => {
+    //   if (index === exportedArray.length - 1) {
+    //   return `  [${row.join(', ')}]`; // Exclude comma for the last array
+    //   } else {
+    //   return `  [${row.join(', ')}],`;
+    //   }
+    //   }).join('\n');
 
-      const blob = new Blob([`[\n${exportedArrayString}\n]`], { type: 'application/json' });
+    //   const blob = new Blob([`[\n${exportedArrayString}\n]`], { type: 'application/json' });
 
     
-      // Get the current date and time for the filename
-      const currentDate = new Date();
-      const formattedDate = currentDate.toISOString().split('T')[0];
+    //   // Get the current date and time for the filename
+    //   const currentDate = new Date();
+    //   const formattedDate = currentDate.toISOString().split('T')[0];
 
-      // Create a link element to download the JSON file
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      // a.download = 'exported_rows.json';
-      a.download = `nominaciones_${formattedDate}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    };
+    //   // Create a link element to download the JSON file
+    //   const a = document.createElement('a');
+    //   a.href = URL.createObjectURL(blob);
+    //   // a.download = 'exported_rows.json';
+    //   a.download = `nominaciones_${formattedDate}.json`;
+    //   document.body.appendChild(a);
+    //   a.click();
+    //   document.body.removeChild(a);
+    // };
     
     
 // Function to toggle cancellation of a vote (firstPlace, secondPlace, or both)
@@ -585,6 +597,7 @@ useEffect(() => {
   }
 
   setStatus(status);
+  context.setStatusExportar(status)
 }, [counts]);
 let title;
   if (status === "sin iniciar") {
@@ -799,11 +812,11 @@ return (
       <Table className="tablaNominaciones">
          <thead>
          <tr>
-            <th className='tituloEspontanea'>E</th>
-            <th className='tituloFulminante'>F</th>
-            <th className='tituloTablaDetalleVotosJugador'>JUGADOR</th>
-            <th className='tituloTablaDetalleVotos1erLugar'>1er LUGAR</th>
-            <th className='tituloTablaDetalleVotos2doLugar'>2do LUGAR</th>
+            <th>E</th>
+            <th>F</th>
+            <th>JUGADOR</th>
+            <th>1er LUGAR</th>
+            <th>2do LUGAR</th>
           </tr> 
           </thead>
 
@@ -996,14 +1009,14 @@ return (
       </Col>
     </Row>
     <Row>
-        <Col xs={6}>
+        {/* <Col xs={6}>
         {status === "finalizado" && (
           <Button style={estiloBotonExportar} onClick={handleExport} className="custom-class-exportar">Exportar</Button>
           )}
-        </Col>
-        <Col xs={6}>
-          <Button style={estiloBotonReiniciar} onClick={() => setIsConfirming(true)} className="custom-class-reiniciar">Reiniciar</Button>
-        </Col>
+        </Col> */}
+        
+          <Button style={estiloBotonReiniciar} onClick={() => setIsConfirming(true)} className="custom-class-reiniciar">Reiniciar nominaciones</Button>
+        
     </Row>
   </Container>
 
