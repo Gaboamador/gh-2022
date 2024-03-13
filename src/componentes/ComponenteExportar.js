@@ -32,11 +32,18 @@ const handleExport = () => {
       ));
   
   // Convert the 'rows' array to the desired format
-  const exportedArray = filteredRows.map(row => [
-    `"${row.participant}"`,
-    `"${row.firstPlace}"`,
-    `"${row.secondPlace}"`,
-  ]);
+  // const exportedArray = filteredRows.map(row => [
+  //   `"${row.participant}"`,
+  //   `"${row.firstPlace}"`,
+  //   `"${row.secondPlace}"`,
+  // ]);
+  const exportedArray = filteredRows.map(row => {
+    const rowData = [`"${row.participant}"`, `"${row.firstPlace}"`];
+    if (!row.checkedF) {
+      rowData.push(`"${row.secondPlace}"`);
+    }
+    return rowData;
+  });
 
   // // Create a Blob with the formatted data
   //   const blob = new Blob([`[\n${exportedArray.map(row => `  [${row.join(', ')}],`).join('\n')}\n]`], { type: 'application/json' });

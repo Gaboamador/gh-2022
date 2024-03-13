@@ -126,10 +126,10 @@ return (
       <tr>
         <td colSpan={3}>
           {data[selectedOption].some(row => row.espontanea) && (
-            <p style={{ backgroundColor: 'rgb(10, 51, 90)', color: 'white', padding: '5px 15px', borderRadius: '8px', marginBlockEnd: '0px' }}>Espontánea</p>
+            <p className="zocalo espontanea-row">Espontánea</p>
           )}
           {data[selectedOption].some(row => row.fulminante) && (
-            <p style={{ backgroundColor: 'rgb(96, 38, 151)', color: 'white', padding: '5px 15px', borderRadius: '8px', marginBlockEnd: '0px' }}>Fulminante</p>
+            <p className="zocalo fulminante-row">Fulminante</p>
           )}
         </td>
       </tr>

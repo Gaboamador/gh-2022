@@ -54,13 +54,15 @@ const AnularVotos = ({rows, toggleCancel, eliminados, counts}) => {
               {row.firstPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && (
               <tr>
                 <td rowSpan="2">{row.participant}</td>
-                <td>{row.firstPlace}</td>
+                <td colSpan={row.checkedF ? 2 : 1}>{row.firstPlace}</td>
+                {!row.checkedF && (
                 <td>{row.secondPlace}</td>
+                )}
               </tr>
               )}
               <tr>
               {row.firstPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && (
-              <td>
+              <td colSpan={row.checkedF ? 2 : 1}>
                 <Button className={`botonAnular ${row.firstPlaceCanceled ? 'valido' : 'no-valido'}`} onClick={() => toggleCancel(index, 'firstPlace')}>
                     {row.firstPlaceCanceled ? 'Validar' : 'Anular'}
                 </Button>

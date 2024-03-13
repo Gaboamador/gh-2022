@@ -90,7 +90,12 @@ fetchData();
   </FormSelect>
 </Container>
 
-<LineaDivisoriaToRight/>
+{/* <LineaDivisoriaToRight/> */}
+<Container>
+<div className="neon-line-divisoria-fija">
+<span></span>
+</div>
+</Container>
 
 <h6 className="titleChartType">Gráfico de Nominaciones Realizadas</h6>
 

@@ -137,15 +137,15 @@ useEffect(() => {
   }
 }, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra, invitado]);
 
-useEffect(() => {
-  context.setRowsExportar(rows)
-  context.setEliminadosExportar(eliminados)
-  context.setInvitadoExportar(invitado)
-  context.setVotoFinal1Exportar(votoFinal1)
-  context.setVotoFinal2Exportar(votoFinal2)
-  context.setNoVotaExportar(noVota)
-  context.setStatusExportar(status)
-}, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra, invitado]);
+// useEffect(() => {
+//   context.setRowsExportar(rows)
+//   context.setEliminadosExportar(eliminados)
+//   context.setInvitadoExportar(invitado)
+//   context.setVotoFinal1Exportar(votoFinal1)
+//   context.setVotoFinal2Exportar(votoFinal2)
+//   context.setNoVotaExportar(noVota)
+//   context.setStatusExportar(status)
+// }, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra, invitado]);
 
 // useEffect(() => {
 //   const storedRows = localStorage.getItem('rows');
@@ -215,7 +215,7 @@ const [rows, setRows] = useState(() => {
             updatedRows[i].secondPlace = updatedRows[i].secondPlace === firstPlace ? "" : updatedRows[i].secondPlace;
             }
           }
-          setRows(updatedRows);
+          // setRows(updatedRows); // línea deshabilitada para evitar re-render infinito. Evaluar si afecta al funcionamiento normal
         }}
 
       if (!checkedF) {
@@ -269,11 +269,6 @@ const [rows, setRows] = useState(() => {
 
 
   const handleFirstPlaceChange = (index, value) => {
-/* DE ACA PARA ABAJO ES LA PRIMERA PARTE DEL CODIGO ORIGINAL
-    const updatedRows = [...rows];
-    updatedRows[index].firstPlace = value;
-    setRows(updatedRows);
-/* DE ACA PARA ARRIBA ES LA PRIMERA PARTE DEL CODIGO ORIGINAL
 
 /*DE ACA PARA ABAJO VAN LAS PRUEBAS*/
 const updatedRows = [...rows];
@@ -332,11 +327,6 @@ if (fulminatedIndex2 !== -1) {
   /* DE ACA PARA ARRIBA ES LA SEGUNDA PARTE DEL CODIGO ORIGINAL */
   
   const handleSecondPlaceChange = (index, value) => {
-/* DE ACA PARA ABAJO ES LA PRIMERA PARTE DEL CODIGO ORIGINAL
-    const updatedRows = [...rows];
-    updatedRows[index].secondPlace = value;
-    setRows(updatedRows);
-/* DE ACA PARA ARRIBA ES LA PRIMERA PARTE DEL CODIGO ORIGINAL
   
 /*DE ACA PARA ABAJO VAN LAS PRUEBAS*/
     const updatedRows = [...rows];
@@ -378,7 +368,6 @@ if (fulminatedIndex !== -1) {
     }
 /*DE ACA PARA ARRIBA VAN LAS PRUEBAS*/
 
-/* DE ACA PARA ABAJO ES LA SEGUNDA PARTE DEL CODIGO ORIGINAL */
     let fulminadoValue = '';
     for (let i = 0; i < updatedRows.length; i++) {
       if (updatedRows[i].checkedF) {
@@ -392,7 +381,6 @@ if (fulminatedIndex !== -1) {
     localStorage.setItem('counts', JSON.stringify(counts));
     localStorage.setItem('fulminado', fulminado);
   };
-  /* DE ACA PARA ARRIBA ES LA SEGUNDA PARTE DEL CODIGO ORIGINAL */
 
   const handleCheckbox = (participant, index) => {
     const updatedRows = [...rows];
@@ -450,10 +438,9 @@ if (fulminatedIndex !== -1) {
     setSelectedIndexF(-1);
     localStorage.removeItem("rows");
     localStorage.removeItem("counts");
-    localStorage.removeItem("fulminado");
+    // localStorage.removeItem("fulminado");
     localStorage.removeItem('selectedIndex');
     localStorage.removeItem('selectedIndexF');
-    setFulminado('');
     window.location.reload();
   }
 
@@ -542,8 +529,17 @@ if (fulminatedIndex !== -1) {
     //   a.click();
     //   document.body.removeChild(a);
     // };
+
+    useEffect(() => {
+  context.setRowsExportar(rows)
+  context.setEliminadosExportar(eliminados)
+  context.setInvitadoExportar(invitado)
+  context.setVotoFinal1Exportar(votoFinal1)
+  context.setVotoFinal2Exportar(votoFinal2)
+  context.setNoVotaExportar(noVota)
+}, [counts]);
     
-    
+const [prevFulminado, setPrevFulminado] = useState('');
 // Function to toggle cancellation of a vote (firstPlace, secondPlace, or both)
 const toggleCancel = (index, place) => {
   setRows(prevRows => {
@@ -569,6 +565,17 @@ const toggleCancel = (index, place) => {
       }
       return row;
     });
+    
+    // Check if row.checkedF is true, and if so, set 'fulminado' to an empty string
+    if (place === 'firstPlace' && updatedRows[index].checkedF && fulminado !== "") {
+      setPrevFulminado(fulminado);
+      console.log("fulminado previo: ", fulminado)
+      setFulminado('');
+    } else if (place === 'firstPlace' && updatedRows[index].checkedF && fulminado === "") {
+      setFulminado(prevFulminado);
+      console.log("fulminado actualizado: ", fulminado)
+    }
+
     localStorage.setItem('rows', JSON.stringify(updatedRows)); // Update local storage
     return updatedRows;
   });
@@ -641,8 +648,6 @@ let title;
     );
   }
 
-console.log("rows: ", rows)
-console.log("counts: ", counts)
 return (
 <div className="content">
 <div className="paddingContent"></div>
@@ -788,16 +793,23 @@ return (
     })}
     </Container>
     <Container> {/*CONTAINER CON EL ZOCALO FUERA DE PLACA*/}
-    <h6 className="placaNominados fueraDePlaca" style={estiloPlacaDeNominados}>
+    {/* <h6 className="placaNominados fueraDePlaca" style={estiloPlacaDeNominados}>
       {sortedEntries.some(([participant, count], index) => {
         return (index >= 3 && count < fourthCount)
       }) ? 'FUERA DE PLACA' : null}
+    </h6> */}
+    <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}>
+    {sortedEntries.some(([participant, count], index) => {
+        return (index >= 3 && count < fourthCount)
+      }) ? <span>FUERA DE PLACA</span> : null}
     </h6>
-
-    {/* <div className="neon-line-divisoria-toRight">
+    
+    {/* <div className="neon-line-divisoria-fija">
       <span></span>
     </div> */}
-    {lineaDivisoriaToRight}
+    
+    {/* {lineaDivisoriaToRight} */}
+    
     </Container>
 </Container>
 ) : null}
@@ -908,8 +920,8 @@ return (
                 .filter(participant =>
                   participant !== row.participant &&
                   !inmune.includes(participant) &&
-                  !row.secondPlace.includes(participant)
-                  )
+                  !row.secondPlace.includes(participant) &&
+                  (!fulminado.includes(participant) || row.checkedF))
                 .map(participant => (
                 <option key={participant} value={participant}>
                 {participant}
@@ -952,7 +964,8 @@ return (
                 .filter(participant =>
                   participant !== row.participant &&
                   !inmune.includes(participant) &&
-                  !row.firstPlace.includes(participant))
+                  !row.firstPlace.includes(participant) &&
+                  (!fulminado.includes(participant) || row.checkedF))
                 .map(participant => (
                 <option key={participant} value={participant}>
                 {participant}
@@ -981,7 +994,13 @@ return (
         </tr>
 </tbody>
       </Table>
- {lineaDivisoriaToLeft}     
+ 
+ 
+      <div className="neon-line-divisoria-fija">
+  <span></span>
+</div>
+ {/* {lineaDivisoriaToLeft} */}
+
 </Container>  
 
 {/* <LineaDivisoria2/> */}

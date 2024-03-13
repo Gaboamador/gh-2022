@@ -11,6 +11,8 @@
   --color-terciario: #c138db;
   --color-terciario-claro: #d868ee;
   --color-terciario-oscuro: #7b238d;
+  --color-espontanea: #2bc5e7;
+  --color-fulminante: #e031fb;
   --fuente-titulos: 'TacticSans';
   --fuente-contenido: 'Assistant';
   --fuente-header: 'Michroma';
@@ -377,7 +379,7 @@ hr {
   border-radius: 0px;
   background-color:#fbbdfd;
   box-shadow: 0px 0px 1px 1px #E031FB;
-  margin: 15px 0 20px 0 !important;
+  margin: 20px 0 25px 0 !important;
 }
 
 .placaNominados.placaParcial span {
@@ -600,13 +602,22 @@ label {
 }
 
 .espontaneaRow {
-background: linear-gradient(to right, rgba(36,38,212,1) 0%, rgba(36,38,212,0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
-border-radius: 20px;
+background: linear-gradient(to right, rgba(43, 197, 231, 1) 0%, rgba(43, 197, 231, 0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
 }
+/* rgba(36,38,212,1)
+rgba(171,52,191,1) */
 
 .fulminanteRow {
-background: linear-gradient(to right, rgba(171,52,191,1) 0%, rgba(171,52,191,0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
-border-radius: 20px;
+background: linear-gradient(to right, rgba(224, 49, 251, 1) 0%, rgba(224, 49, 251, 0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
+}
+
+@keyframes example {
+  0%, 100%   {
+
+  }
+  1%, 20%, 40%, 60%, 80%, 99% {
+    background: none
+  }
 }
 
 .eliminadoRow {
@@ -625,8 +636,8 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
 }
 
 .columnaJugadoresNegrita.espfulmFont {
-  color:white !important;
-  text-shadow:none !important;
+  /* color:white !important; */
+  /* text-shadow:none !important; */
 }
 
 .columnaJugadoresNegrita.telefono {
@@ -750,13 +761,14 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
       }
 
       .comboBox.fulminanteColor {
-        background-color: rgba(171,52,191,0.7) !important;
-        color:white !important
+        background-color: rgb(224, 49, 251, 0.7) !important;
+        text-shadow: 0px 0px 6px white;
+        /* color:white !important */
       }
 
     .comboBox.espontanea {
-      background-color: rgba(36,38,212,0.7) !important;
-      color:white !important
+      background-color: rgba(43, 197, 231, 0.7) !important;
+      text-shadow: 0px 0px 6px white;
     }
 
     .votoFinalFirstPlace {
@@ -913,90 +925,50 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
         justify-content: center;
         height: 70px; /* Set a fixed height for the label container */
       }
-           
       
-      .espontanea-row td {
-        background-color: var(--color-primario-oscuro) !important;
-        color: white !important;
+      .espontanea-row td,
+      .espontanea-anulado-row td,
+      .espontanea-anulado1-row td,
+      .espontanea-anulado2-row td {
+        background-color: var(--color-espontanea) !important;
       }
 
-      .fulminante-row td {
-        background-color: var(--color-secundario) !important;
-        color: white !important;
-      }
-      .anulado-row td:not(:first-child) {
-        text-decoration:line-through;
-      }
-      
-      .espontanea-anulado-row td:not(:first-child) {
-        color: white !important;
-        text-decoration:line-through;
-      }
-      tbody .fulminante-anulado-row {
-        background-color: var(--color-secundario);
-      }
-      
-      .espontanea-anulado-row td {
-        background-color: var(--color-primario-oscuro) !important;
-        color: white !important;
-      }
-      
-      .espontanea-anulado-row td:first-child {
-        color: white !important;
-      }
-      .fulminante-anulado-row td:not(:first-child) {
-        color: white !important;
-        text-decoration:line-through;
-      }
-      .anulado1-row td:nth-child(2) {
-        text-decoration: line-through;
-      }      
-
-      .espontanea-anulado1-row td {
-        background-color: var(--color-primario-oscuro) !important;
-        color: white !important;
-      }
-      
-      .espontanea-anulado1-row td:nth-child(2) {
-        text-decoration: line-through;
+      .fulminante-row td,
+      .fulminante-anulado-row td  {
+        background-color: var(--color-fulminante) !important;
       }
 
-      tbody .espontanea-anulado2-row {
-        background-color: var(--color-primario-oscuro);
-      }      
-      .espontanea-anulado2-row td:first-child {
-        color: white !important;
-      }
-      .espontanea-anulado2-row td:nth-child(2) {
-        color: white !important;
-      }
-      .espontanea-anulado2-row td:nth-child(3) {
-        color: white !important;
-      }
-
-      tbody .fulminante-anulado1-row {
-        background-color: var(--color-secundario);
-      }
-      .fulminante-anulado1-row td:nth-child(2) {
-        color: white !important;
-        text-decoration: line-through;
-      }
+      .anulado-row td:not(:first-child),
+      .anulado1-row td:nth-child(2),
       .anulado2-row td:nth-child(3) {
-        text-decoration: line-through;
+        text-decoration:line-through;
       }
-      tbody .espontanea-anulado2-row {
-        background-color: var(--color-primario-oscuro);
-      }
+      
+      .espontanea-anulado-row td:not(:first-child),
+      .espontanea-anulado1-row td:nth-child(2),
       .espontanea-anulado2-row td:nth-child(3) {
-        color: white !important;
+        text-decoration:line-through;
+      }
+     
+      .fulminante-anulado-row td:nth-child(2) {
         text-decoration: line-through;
       }
-      tbody .fulminante-anulado2-row {
-        background-color: var(--color-secundario);
+      
+      .zocalo.espontanea-row {
+        background-color: var(--color-espontanea);
+        color: black;
+        padding: 5px 15px;
+        border-radius: 8px;
+        margin: 5px 0px;
       }
-      .fulminante-anulado2-row td:nth-child(3) {
-        color: white !important;
-        text-decoration: line-through;
+
+      .zocalo.fulminante-row {
+        background-color: var(--color-fulminante);
+        color: black;
+        padding: 5px 15px;
+        border-radius: 8px;
+        /* margin-block-end: 0px; */
+        margin: 5px 0px;
       }
 
       .grafico{
@@ -1537,11 +1509,13 @@ justify-content: center;
 }
 
 .tablaNominaciones th:first-child {
-  background-color: #2426d4 !important;
+  background-color: rgba(43, 197, 231, 1) !important;
+  text-shadow: 0px 0px 6px black;
 }
 
 .tablaNominaciones th:nth-child(2) {
-  background-color: #ab34bf !important;
+  background-color: rgb(224, 49, 251, 1) !important;
+  text-shadow: 0px 0px 6px black;
 }
 
 .tablaNominaciones th:nth-child(3) {
@@ -1549,8 +1523,8 @@ justify-content: center;
   padding-left: 2px;
 }
 
-.tablaNominaciones td:first-child {width: 7.5%; background-color: rgba(36, 38, 212,0.5) !important;}
-.tablaNominaciones td:nth-child(2) {width: 7.5%; background-color: rgba(171, 52, 191, 0.5) !important;}
+.tablaNominaciones td:first-child {width: 7.5%; background-color: rgba(43, 197, 231, 0.5) !important;}
+.tablaNominaciones td:nth-child(2) {width: 7.5%; background-color: rgb(224, 49, 251, 0.5) !important;}
 
 .tablaNominaciones td {
   padding: 4px 2px !important;
