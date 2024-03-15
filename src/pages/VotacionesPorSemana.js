@@ -16,7 +16,7 @@ const applyModifications = (data, modifications) => {
         const modifiedRow = [ ...row ];
 
         if (modifications[`week${weekIndex + 1}`]) {
-          const { espontanea, anuladoUno, anuladoDos } = modifications[`week${weekIndex + 1}`];
+          const { espontanea, anuladoUno, anuladoDos, fulminante } = modifications[`week${weekIndex + 1}`];
 
           if (espontanea && espontanea.some(mod => mod[0] === weekIndex && mod[1] === rowIndex)) {
             modifiedRow.espontanea = true;
@@ -28,6 +28,10 @@ const applyModifications = (data, modifications) => {
 
           if (anuladoDos && anuladoDos.some(mod => mod[0] === weekIndex && mod[1] === rowIndex)) {
             modifiedRow.anulado2 = true;
+          }
+
+          if (fulminante && fulminante.some(mod => mod[0] === weekIndex && mod[1] === rowIndex)) {
+            modifiedRow.fulminante = true;
           }
         }
 

@@ -649,14 +649,15 @@ let title;
   }
 
 return (
+
 <div className="content">
 <div className="paddingContent"></div>
-  {/* <AnularVotos rows={rows} toggleCancel={toggleCancel} eliminados={eliminados} /> */}
 
 <Container className="containerPlaca"> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
     
     <Container className="containerPlaca containerPlacaNominados" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
     
+{/* DIV CON LAS FOTOS DE LOS SANCIONADOS */}
     {nominado && nominado.map((participant) => {
     return (
       <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
@@ -672,9 +673,10 @@ return (
         </div>
         ) : null}
       </div>
-    );
-  })}
+      );
+    })}
 
+{/* DIV CON LA FOTO DEL FULMINADO */}
       {fulminado === '' ? null : (
       <div style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
       {/*TEXTO F FULMINADO*/}
@@ -690,6 +692,8 @@ return (
         </div>
     </div>
   )}
+
+{/* DIV CON LAS FOTOS DE LOS NOMINADOS DENTRO DE PLACA */}
   {sortedEntries.map(([participant, count], index) => {          
     return (
       <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
@@ -713,108 +717,55 @@ return (
     );
   })}
     </Container>    
-    <Container id="zocaloEstadoVotacion"> {/* CONTAINER DE ZOCALO VOTACION PARCIAL/FINAL */}
 
-
-<div className="centerLoginBox">
-      
-
-
-      <div className={
-  rows.filter(row => 
-    !row.fulminated && 
-    row.participant !== eliminados.eliminado1 && 
-    row.participant !== eliminados.eliminado2 && 
-    row.participant !== "Teléfono" && 
-    (noVota === null || !noVota.includes(row.participant))
-  ).every(row => 
-    (row.firstPlace !== '' && row.secondPlace !== '') || 
-    (row.firstPlace !== '' && row.checkedF)
-  ) 
-  ? 'neon-line-placaFinal'
-  : ''
-}>
+{/* CONTAINER DE ZOCALO VOTACION PARCIAL/FINAL */}
+    <Container id="zocaloEstadoVotacion">
+      <div className={status === "finalizado" ? 'neon-line-placaFinal': ''}>
       <span></span>
       <span></span>
-
-      
-{/* {
-   (Object.keys(counts).length === 0 ?
-   <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}><span>GALA DE NOMINACIÓN</span></h6>
-   :
-    rows.filter(row => 
-      !row.fulminated && 
-      row.participant !== eliminados.eliminado1 && 
-      row.participant !== eliminados.eliminado2 && 
-      row.participant !== "Teléfono" && 
-      (noVota === null || !noVota.includes(row.participant))
-    ).every(row => 
-      (row.firstPlace !== '' && row.secondPlace !== '') || 
-      (row.firstPlace !== '' && row.checkedF)
-    ) 
-    ?
-    <h6 className="placaNominados" style={estiloPlacaDeNominados}>PLACA FINAL</h6>
-    :
-    <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}><span>PLACA PARCIAL</span></h6>
-  )
-} */}
-{title}
-    
-    
-    </div>
-</div>
-
+      {title}
+      </div>
     </Container>
+
 </Container>
 
-{sortedEntries.some(([participant, count], index) => index >= 3 && count < fourthCount) ? (
-<Container className="containerPlaca" style={{ marginTop: -5 }}> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
-    <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
-    {sortedEntries.map(([participant, count], index) => {          
-      return (
-        <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
-          {/*NUMEROS FUERA DE PLACA ORDENADA*/}
-          {index < 3 || count >= fourthCount ? null : (        
-          <div className="containerNumerosPlaca">
-            <div className="numerosPlaca">
-            {count}
+{/* DIV CON LAS FOTOS DE LOS NOMINADOS FUERA DE PLACA */}
+  {sortedEntries.some(([participant, count], index) => index >= 3 && count < fourthCount) ? (
+  <Container className="containerPlaca" style={{ marginTop: -5 }}> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
+      <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
+      {sortedEntries.map(([participant, count], index) => {          
+        return (
+          <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
+            {/*NUMEROS FUERA DE PLACA ORDENADA*/}
+            {index < 3 || count >= fourthCount ? null : (        
+            <div className="containerNumerosPlaca">
+              <div className="numerosPlaca">
+              {count}
+              </div>
             </div>
+            )}
+            {/*IMAGEN FUERA DE PLACA ORDENADA*/}
+            {index < 3 || count >= fourthCount ? null : (
+            <div className="imagenPlaca">
+              <Image className="fotoJugador" src={participantsToImage[participant]}/>
+              <div className="zocaloImagen">{participant.toUpperCase()}</div>
+            </div>
+            )}
           </div>
-          )}
-          {/*IMAGEN FUERA DE PLACA ORDENADA*/}
-          {index < 3 || count >= fourthCount ? null : (
-          <div className="imagenPlaca">
-            <Image className="fotoJugador" src={participantsToImage[participant]}/>
-            <div className="zocaloImagen">{participant.toUpperCase()}</div>
-          </div>
-          )}
-        </div>
-      );
-    })}
-    </Container>
-    <Container> {/*CONTAINER CON EL ZOCALO FUERA DE PLACA*/}
-    {/* <h6 className="placaNominados fueraDePlaca" style={estiloPlacaDeNominados}>
-      {sortedEntries.some(([participant, count], index) => {
-        return (index >= 3 && count < fourthCount)
-      }) ? 'FUERA DE PLACA' : null}
-    </h6> */}
-    <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}>
-    {sortedEntries.some(([participant, count], index) => {
-        return (index >= 3 && count < fourthCount)
-      }) ? <span>FUERA DE PLACA</span> : null}
-    </h6>
-    
-    {/* <div className="neon-line-divisoria-fija">
-      <span></span>
-    </div> */}
-    
-    {/* {lineaDivisoriaToRight} */}
-    
-    </Container>
-</Container>
-) : null}
+        );
+      })}
+      </Container>
 
-{/* <LineaDivisoria1/> */}
+ {/*CONTAINER CON EL ZOCALO FUERA DE PLACA*/}
+      <Container>
+      <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}>
+      {sortedEntries.some(([participant, count], index) => {
+          return (index >= 3 && count < fourthCount)
+        }) ? <span>FUERA DE PLACA</span> : null}
+      </h6>
+      </Container>
+  </Container>
+  ) : null}
 
 
 <Container> {/* CONTAINER CON LAS VOTACIONES */}

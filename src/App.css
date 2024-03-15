@@ -11,8 +11,12 @@
   --color-terciario: #c138db;
   --color-terciario-claro: #d868ee;
   --color-terciario-oscuro: #7b238d;
-  --color-espontanea: #2bc5e7;
-  --color-fulminante: #e031fb;
+  /* --color-espontanea: #2bc5e7;
+  --color-fulminante: #e031fb; */
+  --color-espontanea: #95e2f3;
+  --color-fulminante: #ef98fd;
+  --color-espontanea-rgba: 149, 226, 243;
+  --color-fulminante-rgba: 239, 152, 253;
   --fuente-titulos: 'TacticSans';
   --fuente-contenido: 'Assistant';
   --fuente-header: 'Michroma';
@@ -264,7 +268,7 @@ animation: flicker 2s infinite alternate;
   
 }
 
-@media (max-width: 320px) {
+@media (max-width: 370px) {
   .title-word {
     font-size: 16px !important;
   }
@@ -589,6 +593,7 @@ label {
   margin: 0 auto;
   padding: 6px;
   width: 75vw;
+  /* width: 75%; */
   /* margin-bottom: 10px; */
   font-family: var(--fuente-contenido);
   justify-content: center;
@@ -597,18 +602,25 @@ label {
   background-image: linear-gradient(to right,rgba(255,255,255,0) 0%, var(--color-terciario-oscuro) 50%,rgba(255,255,255,0) 100%);
 }
 
+.tituloPaginas.complot {
+  width: 100%
+}
+
 .encabezadoVotaciones {
     padding: 5px;
 }
 
 .espontaneaRow {
-background: linear-gradient(to right, rgba(43, 197, 231, 1) 0%, rgba(43, 197, 231, 0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
+background: linear-gradient(to right, var(--color-espontanea) 0%, rgba(var(--color-espontanea-rgba), 0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
+/* color: rgba(var(--color-espontanea-rgba), 0.9) */
+
 }
+
 /* rgba(36,38,212,1)
 rgba(171,52,191,1) */
 
 .fulminanteRow {
-background: linear-gradient(to right, rgba(224, 49, 251, 1) 0%, rgba(224, 49, 251, 0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
+background: linear-gradient(to right, var(--color-fulminante) 0%, rgba(var(--color-fulminante-rgba), 0.9) 20%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
 }
 
 @keyframes example {
@@ -761,13 +773,13 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
       }
 
       .comboBox.fulminanteColor {
-        background-color: rgb(224, 49, 251, 0.7) !important;
+        background-color: rgba(var(--color-fulminante-rgba), 0.7) !important;
         text-shadow: 0px 0px 6px white;
         /* color:white !important */
       }
 
     .comboBox.espontanea {
-      background-color: rgba(43, 197, 231, 0.7) !important;
+      background-color: rgba(var(--color-espontanea-rgba), 0.7) !important;
       text-shadow: 0px 0px 6px white;
     }
 
@@ -1181,7 +1193,8 @@ background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(178,0,0,0.5) 
   display: block;
 }
 
-body.sidebar-open {
+body.sidebar-open,
+body.sidebarAnular-open {
   overflow: hidden;
 }
 
@@ -1316,7 +1329,7 @@ justify-content: center;
 }
 
 /* SIDEBAR ANULAR VOTOS */
-.navMenuInfo {
+.navMenuAnular {
   width: 40px;
   height: 55px;
   position: fixed;
@@ -1334,7 +1347,7 @@ justify-content: center;
   /* box-shadow: 0 0 10px #e700ee, 0 0 10px #e700ee; */
 }
 
-.navMenuInfo.active {
+.navMenuAnular.active {
   right: -1%;
   width: 280px;
   min-height: 50px;
@@ -1346,48 +1359,57 @@ justify-content: center;
   
 }
 
-.openbtnInfo {  
+.openbtnAnular {  
   cursor: pointer;
   color: var(--color-primario);
   display: inline-block;
-  transform: translateX(-90%) translateY(0%);
+  transform: translateX(-95%) translateY(0%);
   border-radius: 50px;
 }
 
-.openbtnInfo:hover {
+.openbtnAnular:hover {
   color: var(--color-primario-claro);
 }
 
-.openbtnInfo.active {
+.openbtnAnular.active {
   color: var(--color-secundario-claro);
 }
 
-.sidebarInfo {
+.sidebarAnular {
   margin: 0;
   padding: 0;
   font-family: var(--fuente-contenido);
   font-size: 0.9rem;
 }
 
-.sidebarInfo.active {
-  margin-top: -20px;
+.sidebarAnular.active {
+  margin-top: -35px;
   padding: 0px 5px;
   overflow-y: scroll;
   max-height: 75vh;
-  display: flex;
+  display: block;
+  /* flex-direction: column; */
   justify-content: center;
   margin-bottom: -10px;
 }
 
-.iconInfo {
+.iconAnular {
   width: 25px;
   height: 25px;
   background-color: var(--color-texto);
   border-radius: 50px;
 }
 
-.centered-table {
+.tituloSidebarAnular {
+  position: absolute;
+  width: 85%;
   margin: 0 auto;
+  background-color: var(--color-primario-oscuro2);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.centered-table {
+  margin: 80px 0 auto;
   text-align: center;
   vertical-align: middle;
 }
@@ -1417,25 +1439,21 @@ justify-content: center;
   border: none;
 }
 
-.centered-table td:nth-child(2) {
-  
-}
-
 .botonAnular {
   padding: 0px 3px !important;
 }
 
 .botonAnular.valido {
-  background-color: green;
+  background-color: var(--color-primario-claro);
   color: white;
-  border: 1px solid grey;
+  border: 1px solid var(--color-primario-oscuro);
   font-size: 0.85rem;
 }
 
 .botonAnular.no-valido {
   background-color: whitesmoke;
-  color: red;
-  border: 1px solid red;
+  color: var(--color-terciario);
+  border: 1px solid var(--color-terciario);
   font-size: 0.85rem;
 }
 
@@ -1486,6 +1504,11 @@ justify-content: center;
   background-color: var(--color-secundario-oscuro) !important;
 }
 
+.tablaGeneral.lideres td:nth-child(1){
+  background-color: white !important;
+  color: black !important;
+  }
+
 .tablaNominaciones {
   text-align: center;
   vertical-align: middle !important;
@@ -1509,12 +1532,12 @@ justify-content: center;
 }
 
 .tablaNominaciones th:first-child {
-  background-color: rgba(43, 197, 231, 1) !important;
+  background-color: var(--color-espontanea) !important;
   text-shadow: 0px 0px 6px black;
 }
 
 .tablaNominaciones th:nth-child(2) {
-  background-color: rgb(224, 49, 251, 1) !important;
+  background-color: var(--color-fulminante) !important;
   text-shadow: 0px 0px 6px black;
 }
 
@@ -1523,8 +1546,8 @@ justify-content: center;
   padding-left: 2px;
 }
 
-.tablaNominaciones td:first-child {width: 7.5%; background-color: rgba(43, 197, 231, 0.5) !important;}
-.tablaNominaciones td:nth-child(2) {width: 7.5%; background-color: rgb(224, 49, 251, 0.5) !important;}
+.tablaNominaciones td:first-child {width: 7.5%; background-color: rgba(var(--color-espontanea-rgba), 0.5) !important;}
+.tablaNominaciones td:nth-child(2) {width: 7.5%; background-color: rgba(var(--color-fulminante-rgba), 0.5) !important;}
 
 .tablaNominaciones td {
   padding: 4px 2px !important;
@@ -1561,8 +1584,7 @@ justify-content: center;
   display: none;
 }
 
-
-@media (max-width: 320px) {
+@media (max-width: 370px) {
   .title-word-nav {
     font-size: 0.9rem;
   }
