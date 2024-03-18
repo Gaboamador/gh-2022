@@ -610,7 +610,7 @@ let title;
   if (status === "sin iniciar") {
     title = <h6 className="placaNominados noIniciado" style={estiloPlacaDeNominados}><span>GALA DE NOMINACIÓN</span></h6>;
   } else if (status === "finalizado") {
-    title = <h6 className="placaNominados" style={estiloPlacaDeNominados}>PLACA FINAL</h6>;
+    title = <h6 className="placaNominadosNUEVO" style={estiloPlacaDeNominados}>PLACA FINAL</h6>;
   } else if (status === "en desarrollo") {
     title = <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}><span>PLACA PARCIAL</span></h6>;
   }
@@ -651,10 +651,13 @@ let title;
 return (
 
 <div className="content">
-<div className="paddingContent"></div>
+
 
 <Container className="containerPlaca"> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
-    
+
+{/* CONTAINER DE ZOCALO VOTACION PARCIAL/FINAL */}
+<Container>{title}</Container>
+
     <Container className="containerPlaca containerPlacaNominados" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
     
 {/* DIV CON LAS FOTOS DE LOS SANCIONADOS */}
@@ -718,20 +721,24 @@ return (
   })}
     </Container>    
 
-{/* CONTAINER DE ZOCALO VOTACION PARCIAL/FINAL */}
-    <Container id="zocaloEstadoVotacion">
-      <div className={status === "finalizado" ? 'neon-line-placaFinal': ''}>
-      <span></span>
-      <span></span>
-      {title}
-      </div>
-    </Container>
+
 
 </Container>
 
 {/* DIV CON LAS FOTOS DE LOS NOMINADOS FUERA DE PLACA */}
   {sortedEntries.some(([participant, count], index) => index >= 3 && count < fourthCount) ? (
   <Container className="containerPlaca" style={{ marginTop: -5 }}> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
+
+{/*CONTAINER CON EL TÍTULO FUERA DE PLACA*/}
+<Container>
+      {/* <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}> */}      
+      <h6 className={`${status === 'finalizado' ? 'placaNominadosNUEVO placaParcial' : 'placaNominados placaParcial'}`} style={estiloPlacaDeNominados}>
+      {sortedEntries.some(([participant, count], index) => {
+          return (index >= 3 && count < fourthCount)
+        }) ? <span>FUERA DE PLACA</span> : null}
+      </h6>
+      </Container>
+
       <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
       {sortedEntries.map(([participant, count], index) => {          
         return (
@@ -756,17 +763,16 @@ return (
       })}
       </Container>
 
- {/*CONTAINER CON EL ZOCALO FUERA DE PLACA*/}
-      <Container>
-      <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}>
-      {sortedEntries.some(([participant, count], index) => {
-          return (index >= 3 && count < fourthCount)
-        }) ? <span>FUERA DE PLACA</span> : null}
-      </h6>
-      </Container>
+
   </Container>
   ) : null}
 
+
+<Container>
+<div className="neon-line-divisoria-fija">
+  <span></span>
+</div>
+</Container>
 
 <Container> {/* CONTAINER CON LAS VOTACIONES */}
 
