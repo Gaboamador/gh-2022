@@ -23,6 +23,8 @@ function ContadorNominaciones() {
   const [noVota, setNoVota] = useState([]);
   const [inmune, setInmune] = useState([]);
   const [votoValeDoble, setVotoValeDoble] = useState([]);
+  const [unVotoVale1, setUnVotoVale1] = useState([]);
+  const [unVotoVale2, setUnVotoVale2] = useState([]);
   const [dosVotosEnContra, setDosVotosEnContra] = useState("");
   const [invitado, setInvitado] = useState("");
   const context= useContext(Context)
@@ -49,6 +51,8 @@ function ContadorNominaciones() {
   setNoVota(jsonData3.noVota);
   setInmune(jsonData3.inmune);
   setVotoValeDoble(jsonData3.votoValeDoble);
+  setUnVotoVale1(jsonData3.unVotoVale1);
+  setUnVotoVale2(jsonData3.unVotoVale2);
   setDosVotosEnContra(jsonData3.dosVotosEnContra);
   setInvitado(jsonData3.invitado);
   } catch (error) {
@@ -135,7 +139,7 @@ useEffect(() => {
   } else {
     setRows(initialRows);
   }
-}, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra, invitado]);
+}, [participants, votoFinal1, votoFinal2, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra, unVotoVale1, unVotoVale2, invitado]);
 
 // useEffect(() => {
 //   context.setRowsExportar(rows)
@@ -537,6 +541,8 @@ if (fulminatedIndex !== -1) {
   context.setVotoFinal1Exportar(votoFinal1)
   context.setVotoFinal2Exportar(votoFinal2)
   context.setNoVotaExportar(noVota)
+  context.setUnVotoVale1Exportar(unVotoVale1)
+  context.setUnVotoVale2Exportar(unVotoVale2)
 }, [counts]);
     
 const [prevFulminado, setPrevFulminado] = useState('');
@@ -597,7 +603,9 @@ useEffect(() => {
       (noVota === null || !noVota.includes(row.participant))
     ).every(row =>
       (row.firstPlace !== '' && row.secondPlace !== '') ||
-      (row.firstPlace !== '' && row.checkedF)
+      (row.firstPlace !== '' && row.checkedF) ||
+      (row.firstPlace !== '' && unVotoVale2.includes(row.participant)) ||
+      (row.secondPlace !== '' && unVotoVale1.includes(row.participant))
     );
 
     status = isTerminated ? "finalizado" : "en desarrollo";
@@ -647,7 +655,7 @@ let title;
       </div>
     );
   }
-
+  
 return (
 
 <div className="content">
@@ -683,10 +691,10 @@ return (
       {fulminado === '' ? null : (
       <div style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
       {/*TEXTO F FULMINADO*/}
-      <div className="containerNumerosPlaca">
-        <div className="numerosPlaca">
+      <div className="containerNumerosPlaca nominado">
+        {/* <div className="numerosPlaca">
           X
-        </div>
+        </div> */}
       </div>
       {/*IMAGEN FULMINADO*/}
       <div className="imagenPlaca">
@@ -842,7 +850,7 @@ return (
               style={{marginTop: '2.5px', marginBottom: '2.5px'}}
               >
               {row.participant}
-              {votoValeDoble.includes(row.participant) && "*"}
+              {votoValeDoble.includes(row.participant) && " *"}
               </ListGroup>
               {row.participant === eliminados.eliminado1 && (
               <div className="columnaJugadoresNegrita espfulmFont" style={{marginTop: '2.5px', marginBottom: '2.5px'}}>{eliminados.eliminado1}</div>
@@ -863,7 +871,14 @@ return (
                 ${row.checkedF ? 'fulminanteColor' : ''}
                 ${row.checked ? 'espontanea' : ''}
                 ${row.firstPlaceCanceled ? 'votoFinalDisabler' : ''}
-                ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota!== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
+                ${row.participant === eliminados.eliminado1 ||
+                  row.participant === eliminados.eliminado2 ||
+                  row.participant === "Teléfono" ||
+                  (noVota!== null && noVota.includes(row.participant)) ||
+                  (unVotoVale1!== null && unVotoVale1.includes(row.participant))
+                  ? 'votoFinalDisabler' : ''}
+                ${votoValeDoble.includes(row.participant) ? 'columnaJugadoresNegrita votoValeDoble' : ''}
+                `}
                 style={{
                 marginTop: '2.5px',
                 marginBottom: '2.5px',
@@ -878,7 +893,9 @@ return (
                   participant !== row.participant &&
                   !inmune.includes(participant) &&
                   !row.secondPlace.includes(participant) &&
-                  (!fulminado.includes(participant) || row.checkedF))
+                  (!fulminado.includes(participant) || row.checkedF) &&
+                  (nominado !== null && !nominado.includes(participant))
+                  )
                 .map(participant => (
                 <option key={participant} value={participant}>
                 {participant}
@@ -909,7 +926,14 @@ return (
                 ${row.checkedF ? 'disabled' : ''}
                 ${row.checked ? 'espontanea' : ''}
                 ${row.secondPlaceCanceled ? 'votoFinalDisabler' : ''}
-                ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) ? 'votoFinalDisabler' : ''}`}
+                ${row.participant === eliminados.eliminado1 ||
+                  row.participant === eliminados.eliminado2 ||
+                  row.participant === "Teléfono" ||
+                  (noVota !== null && noVota.includes(row.participant)) ||
+                  (unVotoVale2!== null && unVotoVale2.includes(row.participant))
+                  ? 'votoFinalDisabler' : ''}
+                ${votoValeDoble.includes(row.participant) ? 'columnaJugadoresNegrita votoValeDoble' : ''}
+                `}
                 style={{
                   marginTop: '2.5px',
                   marginBottom: '2.5px',
@@ -922,7 +946,9 @@ return (
                   participant !== row.participant &&
                   !inmune.includes(participant) &&
                   !row.firstPlace.includes(participant) &&
-                  (!fulminado.includes(participant) || row.checkedF))
+                  (!fulminado.includes(participant) || row.checkedF) &&
+                  (nominado !== null && !nominado.includes(participant))
+                  )
                 .map(participant => (
                 <option key={participant} value={participant}>
                 {participant}
@@ -973,7 +999,7 @@ return (
       <>
             {isConfirming && (
               <div> {/* className="sidebar-open" */}
-                <div className="sidebar-overlay"></div>
+                <div className="sidebar-overlay reiniciar"></div>
                 <div className="container-neon-reiniciar" style={estiloBotonReiniciar}>
                   <h6>Esta acción eliminará todos los datos cargados. ¿Proceder?</h6>
                   <Button onClick={() => {handleReset(); setIsConfirming(false)}} variant="danger" className="fixed-width-reiniciar">Sí</Button>{' '}

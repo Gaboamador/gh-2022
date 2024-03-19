@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {Table, Button} from 'react-bootstrap';
 import { BiSolidRightArrowCircle, BiSolidLeftArrowCircle } from 'react-icons/bi';
 import { GiCancel } from "react-icons/gi";
+import { FaCaretDown } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa6";
 import Titulos from "./Titulos";
+import Context from "../context";
 
 const AnularVotos = ({rows, toggleCancel, eliminados, counts}) => {
+
+  
+  const context= useContext(Context)
 
   const [sidebarAnularVotosOpen, setSidebarAnularVotosOpen] = useState(false);
 
@@ -34,12 +40,12 @@ const AnularVotos = ({rows, toggleCancel, eliminados, counts}) => {
   
   return (
 
-    <div className={`navMenuAnular ${sidebarAnularVotosOpen ? 'active' : ''}`}>
+    <div className={`navMenuAnular ${sidebarAnularVotosOpen ? 'active' : ''} ${context.sidebarOpen ? 'hideHeader' : 'showHeader'}`}>
       <div className={`openbtnAnular ${sidebarAnularVotosOpen ? 'active' : ''}`} onClick={toggleSidebar}>
       {sidebarAnularVotosOpen ?
       <GiCancel className={`iconAnular ${sidebarAnularVotosOpen ? 'active' : ''}`} />
       :
-      <BiSolidLeftArrowCircle className={`iconAnular ${sidebarAnularVotosOpen ? 'active' : ''}`} />
+      <FaCaretDown className={`iconAnular ${sidebarAnularVotosOpen ? 'active' : ''}`} />
       }
       </div>
       {sidebarAnularVotosOpen && (
@@ -57,7 +63,7 @@ const AnularVotos = ({rows, toggleCancel, eliminados, counts}) => {
 </div>
 </div>
 
-<Table striped bordered hover size="sm" className="centered-table">
+<Table striped bordered hover size="sm" className="tablaAnular">
         <thead>
           <tr>
             <th>JUGADOR</th>
@@ -68,25 +74,34 @@ const AnularVotos = ({rows, toggleCancel, eliminados, counts}) => {
         <tbody>
           {rows.map((row, index) => (
             <React.Fragment key={index}>
-              {row.firstPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && (
+              {(row.firstPlace || row.secondPlace) && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && (
+              
+              // fila nombres participantes
               <tr>
+                {/* celda con participantes */}
                 <td rowSpan="2">{row.participant}</td>
-                <td colSpan={row.checkedF ? 2 : 1}>{row.firstPlace}</td>
-                {!row.checkedF && (
-                <td>{row.secondPlace}</td>
+                {/* celda con nombre votado en primer lugar */}
+                <td colSpan={row.checkedF || context.unVotoVale2Exportar.includes(row.participant) ? 2 : 1}>{row.firstPlace}</td>
+                {/* celda con nombre votado en segundo lugar */}
+                {(context.unVotoVale1Exportar.includes(row.participant) || (!row.checkedF && !context.unVotoVale2Exportar.includes(row.participant))) && (
+                <td className={`${context.unVotoVale1Exportar.includes(row.participant) ? 'spanned-cell' : ''}`}><span>{row.secondPlace}</span></td>
                 )}
               </tr>
               )}
+              
+              {/* fila botones */}
               <tr>
+                {/* celda con boton anular primer lugar */}
               {row.firstPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && (
-              <td colSpan={row.checkedF ? 2 : 1}>
+              <td colSpan={row.checkedF || context.unVotoVale2Exportar.includes(row.participant) ? 2 : 1}>
                 <Button className={`botonAnular ${row.firstPlaceCanceled ? 'valido' : 'no-valido'}`} onClick={() => toggleCancel(index, 'firstPlace')}>
                     {row.firstPlaceCanceled ? 'Validar' : 'Anular'}
                 </Button>
                 </td>
               )}
+              {/* celda con boton anular segundo lugar */}
                {row.secondPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && (
-                <td>
+                <td colSpan={context.unVotoVale1Exportar.includes(row.participant) ? 2 : 1}>
                 <Button className={`botonAnular ${row.secondPlaceCanceled ? 'valido' : 'no-valido'}`} onClick={() => toggleCancel(index, 'secondPlace')}>
                     {row.secondPlaceCanceled ? 'Validar' : 'Anular'}
                 </Button>

@@ -38,8 +38,18 @@ const handleExport = () => {
   //   `"${row.secondPlace}"`,
   // ]);
   const exportedArray = filteredRows.map(row => {
-    const rowData = [`"${row.participant}"`, `"${row.firstPlace}"`];
-    if (!row.checkedF) {
+    // const rowData = [`"${row.participant}"`, `"${row.firstPlace}"`];
+    // if (!row.checkedF) {
+    //   rowData.push(`"${row.secondPlace}"`);
+    // }
+    // return rowData;
+    const rowData = [`"${row.participant}"`];
+    if (!context.unVotoVale1Exportar.includes(row.participant)) {
+      rowData.push(`"${row.firstPlace}"`);
+    }
+    if (context.unVotoVale1Exportar.includes(row.participant)) {
+      rowData.push(`"${row.secondPlace}"`);
+    } else if (!row.checkedF && !context.unVotoVale2Exportar.includes(row.participant)) {
       rowData.push(`"${row.secondPlace}"`);
     }
     return rowData;

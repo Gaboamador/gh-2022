@@ -12,7 +12,10 @@ function GlobalState(props){
   const [votoFinal1Exportar, setVotoFinal1Exportar] = useState("");
   const [votoFinal2Exportar, setVotoFinal2Exportar] = useState("");
   const [noVotaExportar, setNoVotaExportar] = useState([]);
+  const [unVotoVale1Exportar, setUnVotoVale1Exportar] = useState([]);
+  const [unVotoVale2Exportar, setUnVotoVale2Exportar] = useState([]);
   const [statusExportar, setStatusExportar] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   
   const root = document.documentElement;
@@ -46,8 +49,15 @@ function GlobalState(props){
       setVotoFinal2Exportar:setVotoFinal2Exportar,
       noVotaExportar:noVotaExportar,
       setNoVotaExportar:setNoVotaExportar,
+      unVotoVale1Exportar:unVotoVale1Exportar,
+      setUnVotoVale1Exportar:setUnVotoVale1Exportar,
+      unVotoVale2Exportar:unVotoVale2Exportar,
+      setUnVotoVale2Exportar:setUnVotoVale2Exportar,
       statusExportar:statusExportar,
       setStatusExportar:setStatusExportar,
+      sidebarOpen:sidebarOpen,
+      setSidebarOpen:setSidebarOpen,
+
     }}>
         {props.children}
     </Context.Provider>

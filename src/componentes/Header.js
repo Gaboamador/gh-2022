@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import '../App.css';
 import {Container, Row, Col, Button} from 'react-bootstrap'
 import gh from '../logo.png';
@@ -9,10 +9,14 @@ import { AiOutlineRight, AiOutlineDown } from 'react-icons/ai';
 import { BsChevronRight } from "react-icons/bs";
 import { TfiClose } from "react-icons/tfi";
 import ComponenteExportar from "./ComponenteExportar";
+import Context from "../context";
+
 
 const Header = () => {
     const [sticky, setSticky] = useState(false);
-  
+
+    const context= useContext(Context)
+
     useEffect(() => {
       const header = document.getElementById("header");
       const handleScroll = () => {
@@ -106,6 +110,7 @@ const Header = () => {
           updatedNavlist[3].submenuOpen = false;
           setNavlistState(updatedNavlist);
           document.body.classList.toggle('sidebar-open', !sidebarOpen);
+          context.setSidebarOpen(!sidebarOpen)
       }
     
 
@@ -126,6 +131,7 @@ const Header = () => {
 
     const closeSidebar = () => {
       setSidebarOpen(false);
+      context.setSidebarOpen(false)
       document.body.classList.toggle('sidebar-open', !sidebarOpen);
     };
     
