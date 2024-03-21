@@ -33,7 +33,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-primario-oscuro);
+  background: var(--color-primario);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -1242,7 +1242,7 @@ body.sidebarAnular-open {
 .hideHeader {
   position: fixed;
   /* right: -100vw; */
-  transform: translateX(100vw);
+  transform: translateX(100vw) !important;
   transition: 0.5s;
 }
 
@@ -1371,23 +1371,40 @@ justify-content: center;
 
 /* SIDEBAR ANULAR VOTOS */
 .navMenuAnular {
-  width: 50px;
-  height: 45px;
+  /* width: 50px;
+  height: 50px; */
   position: fixed;
   top: 0.6rem;
-  right: 0.4rem;
-  transition: 1s;
+  right: 9px;
+  transition: 1s top, 1s width, 1s height;
   z-index: 6;
   padding: 10px 15px 10px 10px;
-  border: none;
-  border-bottom: solid 3px var(--color-terciario);
+  /* border: none; */
   
-  /* box-shadow: 0px 4px 12px 0px var(--color-primario-claro); */
+  /* border-bottom: solid 3px var(--color-terciario);
+  border-left: solid 3px var(--color-terciario); */
+  /* border-right: solid 1px var(--color-terciario);
+  border-top: solid 1px var(--color-terciario); */
+  
+  box-shadow:
+  0px 0px 6px 2px var(--color-primario-claro)
+  /* ,
+  inset 0px -1px 0px 0px #00FFFF,
+  inset 0px 1px 0px 0px #00FFFF */
+  ;
+  transform: scale(1, 0.8);
+  
   border-radius: 25px;
+  
   /* background-color: var(--color-secundario); */
   /* box-shadow: 0 0 10px #2bc5e7, 0 0 10px #2bc5e7; */
   /* box-shadow: 0 0 10px #e700ee, 0 0 10px #e700ee; */
   
+  width: 46px;
+  height: 46px;
+  border: solid 1px #f00bfc;
+  border-radius:  45% 15%;
+  transform: rotate(45deg);
 }
 
 
@@ -1408,15 +1425,15 @@ justify-content: center;
   border-radius: 15px;
   border: solid 2px var(--color-secundario-claro);
   border-right: none;
-  
+  transform: scale(1,1);
 }
 
 .openbtnAnular {  
   cursor: pointer;
   /* color: var(--color-primario); */
-  color: var(--color-terciario);
+  color: #f00bfc;
   /* display: inline-block; */
-  transform: translateX(10%) translateY(85%);
+  transform: translateX(0%) translateY(110%) rotate(90deg);
   /* border-radius: 50px; */
 }
 
@@ -1426,6 +1443,7 @@ justify-content: center;
 
 .openbtnAnular.active {
   /* color: var(--color-terciario); */
+  transform: translateX(-9.5%) translateY(70%);
 }
 
 .openbtnAnular.active:hover {
@@ -1462,7 +1480,6 @@ justify-content: center;
   height: 25px;
   background-color: var(--color-texto);
   border-radius: 50px;
-  transform: translateX(-200%) translateY(-20%);
 }
 
 .tituloSidebarAnular {

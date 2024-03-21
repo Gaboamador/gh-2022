@@ -110,7 +110,7 @@ const Header = () => {
           updatedNavlist[3].submenuOpen = false;
           setNavlistState(updatedNavlist);
           document.body.classList.toggle('sidebar-open', !sidebarOpen);
-          context.setSidebarOpen(!sidebarOpen)
+          context.setSidebarOpen(!context.sidebarOpen)
       }
     
 
@@ -134,7 +134,7 @@ const Header = () => {
       context.setSidebarOpen(false)
       document.body.classList.toggle('sidebar-open', !sidebarOpen);
     };
-    
+
 return (
   
   <div className={`${sidebarOpen ? 'sidebar-open' : ''}`} >

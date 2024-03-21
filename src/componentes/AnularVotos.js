@@ -4,6 +4,10 @@ import { BiSolidRightArrowCircle, BiSolidLeftArrowCircle } from 'react-icons/bi'
 import { GiCancel } from "react-icons/gi";
 import { FaCaretDown } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa6";
+import { MdKeyboardDoubleArrowDown } from "react-icons/md";
+import { MdOutlineDoubleArrow } from "react-icons/md";
+import { IoIosArrowForward } from "react-icons/io";
+import { BsChevronCompactDown } from "react-icons/bs";
 import Titulos from "./Titulos";
 import Context from "../context";
 
@@ -45,7 +49,7 @@ const AnularVotos = ({rows, toggleCancel, eliminados, counts}) => {
       {sidebarAnularVotosOpen ?
       <GiCancel className={`iconAnular ${sidebarAnularVotosOpen ? 'active' : ''}`} />
       :
-      <FaCaretDown className={`iconAnular ${sidebarAnularVotosOpen ? 'active' : ''}`} />
+      <IoIosArrowForward className={`iconAnular ${sidebarAnularVotosOpen ? 'active' : ''}`} />
       }
       </div>
       {sidebarAnularVotosOpen && (
@@ -92,6 +96,7 @@ const AnularVotos = ({rows, toggleCancel, eliminados, counts}) => {
               {/* fila botones */}
               <tr>
                 {/* celda con boton anular primer lugar */}
+              {/* {row.firstPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && row.participant !== "Catalina" && row.participant !== "Juliana" && ( */}
               {row.firstPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && (
               <td colSpan={row.checkedF || context.unVotoVale2Exportar.includes(row.participant) ? 2 : 1}>
                 <Button className={`botonAnular ${row.firstPlaceCanceled ? 'valido' : 'no-valido'}`} onClick={() => toggleCancel(index, 'firstPlace')}>
@@ -99,8 +104,9 @@ const AnularVotos = ({rows, toggleCancel, eliminados, counts}) => {
                 </Button>
                 </td>
               )}
-              {/* celda con boton anular segundo lugar */}
-               {row.secondPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && (
+              {/* celda con boton anular segundo lugar */}               
+              {/* {row.secondPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && row.participant !== "Catalina" && row.participant !== "Juliana" && ( */}
+              {row.secondPlace && row.participant !== eliminados.eliminado1 && row.participant !== eliminados.eliminado2 && (
                 <td colSpan={context.unVotoVale1Exportar.includes(row.participant) ? 2 : 1}>
                 <Button className={`botonAnular ${row.secondPlaceCanceled ? 'valido' : 'no-valido'}`} onClick={() => toggleCancel(index, 'secondPlace')}>
                     {row.secondPlaceCanceled ? 'Validar' : 'Anular'}

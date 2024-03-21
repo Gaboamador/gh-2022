@@ -128,6 +128,38 @@ const initialRows = [
   ...(invitado !== "" ? [{ participant: '\u2295\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
   ...(invitado !== "" ? [{ participant: '\u2296\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '', firstPlaceCanceled: false, secondPlaceCanceled: false })),
+
+  // COMIENZO ...participants.map ADAPTADO PARA ESPONTÁNEA DE JULIANA AL LÍDER. DESPUÉS VOLVER A USAR LA LÍNEA DE ARRIBA PARA "...participants.map". BORRAR
+  // ...participants.map((participant) => {
+  //   if (participant === 'Juliana') {
+  //     return {
+  //       participant,
+  //       firstPlace: "Florencia",
+  //       secondPlace: "Bautista",
+  //       firstPlaceCanceled: false,
+  //       secondPlaceCanceled: true,
+  //       checked: true
+  //     };
+  //   } else if (participant === 'Catalina') {
+  //     return {
+  //       participant,
+  //       firstPlace: "Paloma",
+  //       secondPlace: "",
+  //       firstPlaceCanceled: false,
+  //       secondPlaceCanceled: false,
+  //       checkedF: true
+  //     };
+  //   } else {
+  //     return {
+  //       participant,
+  //       firstPlace: "",
+  //       secondPlace: "",
+  //       firstPlaceCanceled: false,
+  //       secondPlaceCanceled: false
+  //     };
+  //   }
+  // })
+// FIN ...participants.map ADAPTADO PARA ESPONTÁNEA DE JULIANA AL LÍDER
 ];
 
 
@@ -188,6 +220,7 @@ const [rows, setRows] = useState(() => {
         const selectedIndexFromLocalStorage = localStorage.getItem('selectedIndexF');
         return selectedIndexFromLocalStorage ? JSON.parse(selectedIndexFromLocalStorage) : -1;
         });        
+  // const [fulminado, setFulminado] = useState(localStorage.getItem('fulminado') || 'Ingresar nombre de fulminado');
   const [fulminado, setFulminado] = useState(localStorage.getItem('fulminado') || '');
   const [isChecked, setIsChecked] = useState(false);
   const [isCheckedF, setIsCheckedF] = useState(false);
@@ -575,11 +608,11 @@ const toggleCancel = (index, place) => {
     // Check if row.checkedF is true, and if so, set 'fulminado' to an empty string
     if (place === 'firstPlace' && updatedRows[index].checkedF && fulminado !== "") {
       setPrevFulminado(fulminado);
-      console.log("fulminado previo: ", fulminado)
+      
       setFulminado('');
     } else if (place === 'firstPlace' && updatedRows[index].checkedF && fulminado === "") {
       setFulminado(prevFulminado);
-      console.log("fulminado actualizado: ", fulminado)
+      
     }
 
     localStorage.setItem('rows', JSON.stringify(updatedRows)); // Update local storage
@@ -655,6 +688,7 @@ let title;
       </div>
     );
   }
+  
   
 return (
 
@@ -776,11 +810,13 @@ return (
   ) : null}
 
 
+{(status !== "sin iniciar" || fulminado !== "" || nominado !== null) &&
 <Container>
 <div className="neon-line-divisoria-fija">
   <span></span>
 </div>
 </Container>
+}
 
 <Container> {/* CONTAINER CON LAS VOTACIONES */}
 
@@ -817,6 +853,7 @@ return (
               onChange={() => handleCheckbox(row.participant, index)}
               onClick={handleCheckboxClick}
               disabled={index !== selectedIndex && selectedIndex !== -1}
+              // disabled={true} //BORRAR. Volver a la línea de arriba con la lógica original
               className={`
               ${row.checkedF ? 'votoFinalDisabler' : ''}
               ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || (invitado !== "" && row.participant.includes(invitado)) ? 'votoFinalDisabler' : ''}`}
@@ -832,6 +869,7 @@ return (
               onChange={() => handleCheckboxF(row.participant, index)}
               onClick={handleCheckboxClickF}
               disabled={index !== selectedIndexF && selectedIndexF !== -1}
+              // disabled={true} //BORRAR. Volver a la línea de arriba con la lógica original
               className={`
               ${row.checked ? 'votoFinalDisabler' : ''}
               ${row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 || row.participant === "Teléfono" || (noVota !== null && noVota.includes(row.participant)) || (invitado !== "" && row.participant.includes(invitado)) ? 'votoFinalDisabler' : ''}`}
@@ -885,6 +923,7 @@ return (
                 }}
                 onChange={e => handleFirstPlaceChange(index, e.target.value)}
                 disabled={row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2}
+                // disabled={row.participant === 'Catalina' || row.participant === 'Juliana'} // BORRAR. Volver a la línea de arriba con la lógica original
                 >
                 <option value="">-</option>
                 {participants
@@ -894,7 +933,8 @@ return (
                   !inmune.includes(participant) &&
                   !row.secondPlace.includes(participant) &&
                   (!fulminado.includes(participant) || row.checkedF) &&
-                  (nominado !== null && !nominado.includes(participant))
+                  // (nominado !== null && !nominado.includes(participant))
+                  (nominado !== null ? !nominado.includes(participant) : true)
                   )
                 .map(participant => (
                 <option key={participant} value={participant}>
@@ -921,7 +961,9 @@ return (
               <FormSelect
                 as="select"
                 disabled={row.checkedF || row.participant === eliminados.eliminado1 || row.participant === eliminados.eliminado2 }
+                // disabled={row.participant === 'Catalina' || row.participant === 'Juliana'} // BORRAR. Volver a la línea de arriba con la lógica original
                 value={row.secondPlace}
+                // ${row.participant === 'Catalina' ? 'disabled' : ''} VA EN CLASSNAME = LINEA PARA DESHABILITAR SEGUNDO VOTO A QUIEN USÓ LA FULMINANTE
                 className={`comboBox
                 ${row.checkedF ? 'disabled' : ''}
                 ${row.checked ? 'espontanea' : ''}
@@ -947,7 +989,8 @@ return (
                   !inmune.includes(participant) &&
                   !row.firstPlace.includes(participant) &&
                   (!fulminado.includes(participant) || row.checkedF) &&
-                  (nominado !== null && !nominado.includes(participant))
+                  // (nominado !== null && !nominado.includes(participant))
+                  ((nominado !== null ? !nominado.includes(participant) : true))
                   )
                 .map(participant => (
                 <option key={participant} value={participant}>
