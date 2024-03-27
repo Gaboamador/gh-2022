@@ -19,6 +19,7 @@
   --color-fulminante: #F08CDC;
   --color-espontanea-rgba: 140, 220, 240;
   --color-fulminante-rgba: 240, 140, 220;
+  --color-eliminado: #639dd3;
   --fuente-titulos: 'TacticSans';
   --fuente-contenido: 'Assistant';
   --fuente-header: 'Michroma';
@@ -667,7 +668,7 @@ background: linear-gradient(to right, var(--color-fulminante) 0%, rgba(var(--col
 
 .eliminadoRow {
 /* background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(20, 91, 158,0.5) 10%, rgba(20, 91, 158,1) 50%, rgba(20, 91, 158,0.5) 90%, rgba(255,255,255,0) 99%); */
-background-color: var(--color-primario);
+background-color: var(--color-eliminado);
 }
 
 .telefonoRow {
