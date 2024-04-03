@@ -8,52 +8,76 @@ import { FaVoteYea } from 'react-icons/fa';
 import {BsFillPersonLinesFill, BsReverseLayoutTextWindowReverse, BsCalendarWeek, BsXCircle, BsAward, BsCalendar2Check, BsFillBarChartLineFill} from 'react-icons/bs';
 // import { participants, participantsChart } from "../data/participantsData";
 import { participantsToImage } from "../data/participantsToImage";
+import { fetchData } from '../componentes/DataService';
 
 
 function Home() {
 
 /*inicio llamado de datos automaticos*/
 const [participants, setParticipants] = useState([]);
+const [participantsChart, setParticipantsChart] = useState([]);
 
 useEffect(() => {
-  const fetchData = async () => {
+  const fetchDataFromAPI = async () => {
     try {
-      const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json');
-      const jsonData = await response.json();
-        // Check if the response has a "participants" property
-        if (jsonData.participants && Array.isArray(jsonData.participants)) {
-          setParticipants(jsonData.participants);
-        } else {
-          console.error('Invalid data format:', jsonData);
-        }
+      const { participants, participantsChart } = await fetchData();
+      if (participants.participants && Array.isArray(participants.participants)) {
+      setParticipants(participants.participants);
+      } else {
+      console.error('Invalid data format:', participants);
+      }
+      if (participantsChart.participantsChart && Array.isArray(participantsChart.participantsChart)) {
+      setParticipantsChart(participantsChart.participantsChart)
+      } else {
+      console.error('Invalid data format:', participantsChart);
+      }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-  fetchData();
+
+  fetchDataFromAPI();
 }, []);
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json');
+//       const jsonData = await response.json();
+//         // Check if the response has a "participants" property
+//         if (jsonData.participants && Array.isArray(jsonData.participants)) {
+//           setParticipants(jsonData.participants);
+//         } else {
+//           console.error('Invalid data format:', jsonData);
+//         }
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   };
+//   fetchData();
+// }, []);
 /*fin llamado de datos automaticos*/
 
 /*inicio llamado de datos automaticos*/
-const [participantsChart, setParticipantsChart] = useState([]);
 
-useEffect(() => {
-const fetchData = async () => {
-  try {
-    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
-    const jsonData = await response.json();
-      // Check if the response has a "participants" property
-      if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
-        setParticipantsChart(jsonData.participantsChart);
-      } else {
-        console.error('Invalid data format:', jsonData);
-      }
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
-fetchData();
-}, []);
+
+// useEffect(() => {
+// const fetchData = async () => {
+//   try {
+//     const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+//     const jsonData = await response.json();
+//       // Check if the response has a "participants" property
+//       if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+//         setParticipantsChart(jsonData.participantsChart);
+//       } else {
+//         console.error('Invalid data format:', jsonData);
+//       }
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
+// fetchData();
+// }, []);
 /*fin llamado de datos automaticos*/
 
   const context= useContext(Context)

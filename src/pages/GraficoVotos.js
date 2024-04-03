@@ -9,6 +9,7 @@ import GraficoVotos1 from "../graficos/GraficoVotos1";
 import GraficoVotos2 from "../graficos/GraficoVotos2";
 import GraficoVotos3 from "../graficos/GraficoVotos3";
 import GraficoVotos4 from "../graficos/GraficoVotos4";
+import { fetchData } from '../componentes/DataService';
 
 const GraficoVotos = () => {
   
@@ -23,22 +24,39 @@ const GraficoVotos = () => {
 const [participantsChart, setParticipantsChart] = useState([]);
 
 useEffect(() => {
-const fetchData = async () => {
-  try {
-    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
-    const jsonData = await response.json();
-      // Check if the response has a "participants" property
-      if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
-        setParticipantsChart(jsonData.participantsChart);
+  const fetchDataFromAPI = async () => {
+    try {
+      const { participantsChart } = await fetchData();
+      if (participantsChart.participantsChart && Array.isArray(participantsChart.participantsChart)) {
+      setParticipantsChart(participantsChart.participantsChart)
       } else {
-        console.error('Invalid data format:', jsonData);
+      console.error('Invalid data format:', participantsChart);
       }
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
-fetchData();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchDataFromAPI();
 }, []);
+
+// useEffect(() => {
+// const fetchData = async () => {
+//   try {
+//     const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+//     const jsonData = await response.json();
+//       // Check if the response has a "participants" property
+//       if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+//         setParticipantsChart(jsonData.participantsChart);
+//       } else {
+//         console.error('Invalid data format:', jsonData);
+//       }
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
+// fetchData();
+// }, []);
 /*fin llamado de datos automaticos*/
 
   // const participantes = participantsChart;

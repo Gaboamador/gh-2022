@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { Container, Table, FormSelect} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { fetchData } from '../componentes/DataService';
 import Titulos from '../componentes/Titulos';
 
 const VotacionesPorSemana = () => {
@@ -46,21 +47,39 @@ const applyModifications = (data, modifications) => {
 useEffect(() => {
   const fetchDataAndApplyModifications = async () => {
     try {
-      const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
-      const jsonData = await response.json();
+      const { nominaciones } = await fetchData();
+        if (nominaciones && nominaciones.data && nominaciones.modifications) {
+        applyModifications(nominaciones.data, nominaciones.modifications)
+          } else {
+            console.error('Invalid data format:', nominaciones);
+        }        
 
-      if (jsonData && jsonData.data && jsonData.modifications) {
-        applyModifications(jsonData.data, jsonData.modifications);
-      } else {
-        console.error('Invalid data format:', jsonData);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
   };
 
   fetchDataAndApplyModifications();
 }, []);
+
+// useEffect(() => {
+//   const fetchDataAndApplyModifications = async () => {
+//     try {
+//       const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+//       const jsonData = await response.json();
+
+//       if (jsonData && jsonData.data && jsonData.modifications) {
+//         applyModifications(jsonData.data, jsonData.modifications);
+//       } else {
+//         console.error('Invalid data format:', jsonData);
+//       }
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   };
+
+//   fetchDataAndApplyModifications();
+// }, []);
 
 
 const [selectedOption, setSelectedOption] = useState(0);

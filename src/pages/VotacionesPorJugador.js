@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import { useData } from '../data/votacionesData';
 // import { participantsChart } from '../data/participantsData';
 import { participantsToImage } from '../data/participantsToImage';
+import { fetchData } from '../componentes/DataService';
 import Titulos from '../componentes/Titulos';
 import LineaDivisoriaToRight from '../componentes/LineaDivisoriaToRight';
 
@@ -15,39 +16,60 @@ const VotacionesPorJugador = () => {
   const [data, setData] = useState([]);
   const [participantsChart, setParticipantsChart] = useState([]);
   
+  useEffect(() => {
+    const fetchDataFromAPI = async () => {
+      try {
+        const { nominaciones, participantsChart } = await fetchData();
+          if (nominaciones && nominaciones.data) {
+          setData(nominaciones.data);
+            } else {
+              console.error('Invalid data format:', nominaciones);
+          }        
+          if (participantsChart.participantsChart && Array.isArray(participantsChart.participantsChart)) {
+          setParticipantsChart(participantsChart.participantsChart)
+            } else {
+            console.error('Invalid data format:', participantsChart);
+            }
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+    };
+  
+    fetchDataFromAPI();
+  }, []);
 
-  const fetchData = async () => {
-  try {
-    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
-    const jsonData = await response.json();
+//   const fetchData = async () => {
+//   try {
+//     const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+//     const jsonData = await response.json();
 
-    if (jsonData && jsonData.data) {
-      setData(jsonData.data);
+//     if (jsonData && jsonData.data) {
+//       setData(jsonData.data);
 
-    } else {
-      console.error('Invalid data format:', jsonData);
-    }
+//     } else {
+//       console.error('Invalid data format:', jsonData);
+//     }
 
-// Fetch data from the second URL
-const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
-const jsonData2 = await response2.json();
+// // Fetch data from the second URL
+// const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+// const jsonData2 = await response2.json();
 
-// Check if the response has a "participants" property
-// if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
-  if (jsonData2 && Array.isArray(jsonData2.participantsChart)) {
-    setParticipantsChart(jsonData2.participantsChart);
-} else {
-  console.error('Invalid data format:', jsonData2);
-}
+// // Check if the response has a "participants" property
+// // if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+//   if (jsonData2 && Array.isArray(jsonData2.participantsChart)) {
+//     setParticipantsChart(jsonData2.participantsChart);
+// } else {
+//   console.error('Invalid data format:', jsonData2);
+// }
 
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
 
-useEffect(() => {
-  fetchData();
-}, []);
+// useEffect(() => {
+//   fetchData();
+// }, []);
 
 // const [selectedName, setSelectedName] = useState(participantsChart[0]);
 const [selectedName, setSelectedName] = useState('Agostina');

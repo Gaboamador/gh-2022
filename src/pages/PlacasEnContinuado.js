@@ -4,6 +4,7 @@ import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect} fr
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import { dataPlaca } from '../data/placasData';
 import { ImSortNumbericDesc, ImTable2 } from 'react-icons/im';
+import { fetchData } from '../componentes/DataService';
 import Titulos from '../componentes/Titulos';
 
 const PlacasEnContinuado = () => {
@@ -13,17 +14,30 @@ const PlacasEnContinuado = () => {
   const [dataPlaca, setData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataFromAPI = async () => {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/placasNominados.json');
-        const jsonData = await response.json();
-        setData(jsonData);
+        const { placaNominados } = await fetchData();
+        setData(placaNominados);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-    fetchData();
+  
+    fetchDataFromAPI();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/placasNominados.json');
+  //       const jsonData = await response.json();
+  //       setData(jsonData);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 /*fin llamado de datos automaticos*/
 
 
