@@ -7,8 +7,6 @@ import { participantsToImage } from "../data/participantsToImage";
 import AnularVotos from "../componentes/AnularVotos";
 import Context from "../context";
 // import { votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra } from "../data/modificadores";
-import { fetchData } from '../componentes/DataService';
-
 
 function ContadorNominaciones() {
   
@@ -30,69 +28,71 @@ function ContadorNominaciones() {
   const [invitado, setInvitado] = useState("");
   const context= useContext(Context)
     
-//   const fetchData = async () => {
-//   try {
-// /**/
-// const timestamp = new Date().getTime(); // Unique timestamp
-// /**/
+  const fetchData = async () => {
+  try {
+/**/
+const timestamp = new Date().getTime(); // Unique timestamp
+/**/
 
-// // Fetch data from the first URL (ÚLTIMO ELIMINADO)
-//   // const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/placasNominados.json');
-//   const response = await fetch(`https://raw.githubusercontent.com/Gaboamador/gh-data/main/placasNominados.json?_=${timestamp}`);
-//   const jsonData = await response.json();
-//   setData(jsonData);
+// Fetch data from the first URL (ÚLTIMO ELIMINADO)
+  // const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/placasNominados.json');
+  const response = await fetch(`https://raw.githubusercontent.com/Gaboamador/gh-data/main/placasNominados.json?_=${timestamp}`);
+  const jsonData = await response.json();
+  setData(jsonData);
 
-// // Fetch data from the second URL (PARTICIPANTES)
-//   // const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json');
-//   const response2 = await fetch(`https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json?_=${timestamp}`);
-//   const jsonData2 = await response2.json();
-//   setParticipants(jsonData2.participants);
+// Fetch data from the second URL (PARTICIPANTES)
+  // const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json');
+  const response2 = await fetch(`https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json?_=${timestamp}`);
+  const jsonData2 = await response2.json();
+  setParticipants(jsonData2.participants);
 
-//   // Fetch data from the third URL (MODIFICADORES)
-//   // const response3 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/modificadores.json');
-//   const response3 = await fetch(`https://raw.githubusercontent.com/Gaboamador/gh-data/main/modificadores.json?_=${timestamp}`);
-//   const jsonData3 = await response3.json();
-//   setVotoFinal1(jsonData3.votoFinal1);
-//   setVotoFinal2(jsonData3.votoFinal2);
-//   setNominado(jsonData3.nominado);
-//   setNoVota(jsonData3.noVota);
-//   setInmune(jsonData3.inmune);
-//   setVotoValeDoble(jsonData3.votoValeDoble);
-//   setUnVotoVale1(jsonData3.unVotoVale1);
-//   setUnVotoVale2(jsonData3.unVotoVale2);
-//   setDosVotosEnContra(jsonData3.dosVotosEnContra);
-//   setInvitado(jsonData3.invitado);
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// };
+  // Fetch data from the third URL (MODIFICADORES)
+  // const response3 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/modificadores.json');
+  const response3 = await fetch(`https://raw.githubusercontent.com/Gaboamador/gh-data/main/modificadores.json?_=${timestamp}`);
+  const jsonData3 = await response3.json();
+  setVotoFinal1(jsonData3.votoFinal1);
+  setVotoFinal2(jsonData3.votoFinal2);
+  setNominado(jsonData3.nominado);
+  setNoVota(jsonData3.noVota);
+  setInmune(jsonData3.inmune);
+  setVotoValeDoble(jsonData3.votoValeDoble);
+  setUnVotoVale1(jsonData3.unVotoVale1);
+  setUnVotoVale2(jsonData3.unVotoVale2);
+  setDosVotosEnContra(jsonData3.dosVotosEnContra);
+  setInvitado(jsonData3.invitado);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
-// useEffect(() => {
-//   fetchData();
-// }, []);
 useEffect(() => {
-  const fetchDataFromAPI = async () => {
-    try {
-      const { placaNominados, participants, modificadores } = await fetchData();
-      setData(placaNominados);
-      setParticipants(participants.participants);
-      setVotoFinal1(modificadores.votoFinal1);
-      setVotoFinal2(modificadores.votoFinal2);
-      setNominado(modificadores.nominado);
-      setNoVota(modificadores.noVota);
-      setInmune(modificadores.inmune);
-      setVotoValeDoble(modificadores.votoValeDoble);
-      setUnVotoVale1(modificadores.unVotoVale1);
-      setUnVotoVale2(modificadores.unVotoVale2);
-      setDosVotosEnContra(modificadores.dosVotosEnContra);
-      setInvitado(modificadores.invitado);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
-
-  fetchDataFromAPI();
+  fetchData();
 }, []);
+
+/* LÓGICA PARA LLAMADO API CON COMPONENTE DataService.js. NO MUESTRA VOTO FINAL COMO DEBERÍA*/
+// useEffect(() => {
+//   const fetchDataFromAPI = async () => {
+//     try {
+//       const { placaNominados, participants, modificadores } = await fetchData();
+//       setData(placaNominados);
+//       setParticipants(participants.participants);
+//       setVotoFinal1(modificadores.votoFinal1);
+//       setVotoFinal2(modificadores.votoFinal2);
+//       setNominado(modificadores.nominado);
+//       setNoVota(modificadores.noVota);
+//       setInmune(modificadores.inmune);
+//       setVotoValeDoble(modificadores.votoValeDoble);
+//       setUnVotoVale1(modificadores.unVotoVale1);
+//       setUnVotoVale2(modificadores.unVotoVale2);
+//       setDosVotosEnContra(modificadores.dosVotosEnContra);
+//       setInvitado(modificadores.invitado);
+//     } catch (error) {
+//       console.error('Error fetching data:', error);
+//     }
+//   };
+
+//   fetchDataFromAPI();
+// }, []);
 
 /*FIN LLAMADAS API*/
 
@@ -126,7 +126,7 @@ useEffect(() => {
   // Set the state with the last 'Eliminado' names
   setEliminados({ eliminado1, eliminado2 });
 }, [dataPlaca]);
-
+console.log(eliminados.eliminado1, "eliminado 1")
 // const initialRows = [
 //   ...(votoFinal1 !== ""
 //   ? [{ participant: eliminados.eliminado1, firstPlace: votoFinal1, secondPlace: "" }]
