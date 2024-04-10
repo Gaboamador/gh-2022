@@ -1,59 +1,54 @@
 import React, {useState, useEffect, useContext } from "react";
 import ReactEcharts from "echarts-for-react";
-import { Row, Col, Accordion, Collapse, Container} from "react-bootstrap";
-// import { useData } from "../data/votacionesData";
+import { Row, Col, Accordion, Collapse } from "react-bootstrap";
 import TitleChart from "../componentes/TitleChart";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
-import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
-import { Bar, Doughnut, chart} from "react-chartjs-2";
 import Context from "../context";
+import { fetchData } from "../componentes/DataService";
 
-ChartJS.register(...registerablesjs);
-
-Chart.register(
-  ArcElement,
-  RadialLinearScale,
-  PointElement,
-  LineElement);
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-const GraficoVotos4 = ({participantName}) => {
+const NominacionesRecibidasPorSemana = ({participantName}) => {
 
   const [data, setData] = useState([]);
   
   const context= useContext(Context)
 
   useEffect(() => {
-  const fetchData = async () => {
-  try {
-    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
-    const jsonData = await response.json();
+    const fetchDataFromAPI = async () => {
+      try {
+        const { nominaciones } = await fetchData();
+          if (nominaciones && nominaciones.data) {
+          setData(nominaciones.data);
+            } else {
+              console.error('Invalid data format:', nominaciones);
+          }
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+    };
+  
+    fetchDataFromAPI();
+  }, []);
 
-    if (jsonData && jsonData.data) {
-      setData(jsonData.data);
+  //   useEffect(() => {
+//   const fetchData = async () => {
+//   try {
+//     const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+//     const jsonData = await response.json();
 
-    } else {
-      console.error('Invalid data format:', jsonData);
-    }
+//     if (jsonData && jsonData.data) {
+//       setData(jsonData.data);
+
+//     } else {
+//       console.error('Invalid data format:', jsonData);
+//     }
     
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
 
 
-  fetchData();
-}, []);    
+//   fetchData();
+// }, []);    
 
     // const [data] = useData();
 
@@ -115,7 +110,7 @@ const GraficoVotos4 = ({participantName}) => {
         color: context.paleta.primario,
         xAxis: {
             type: 'category',
-            data: weeks.map((week) => `S. ${week}`),
+            data: weeks.map((week) => `${week}`),
             position: 'top',
             offset: 7,
             axisLabel: {
@@ -141,10 +136,8 @@ const GraficoVotos4 = ({participantName}) => {
           label: {
             show: true,
             formatter: function (props) {
-              console.log("props: ",props)
               if(props.value === 0) {
-                // return props.seriesName
-                return null
+                return ""
               } else {
                 return props.value
               }
@@ -307,4 +300,4 @@ const [isChartVisible, setChartVisibility] = useState(false);
   );
 };
 
-export default GraficoVotos4;
+export default NominacionesRecibidasPorSemana;

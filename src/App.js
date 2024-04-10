@@ -12,7 +12,7 @@ import ListadoLideres from './pages/ListadoLideres';
 import ListadoEliminados from './pages/ListadoEliminados';
 import PlacasPorSemana from './pages/PlacasPorSemana';
 import PlacasEnContinuado from './pages/PlacasEnContinuado';
-import GraficoVotos from './pages/GraficoVotos';
+import GraficosNominaciones from './pages/GraficosNominaciones';
 
 function App() {  
 return (
@@ -29,7 +29,7 @@ return (
           <Route path="/ListadoEliminados" element={<ListadoEliminados/>}></Route>
           <Route path="/PlacasPorSemana" element={<PlacasPorSemana/>}></Route>
           <Route path="/PlacasEnContinuado" element={<PlacasEnContinuado/>}></Route>
-          <Route path="/GraficoVotos" element={<GraficoVotos/>}></Route>
+          <Route path="/GraficosNominaciones" element={<GraficosNominaciones/>}></Route>
         </Routes>
         </GlobalState>
     </Router>

@@ -669,6 +669,7 @@ background: linear-gradient(to right, var(--color-fulminante) 0%, rgba(var(--col
 .eliminadoRow {
 /* background: linear-gradient(to right, rgba(255,255,255,0) 1%, rgba(20, 91, 158,0.5) 10%, rgba(20, 91, 158,1) 50%, rgba(20, 91, 158,0.5) 90%, rgba(255,255,255,0) 99%); */
 background-color: var(--color-eliminado);
+border-bottom: 1px solid var(--color-primario-claro);
 }
 
 .telefonoRow {

@@ -5,13 +5,13 @@ import Context from "../context";
 import { participantsToImage } from "../data/participantsToImage";
 import LineaDivisoria from "../componentes/LineaDivisoria";
 import LineaDivisoriaToRight from "../componentes/LineaDivisoriaToRight";
-import GraficoVotos1 from "../graficos/GraficoVotos1";
-import GraficoVotos2 from "../graficos/GraficoVotos2";
-import GraficoVotos3 from "../graficos/GraficoVotos3";
-import GraficoVotos4 from "../graficos/GraficoVotos4";
+import GraficoNominacionesRealizadas from "../graficos/GraficoNominacionesRealizadas";
+import GraficoNominacionesTotalesRecibidas from "../graficos/GraficoNominacionesTotalesRecibidas";
+import DetalleNominacionesRecibidas from "../graficos/DetalleNominacionesRecibidas";
+import NominacionesRecibidasPorSemana from "../graficos/NominacionesRecibidasPorSemana";
 import { fetchData } from '../componentes/DataService';
 
-const GraficoVotos = () => {
+const GraficosNominaciones = () => {
   
   useEffect(() => {
     // Scroll to the top when the component mounts
@@ -118,7 +118,7 @@ useEffect(() => {
 <h6 className="titleChartType">Gráfico de Nominaciones Realizadas</h6>
 
 <Container>
-<GraficoVotos1 participantName={selectedParticipant} className='grafico'/>
+<GraficoNominacionesRealizadas participantName={selectedParticipant} className='grafico'/>
 </Container>
 
 <LineaDivisoria nLine={1}/>
@@ -126,19 +126,19 @@ useEffect(() => {
 <h6 className="titleChartType">Gráficos de Nominaciones Recibidas</h6>
 
 <Container>
-<GraficoVotos2 participantName={selectedParticipant} className='grafico'/>
+<GraficoNominacionesTotalesRecibidas participantName={selectedParticipant} className='grafico'/>
 </Container>
 
 <LineaDivisoria nLine={2}/>
 
 <Container>
-<GraficoVotos3 participantName={selectedParticipant} className='grafico'/>
+<DetalleNominacionesRecibidas participantName={selectedParticipant} className='grafico'/>
 </Container>
 
 <LineaDivisoria nLine={1}/>
 
 <Container>
-<GraficoVotos4 participantName={selectedParticipant} className='grafico'/>
+<NominacionesRecibidasPorSemana participantName={selectedParticipant} className='grafico'/>
 </Container>
 
 
@@ -146,4 +146,4 @@ useEffect(() => {
   );
 };
 
-export default GraficoVotos;
+export default GraficosNominaciones;

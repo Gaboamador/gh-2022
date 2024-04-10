@@ -4,6 +4,7 @@ import Axel from '../pictures/Axel.png'
 import Bautista from '../pictures/Bautista.png'
 import Carla from '../pictures/Carla.png'
 import Catalina from '../pictures/Catalina.png'
+import Constanza from '../pictures/Constanza.png'
 import Damián from '../pictures/Damian.png'
 import Darío from '../pictures/Dario.png'
 import Denisse from '../pictures/Denisse.png'
@@ -34,6 +35,7 @@ export const participantsToImage = {
     Bautista: Bautista,
     Carla: Carla,
     Catalina: Catalina,
+    Constanza:Constanza,
     Damián: Damián,
     Darío: Darío,
     Denisse: Denisse,

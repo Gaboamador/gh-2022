@@ -117,7 +117,7 @@ return (
  <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', padding: 5, marginBottom: 10 }}>
         {nonEliminatedParticipants.map((participant) => (
            <Link
-           to="/GraficoVotos"
+           to="/GraficosNominaciones"
            onClick={() => updateSelectedParticipant(participant)}
            style={{ textDecoration: "none" }}
            key={participant}
@@ -140,7 +140,7 @@ return (
       <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly', padding: 5, marginBottom: 10 }}>
         {eliminatedParticipants.map((participant) => (
           <Link
-          to="/GraficoVotos"
+          to="/GraficosNominaciones"
           onClick={() => updateSelectedParticipant(participant)}
           style={{ textDecoration: "none" }}
           key={participant} 

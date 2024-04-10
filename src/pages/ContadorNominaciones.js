@@ -126,7 +126,7 @@ useEffect(() => {
   // Set the state with the last 'Eliminado' names
   setEliminados({ eliminado1, eliminado2 });
 }, [dataPlaca]);
-console.log(eliminados.eliminado1, "eliminado 1")
+
 // const initialRows = [
 //   ...(votoFinal1 !== ""
 //   ? [{ participant: eliminados.eliminado1, firstPlace: votoFinal1, secondPlace: "" }]

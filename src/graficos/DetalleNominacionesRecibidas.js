@@ -1,57 +1,50 @@
 import React, { useState, useContext, useEffect } from "react";
-import ReactEcharts from "echarts-for-react";
 import { Collapse, Table } from "react-bootstrap";
-// import { useData } from "../data/votacionesData";
-// import { participantsChart } from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
-import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
-import { Bar, Doughnut, chart} from "react-chartjs-2";
+import { fetchData } from "../componentes/DataService";
 
-ChartJS.register(...registerablesjs);
-
-Chart.register(
-  ArcElement,
-  RadialLinearScale,
-  PointElement,
-  LineElement);
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-const GraficoVotos3 = ({participantName}) => {
+const DetalleNominacionesRecibidas = ({participantName}) => {
 
   const [data, setData] = useState([]);
   
   useEffect(() => {
-  const fetchData = async () => {
-  try {
-    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
-    const jsonData = await response.json();
+    const fetchDataFromAPI = async () => {
+      try {
+        const { nominaciones } = await fetchData();
+          if (nominaciones && nominaciones.data) {
+          setData(nominaciones.data);
+            } else {
+              console.error('Invalid data format:', nominaciones);
+          }
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+    };
+  
+    fetchDataFromAPI();
+  }, []);
+  
+//   useEffect(() => {
+//   const fetchData = async () => {
+//   try {
+//     const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+//     const jsonData = await response.json();
 
-    if (jsonData && jsonData.data) {
-      setData(jsonData.data);
+//     if (jsonData && jsonData.data) {
+//       setData(jsonData.data);
 
-    } else {
-      console.error('Invalid data format:', jsonData);
-    }
+//     } else {
+//       console.error('Invalid data format:', jsonData);
+//     }
     
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
 
 
-  fetchData();
-}, []);    
+//   fetchData();
+// }, []);    
   
   // const [data] = useData();
   
@@ -160,4 +153,4 @@ const GraficoVotos3 = ({participantName}) => {
   );
 };
 
-export default GraficoVotos3;
+export default DetalleNominacionesRecibidas;

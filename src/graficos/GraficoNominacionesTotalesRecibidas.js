@@ -1,34 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import ReactEcharts from "echarts-for-react";
 import { Collapse } from "react-bootstrap";
-// import { useData } from "../data/votacionesData";
-// import { participantsChart } from "../data/participantsData";
 import TitleChart from "../componentes/TitleChart";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend} from "chart.js";
-import {Chart, ArcElement, RadialLinearScale, PointElement, LineElement, registerables as registerablesjs} from 'chart.js'
-import { Bar, Doughnut, chart} from "react-chartjs-2";
 import Context from "../context";
+import { fetchData } from "../componentes/DataService";
 
-ChartJS.register(...registerablesjs);
-
-Chart.register(
-  ArcElement,
-  RadialLinearScale,
-  PointElement,
-  LineElement);
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-const GraficoVotos2 = ({participantName}) => {
+const GraficoNominacionesTotalesRecibidas = ({participantName}) => {
 
   const [data, setData] = useState([]);
   const [participantsChart, setParticipantsChart] = useState([]);
@@ -36,38 +13,60 @@ const GraficoVotos2 = ({participantName}) => {
   const context= useContext(Context)
   
   useEffect(() => {
-  const fetchData = async () => {
-  try {
-    const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
-    const jsonData = await response.json();
+    const fetchDataFromAPI = async () => {
+      try {
+        const { nominaciones, participantsChart } = await fetchData();
+          if (nominaciones && nominaciones.data) {
+          setData(nominaciones.data);
+            } else {
+              console.error('Invalid data format:', nominaciones);
+          }        
+          if (participantsChart.participantsChart && Array.isArray(participantsChart.participantsChart)) {
+          setParticipantsChart(participantsChart.participantsChart)
+            } else {
+            console.error('Invalid data format:', participantsChart);
+            }
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+    };
+  
+    fetchDataFromAPI();
+  }, []);
 
-    if (jsonData && jsonData.data) {
-      setData(jsonData.data);
+//   useEffect(() => {
+//   const fetchData = async () => {
+//   try {
+//     const response = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/nominaciones.json');
+//     const jsonData = await response.json();
 
-    } else {
-      console.error('Invalid data format:', jsonData);
-    }
+//     if (jsonData && jsonData.data) {
+//       setData(jsonData.data);
 
-// Fetch data from the second URL
-const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
-const jsonData2 = await response2.json();
+//     } else {
+//       console.error('Invalid data format:', jsonData);
+//     }
 
-// Check if the response has a "participants" property
-// if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
-  if (jsonData2 && Array.isArray(jsonData2.participantsChart)) {
-    setParticipantsChart(jsonData2.participantsChart);
-} else {
-  console.error('Invalid data format:', jsonData2);
-}
+// // Fetch data from the second URL
+// const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participantsChart.json');
+// const jsonData2 = await response2.json();
 
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
+// // Check if the response has a "participants" property
+// // if (jsonData.participantsChart && Array.isArray(jsonData.participantsChart)) {
+//   if (jsonData2 && Array.isArray(jsonData2.participantsChart)) {
+//     setParticipantsChart(jsonData2.participantsChart);
+// } else {
+//   console.error('Invalid data format:', jsonData2);
+// }
+
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// };
 
 
-  fetchData();
-}, []);  
+//   fetchData();
+// }, []);  
   
   
   // const [data] = useData();
@@ -143,7 +142,8 @@ const jsonData2 = await response2.json();
             data: chartData.xAxisData,
             inverse: true,
             axisLabel: {
-                  color: 'black'
+                  color: 'black',
+                  interval: 0,
               },
           },
           series: [
@@ -174,11 +174,11 @@ const jsonData2 = await response2.json();
   />
         <Collapse in={isChartVisible}>
           <div>
-          <ReactEcharts option={option} style={{minHeight: '90vh'}} className='grafico'/>
+          <ReactEcharts option={option} style={{minHeight: '100vh'}} className='grafico'/>
           </div>
         </Collapse>
         </div>
   );
 };
 
-export default GraficoVotos2;
+export default GraficoNominacionesTotalesRecibidas;
