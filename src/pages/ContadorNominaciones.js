@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import '../App.css';
 import {Button, Row, Col, Container, ListGroup, Table, FormCheck, FormSelect, Image} from 'react-bootstrap';
 // import { dataPlaca } from "../data/placasData";
@@ -7,6 +7,9 @@ import { participantsToImage } from "../data/participantsToImage";
 import AnularVotos from "../componentes/AnularVotos";
 import Context from "../context";
 // import { votoFinal, nominado, noVota, inmune, votoValeDoble, dosVotosEnContra } from "../data/modificadores";
+import html2canvas from 'html2canvas';
+
+
 
 function ContadorNominaciones() {
   
@@ -718,140 +721,185 @@ let title;
     );
   }
   
+  const divRefNominaciones = useRef(null);
+  const divRefPlaca = useRef(null);
+
+const mensajeTablaNominacionesOk = 'Tabla de nominaciones copiada en el portapapeles.'
+const mensajeTablaNominacionesFail = 'La tabla de nominaciones no pudo ser copiada en el portapapeles.'
+const mensajePlacaOk = 'Placa de nominados copiada en el portapapeles.'
+const mensajePlacaFail = 'La placa de nominados no pudo ser copiada en el portapapeles.'
+
+  const takeScreenshot = (divRef, mensajeOk, mensajeFail) => {
+
+  const yValue = divRef === divRefPlaca ? -20 : 0;
+
+    if (divRef.current) {
+      html2canvas(divRef.current, {
+        allowTaint: true,
+        useCORS: true,
+        windowWidth: document.documentElement.offsetWidth,
+        windowHeight: document.documentElement.offsetHeight,
+        scrollX: window.scrollX,
+        y: yValue,
+        backgroundColor: '#0a335a',
+      }).then((canvas) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            navigator.clipboard.write([
+              new ClipboardItem({
+                'image/png': blob,
+              }),
+            ]).then(() => {
+              alert(mensajeOk);
+            }).catch((error) => {
+              alert(mensajeFail);
+              console.error('Could not copy image to clipboard:', error);
+            });
+          }
+        }, 'image/png');
+      });
+    }
+  };
+  
+  
+
   
 return (
 
 <div className="content">
 
+<div ref={divRefPlaca}>
+  
+  <Container className="containerPlaca"> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
 
-<Container className="containerPlaca"> {/* CONTAINER CON LA PLACA DE NOMINADOS Y EL ZOCALO DE VOTACION PARCIAL*/}
+  {/* CONTAINER DE ZOCALO VOTACION PARCIAL/FINAL */}
+  <Container>{title}</Container>
 
-{/* CONTAINER DE ZOCALO VOTACION PARCIAL/FINAL */}
-<Container>{title}</Container>
-
-    <Container className="containerPlaca containerPlacaNominados" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
-    
-{/* DIV CON LAS FOTOS DE LOS SANCIONADOS */}
-    {nominado && nominado.map((participant) => {
-    return (
-      <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
-        {/*TEXTO NOMINADO*/}
-        {nominado !== null ? (
-        <div className="containerNumerosPlaca nominado"></div>
-        ) : null}
-        {/*IMAGEN NOMINADO*/}
-        {nominado !== null ? (
-        <div className="imagenPlaca">
-        <Image className="fotoJugador" src={participantsToImage[participant]}/>
-          <div className="zocaloImagen">{participant.toUpperCase()}</div>
-        </div>
-        ) : null}
-      </div>
-      );
-    })}
-
-{/* DIV CON LA FOTO DEL FULMINADO */}
-      {fulminado === '' ? null : (
-      <div style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
-      {/*TEXTO F FULMINADO*/}
-      <div className="containerNumerosPlaca nominado">
-        {/* <div className="numerosPlaca">
-          X
-        </div> */}
-      </div>
-      {/*IMAGEN FULMINADO*/}
-      <div className="imagenPlaca">
-        <Image className="fotoJugador" src={participantsToImage[fulminado]}/>
-          <div className="zocaloImagen">{fulminado.toUpperCase()}</div>
-        </div>
-    </div>
-  )}
-
-{/* DIV CON LAS FOTOS DE LOS NOMINADOS DENTRO DE PLACA */}
-  {sortedEntries.map(([participant, count], index) => {          
-    return (
-      <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
-        {/*NUMEROS PLACA ORDENADA*/}
-        {index < 3 || count >= fourthCount ? (        
-        <div className="containerNumerosPlaca">
-          <div className="numerosPlaca">
-            {count}
-          </div>
-        </div>
-        ) : null}
-        {/*IMAGEN PLACA ORDENADA*/}
-        {index < 3 || count >= fourthCount ? (
-        <div className="imagenPlaca">
-          {/* <Image src={participantsToImage[participant]} width="99px" height="105px"/> */}
+      <Container className="containerPlaca containerPlacaNominados" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}> {/* CONTAINER DE IMAGENES, SIN ZOCALO */}
+      
+  {/* DIV CON LAS FOTOS DE LOS SANCIONADOS */}
+      {nominado && nominado.map((participant) => {
+      return (
+        <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
+          {/*TEXTO NOMINADO*/}
+          {nominado !== null ? (
+          <div className="containerNumerosPlaca nominado"></div>
+          ) : null}
+          {/*IMAGEN NOMINADO*/}
+          {nominado !== null ? (
+          <div className="imagenPlaca">
           <Image className="fotoJugador" src={participantsToImage[participant]}/>
-          <div className="zocaloImagen">{participant.toUpperCase()}</div>
-        </div>
-        ) : null}
-      </div>
-    );
-  })}
-    </Container>    
-
-
-
-</Container>
-
-{/* DIV CON LAS FOTOS DE LOS NOMINADOS FUERA DE PLACA */}
-  {sortedEntries.some(([participant, count], index) => index >= 3 && count < fourthCount) ? (
-  <Container className="containerPlaca" style={{ marginTop: -5 }}> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
-
-{/*CONTAINER CON EL TÍTULO FUERA DE PLACA*/}
-<Container>
-      {/* <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}> */}      
-      <h6 className={`${status === 'finalizado' ? 'placaNominadosNUEVO placaParcial' : 'placaNominados placaParcial'}`} style={estiloPlacaDeNominados}>
-      {sortedEntries.some(([participant, count], index) => {
-          return (index >= 3 && count < fourthCount)
-        }) ? <span>FUERA DE PLACA</span> : null}
-      </h6>
-      </Container>
-
-      <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
-      {sortedEntries.map(([participant, count], index) => {          
-        return (
-          <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
-            {/*NUMEROS FUERA DE PLACA ORDENADA*/}
-            {index < 3 || count >= fourthCount ? null : (        
-            <div className="containerNumerosPlaca">
-              <div className="numerosPlaca">
-              {count}
-              </div>
-            </div>
-            )}
-            {/*IMAGEN FUERA DE PLACA ORDENADA*/}
-            {index < 3 || count >= fourthCount ? null : (
-            <div className="imagenPlaca">
-              <Image className="fotoJugador" src={participantsToImage[participant]}/>
-              <div className="zocaloImagen">{participant.toUpperCase()}</div>
-            </div>
-            )}
+            <div className="zocaloImagen">{participant.toUpperCase()}</div>
           </div>
+          ) : null}
+        </div>
         );
       })}
-      </Container>
+
+  {/* DIV CON LA FOTO DEL FULMINADO */}
+        {fulminado === '' ? null : (
+        <div style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
+        {/*TEXTO F FULMINADO*/}
+        <div className="containerNumerosPlaca nominado">
+          {/* <div className="numerosPlaca">
+            X
+          </div> */}
+        </div>
+        {/*IMAGEN FULMINADO*/}
+        <div className="imagenPlaca">
+          <Image className="fotoJugador" src={participantsToImage[fulminado]}/>
+            <div className="zocaloImagen">{fulminado.toUpperCase()}</div>
+          </div>
+      </div>
+    )}
+
+  {/* DIV CON LAS FOTOS DE LOS NOMINADOS DENTRO DE PLACA */}
+    {sortedEntries.map(([participant, count], index) => {          
+      return (
+        <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
+          {/*NUMEROS PLACA ORDENADA*/}
+          {index < 3 || count >= fourthCount ? (        
+          <div className="containerNumerosPlaca">
+            <div className="numerosPlaca">
+              {count}
+            </div>
+          </div>
+          ) : null}
+          {/*IMAGEN PLACA ORDENADA*/}
+          {index < 3 || count >= fourthCount ? (
+          <div className="imagenPlaca">
+            {/* <Image src={participantsToImage[participant]} width="99px" height="105px"/> */}
+            <Image className="fotoJugador" src={participantsToImage[participant]}/>
+            <div className="zocaloImagen">{participant.toUpperCase()}</div>
+          </div>
+          ) : null}
+        </div>
+      );
+    })}
+      </Container>    
+
 
 
   </Container>
-  ) : null}
+
+  {/* DIV CON LAS FOTOS DE LOS NOMINADOS FUERA DE PLACA */}
+    {sortedEntries.some(([participant, count], index) => index >= 3 && count < fourthCount) ? (
+    <Container className="containerPlaca" style={{ marginTop: -5 }}> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
+
+  {/*CONTAINER CON EL TÍTULO FUERA DE PLACA*/}
+  <Container>
+        {/* <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}> */}      
+        <h6 className={`${status === 'finalizado' ? 'placaNominadosNUEVO placaParcial' : 'placaNominados placaParcial'}`} style={estiloPlacaDeNominados}>
+        {sortedEntries.some(([participant, count], index) => {
+            return (index >= 3 && count < fourthCount)
+          }) ? <span>FUERA DE PLACA</span> : null}
+        </h6>
+        </Container>
+
+        <Container className="containerPlaca" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}> {/* CONTAINER CON LOS FUERA DE PLACA SIN EL ZOCALO*/}
+        {sortedEntries.map(([participant, count], index) => {          
+          return (
+            <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
+              {/*NUMEROS FUERA DE PLACA ORDENADA*/}
+              {index < 3 || count >= fourthCount ? null : (        
+              <div className="containerNumerosPlaca">
+                <div className="numerosPlaca">
+                {count}
+                </div>
+              </div>
+              )}
+              {/*IMAGEN FUERA DE PLACA ORDENADA*/}
+              {index < 3 || count >= fourthCount ? null : (
+              <div className="imagenPlaca">
+                <Image className="fotoJugador" src={participantsToImage[participant]}/>
+                <div className="zocaloImagen">{participant.toUpperCase()}</div>
+              </div>
+              )}
+            </div>
+          );
+        })}
+        </Container>
 
 
-{(status !== "sin iniciar" || fulminado !== "" || nominado !== null) &&
-<Container>
-<div className="neon-line-divisoria-fija">
-  <span></span>
+    </Container>
+    ) : null}
+
+
+  {(status !== "sin iniciar" || fulminado !== "" || nominado !== null) &&
+  <Container>
+  <div className="neon-line-divisoria-fija">
+    <span></span>
+  </div>
+  </Container>
+  }
+
 </div>
-</Container>
-}
 
 <Container> {/* CONTAINER CON LAS VOTACIONES */}
 
 <AnularVotos rows={rows} toggleCancel={toggleCancel} eliminados={eliminados} counts={counts}/>
       
-      <Table className="tablaNominaciones">
+      <Table className="tablaNominaciones" ref={divRefNominaciones}>
          <thead>
          <tr>
             <th>E</th>
@@ -1092,10 +1140,16 @@ return (
           <Button style={estiloBotonReiniciar} onClick={() => setIsConfirming(true)} className="custom-class-reiniciar">Reiniciar nominaciones</Button>
         
     </Row>
+
+
+
   </Container>
 
 
-
+  <Container className="container-capturar">
+      <Button onClick={() => takeScreenshot(divRefNominaciones, mensajeTablaNominacionesOk, mensajeTablaNominacionesFail)} className="custom-class-capturar">Capturar votos</Button>
+      <Button onClick={() => takeScreenshot(divRefPlaca, mensajePlacaOk, mensajePlacaFail)} className="custom-class-capturar">Capturar placa</Button>
+      </Container>
 
 
 </div>
