@@ -47,7 +47,27 @@ const timestamp = new Date().getTime(); // Unique timestamp
   // const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json');
   const response2 = await fetch(`https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json?_=${timestamp}`);
   const jsonData2 = await response2.json();
-  setParticipants(jsonData2.participants);
+  // setParticipants(jsonData2.participants);
+  setParticipants([
+    "Aixa",
+    "Bautista",
+    "Darío",
+    "Delfina",
+    "Emmanuel",
+    "Facundo",
+    "Florencia",
+    "Francisco",
+    "Franco",
+    "Juliana",
+    "Martín",
+    "Mateo",
+    "Nicolás",
+    "Noelia",
+    "Rocío",
+    "Sol",
+    "Virginia",
+    "Zoe"    
+    ])
 
   // Fetch data from the third URL (MODIFICADORES)
   // const response3 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/modificadores.json');
