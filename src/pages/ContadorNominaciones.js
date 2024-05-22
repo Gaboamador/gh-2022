@@ -49,7 +49,6 @@ const timestamp = new Date().getTime(); // Unique timestamp
   const jsonData2 = await response2.json();
   // setParticipants(jsonData2.participants);
   setParticipants([
-    "Aixa",
     "Bautista",
     "Darío",
     "Delfina",
@@ -63,10 +62,8 @@ const timestamp = new Date().getTime(); // Unique timestamp
     "Mateo",
     "Nicolás",
     "Noelia",
-    "Rocío",
     "Sol",
-    "Virginia",
-    "Zoe"    
+    "Virginia"
     ])
 
   // Fetch data from the third URL (MODIFICADORES)
