@@ -159,7 +159,7 @@ const initialRows = [
   ...(dosVotosEnContra !== "" ? [{ participant: "Teléfono", firstPlace: dosVotosEnContra, secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
   ...(invitado !== "" ? [{ participant: '\u2295\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
   ...(invitado !== "" ? [{ participant: '\u2296\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
-  ...[{ participant: 'Delfina', firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }],
+  // ...[{ participant: 'Delfina', firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }],
   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '', firstPlaceCanceled: false, secondPlaceCanceled: false })),
 
   // COMIENZO ...participants.map ADAPTADO PARA ESPONTÁNEA DE JULIANA AL LÍDER. DESPUÉS VOLVER A USAR LA LÍNEA DE ARRIBA PARA "...participants.map". BORRAR
@@ -196,7 +196,7 @@ const initialRows = [
 ];
 
 // Paso para ordenar la lista de participantes. Agregado para que Delfina aparezca mezclada con el resto de participantes.
-initialRows.sort((a, b) => a.participant.localeCompare(b.participant));
+// initialRows.sort((a, b) => a.participant.localeCompare(b.participant));
 
 
 useEffect(() => {
