@@ -29,6 +29,7 @@ function ContadorNominaciones() {
   const [unVotoVale2, setUnVotoVale2] = useState([]);
   const [dosVotosEnContra, setDosVotosEnContra] = useState("");
   const [invitado, setInvitado] = useState("");
+  const [cortePlacaIndex, setCortePlacaIndex] = useState(4);
   const context= useContext(Context)
     
   const fetchData = async () => {
@@ -47,7 +48,40 @@ const timestamp = new Date().getTime(); // Unique timestamp
   // const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json');
   const response2 = await fetch(`https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json?_=${timestamp}`);
   const jsonData2 = await response2.json();
-  setParticipants(jsonData2.participants);
+  // setParticipants(jsonData2.participants);
+  setParticipants(
+    [
+      "Agostina",
+      "Alan",
+      "Axel",
+      "Carla",
+      "Catalina",
+      "Constanza",
+      "Damián",
+      "Denisse",
+      "Federico",
+      "FlorenciaR.",
+      "FlorenciaC.",
+      "Hernán",
+      "Isabel",
+      "Joel",
+      "Lisandro",
+      "Lucía",
+      "Mauro",
+      "Paloma",
+      "Rosina",
+      "Sabrina",
+      "Williams",
+      "Zoe",
+        "Bautista",
+        "Darío",
+        "Emmanuel",
+        "Juliana",
+        "Martín",
+        "Nicolás",
+        "Virginia"
+    ]
+  )
 
   // Fetch data from the third URL (MODIFICADORES)
   // const response3 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/modificadores.json');
@@ -56,13 +90,45 @@ const timestamp = new Date().getTime(); // Unique timestamp
   setVotoFinal1(jsonData3.votoFinal1);
   setVotoFinal2(jsonData3.votoFinal2);
   setNominado(jsonData3.nominado);
-  setNoVota(jsonData3.noVota);
-  setInmune(jsonData3.inmune);
+  // setNoVota(jsonData3.noVota);
+  setNoVota([
+    "Bautista",
+    "Darío",
+    "Emmanuel",
+    "Juliana",
+    "Martín",
+    "Nicolás",
+    "Virginia"])
+  // setInmune(jsonData3.inmune);
+  setInmune([
+    "Agostina",
+    "Alan",
+    "Axel",
+    "Carla",
+    "Catalina",
+    "Constanza",
+    "Damián",
+    "Denisse",
+    "Federico",
+    "FlorenciaR.",
+    "FlorenciaC.",
+    "Hernán",
+    "Isabel",
+    "Joel",
+    "Lisandro",
+    "Lucía",
+    "Mauro",
+    "Paloma",
+    "Rosina",
+    "Sabrina",
+    "Williams",
+    "Zoe"])
   setVotoValeDoble(jsonData3.votoValeDoble);
   setUnVotoVale1(jsonData3.unVotoVale1);
   setUnVotoVale2(jsonData3.unVotoVale2);
   setDosVotosEnContra(jsonData3.dosVotosEnContra);
   setInvitado(jsonData3.invitado);
+  setCortePlacaIndex(jsonData3.cortePlacaIndex);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -159,7 +225,6 @@ const initialRows = [
   ...(dosVotosEnContra !== "" ? [{ participant: "Teléfono", firstPlace: dosVotosEnContra, secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
   ...(invitado !== "" ? [{ participant: '\u2295\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
   ...(invitado !== "" ? [{ participant: '\u2296\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
-  // ...[{ participant: 'Delfina', firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }],
   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '', firstPlaceCanceled: false, secondPlaceCanceled: false })),
 
   // COMIENZO ...participants.map ADAPTADO PARA ESPONTÁNEA DE JULIANA AL LÍDER. DESPUÉS VOLVER A USAR LA LÍNEA DE ARRIBA PARA "...participants.map". BORRAR
@@ -271,7 +336,8 @@ const [rows, setRows] = useState(() => {
   const fourthCount = sortedEntries.length > 4 ? sortedEntries[3][1] : 0;
   const thirdCount = sortedEntries.length > 3 ? sortedEntries[2][1] : 0;
 
-  
+  const cortePlaca = cortePlacaIndex === 3 ? thirdCount : fourthCount
+
     useEffect(() => {
     const updatedCounts = {};
 
@@ -765,9 +831,7 @@ const mensajePlacaFail = 'La placa de nominados no pudo ser copiada en el portap
     }
   };
   
-  
 
-  
 return (
 
 <div className="content">
@@ -822,7 +886,7 @@ return (
       return (
         <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
           {/*NUMEROS PLACA ORDENADA*/}
-          {index < 3 || count >= fourthCount ? (        
+          {index < 3 || count >= cortePlaca ? (        
           <div className="containerNumerosPlaca">
             <div className="numerosPlaca">
               {count}
@@ -830,7 +894,7 @@ return (
           </div>
           ) : null}
           {/*IMAGEN PLACA ORDENADA*/}
-          {index < 3 || count >= fourthCount ? (
+          {index < 3 || count >= cortePlaca ? (
           <div className="imagenPlaca">
             {/* <Image src={participantsToImage[participant]} width="99px" height="105px"/> */}
             <Image className="fotoJugador" src={participantsToImage[participant]}/>
@@ -847,7 +911,7 @@ return (
   </Container>
 
   {/* DIV CON LAS FOTOS DE LOS NOMINADOS FUERA DE PLACA */}
-    {sortedEntries.some(([participant, count], index) => index >= 3 && count < fourthCount) ? (
+    {sortedEntries.some(([participant, count], index) => index >= 3 && count < cortePlaca) ? (
     <Container className="containerPlaca" style={{ marginTop: -5 }}> {/* CONTAINER CON FUERA DE PLACA Y EL ZOCALO CON FUERA DE PLACA*/}
 
   {/*CONTAINER CON EL TÍTULO FUERA DE PLACA*/}
@@ -855,7 +919,7 @@ return (
         {/* <h6 className="placaNominados placaParcial" style={estiloPlacaDeNominados}> */}      
         <h6 className={`${status === 'finalizado' ? 'placaNominadosNUEVO placaParcial' : 'placaNominados placaParcial'}`} style={estiloPlacaDeNominados}>
         {sortedEntries.some(([participant, count], index) => {
-            return (index >= 3 && count < fourthCount)
+            return (index >= 3 && count < cortePlaca)
           }) ? <span>FUERA DE PLACA</span> : null}
         </h6>
         </Container>
@@ -865,7 +929,7 @@ return (
           return (
             <div key={participant} style={{ display: 'inline-flex', alignItems: 'flex-end', marginBottom: 35 }}>
               {/*NUMEROS FUERA DE PLACA ORDENADA*/}
-              {index < 3 || count >= fourthCount ? null : (        
+              {index < 3 || count >= cortePlaca ? null : (        
               <div className="containerNumerosPlaca">
                 <div className="numerosPlaca">
                 {count}
@@ -873,7 +937,7 @@ return (
               </div>
               )}
               {/*IMAGEN FUERA DE PLACA ORDENADA*/}
-              {index < 3 || count >= fourthCount ? null : (
+              {index < 3 || count >= cortePlaca ? null : (
               <div className="imagenPlaca">
                 <Image className="fotoJugador" src={participantsToImage[participant]}/>
                 <div className="zocaloImagen">{participant.toUpperCase()}</div>
@@ -927,6 +991,10 @@ return (
           `}>
 
 {/* COLUMNA 1, CON EL CHECKBOX PARA LA ESPONTÁNEA */}
+
+            {/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
+            {!noVota.includes(row.participant) && 
+
             <td >
               <FormCheck
               type="checkbox"
@@ -941,8 +1009,13 @@ return (
               >
               </FormCheck>
             </td>
+            
+          } {/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
 
 {/* COLUMNA 2, CON EL CHECKBOX PARA LA FULMINANTE */}
+            {/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
+            {!noVota.includes(row.participant) && 
+            
             <td >
               <FormCheck
               type="checkbox"
@@ -958,7 +1031,12 @@ return (
               </FormCheck>
             </td>
 
+} {/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
+
 {/* COLUMNA 3, CON LA LISTA DE NOMBRES DE PARTICIPANTES */}
+            {/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
+            {!noVota.includes(row.participant) && 
+            
             <td>
               <ListGroup
               className={`columnaJugadoresNegrita
@@ -968,7 +1046,7 @@ return (
               ${votoValeDoble.includes(row.participant) ? 'votoValeDoble' : ''} `}
               style={{marginTop: '2.5px', marginBottom: '2.5px'}}
               >
-              {row.participant}
+               {!noVota.includes(row.participant) && row.participant} 
               {votoValeDoble.includes(row.participant) && " *"}
               </ListGroup>
               {row.participant === eliminados.eliminado1 && (
@@ -982,8 +1060,13 @@ return (
               )}
             </td>
 
+} {/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
+
 {/* COLUMNA 4, CON EL FORM SELECT PARA EL VOTO DE PRIMER LUGAR */}
-            <td>
+            
+{/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
+{!noVota.includes(row.participant) && 
+<td>
               <FormSelect
                 value={row.firstPlace}
                 className={`comboBox
@@ -1036,8 +1119,13 @@ return (
               <div className="anulado" style={{backgroundColor: 'transparent'}}>{row.firstPlace}</div>
               )}
             </td>
+            
+            } {/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
 
 {/* COLUMNA 5, CON EL FORM SELECT PARA EL VOTO DE SEGUNDO LUGAR */}
+            {/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
+            {!noVota.includes(row.participant) && 
+            
             <td>
               <FormSelect
                 as="select"
@@ -1089,6 +1177,8 @@ return (
               <div className="anulado" style={{backgroundColor: 'transparent'}}>{row.secondPlace}</div>
               )}
             </td>
+
+} {/* LÍNEA AGREGADA PARA EXCLUIR A LOS PARTICIPANTES ORIGINALES DE LA LISTA DE VOTANTES. ELIMINAR */}
           </tr>
         ))}
         <tr>
