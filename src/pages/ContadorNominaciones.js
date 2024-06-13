@@ -48,40 +48,7 @@ const timestamp = new Date().getTime(); // Unique timestamp
   // const response2 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json');
   const response2 = await fetch(`https://raw.githubusercontent.com/Gaboamador/gh-data/main/participants.json?_=${timestamp}`);
   const jsonData2 = await response2.json();
-  // setParticipants(jsonData2.participants);
-  setParticipants(
-    [
-      "Agostina",
-      "Alan",
-      "Axel",
-      "Carla",
-      "Catalina",
-      "Constanza",
-      "Damián",
-      "Denisse",
-      "Federico",
-      "FlorenciaR.",
-      "FlorenciaC.",
-      "Hernán",
-      "Isabel",
-      "Joel",
-      "Lisandro",
-      "Lucía",
-      "Mauro",
-      "Paloma",
-      "Rosina",
-      "Sabrina",
-      "Williams",
-      "Zoe",
-        "Bautista",
-        "Darío",
-        "Emmanuel",
-        "Juliana",
-        "Martín",
-        "Nicolás",
-        "Virginia"
-    ]
-  )
+  setParticipants(jsonData2.participants);
 
   // Fetch data from the third URL (MODIFICADORES)
   // const response3 = await fetch('https://raw.githubusercontent.com/Gaboamador/gh-data/main/modificadores.json');
@@ -90,39 +57,8 @@ const timestamp = new Date().getTime(); // Unique timestamp
   setVotoFinal1(jsonData3.votoFinal1);
   setVotoFinal2(jsonData3.votoFinal2);
   setNominado(jsonData3.nominado);
-  // setNoVota(jsonData3.noVota);
-  setNoVota([
-    "Bautista",
-    "Darío",
-    "Emmanuel",
-    "Juliana",
-    "Martín",
-    "Nicolás",
-    "Virginia"])
-  // setInmune(jsonData3.inmune);
-  setInmune([
-    "Agostina",
-    "Alan",
-    "Axel",
-    "Carla",
-    "Catalina",
-    "Constanza",
-    "Damián",
-    "Denisse",
-    "Federico",
-    "FlorenciaR.",
-    "FlorenciaC.",
-    "Hernán",
-    "Isabel",
-    "Joel",
-    "Lisandro",
-    "Lucía",
-    "Mauro",
-    "Paloma",
-    "Rosina",
-    "Sabrina",
-    "Williams",
-    "Zoe"])
+  setNoVota(jsonData3.noVota);
+  setInmune(jsonData3.inmune);
   setVotoValeDoble(jsonData3.votoValeDoble);
   setUnVotoVale1(jsonData3.unVotoVale1);
   setUnVotoVale2(jsonData3.unVotoVale2);
@@ -225,6 +161,10 @@ const initialRows = [
   ...(dosVotosEnContra !== "" ? [{ participant: "Teléfono", firstPlace: dosVotosEnContra, secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
   ...(invitado !== "" ? [{ participant: '\u2295\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
   ...(invitado !== "" ? [{ participant: '\u2296\u00A0' + invitado, firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }] : []),
+  // ...[{ participant: 'Nicolás (Emmanuel)', firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }],
+  // ...[{ participant: 'Emma (Bautista)', firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }],
+  // ...[{ participant: 'María (Martín)', firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }],
+  // ...[{ participant: 'Nicolás (Antonella)', firstPlace: "", secondPlace: "", firstPlaceCanceled: false, secondPlaceCanceled: false }],
   ...participants.map((participant) => ({ participant, firstPlace: '', secondPlace: '', firstPlaceCanceled: false, secondPlaceCanceled: false })),
 
   // COMIENZO ...participants.map ADAPTADO PARA ESPONTÁNEA DE JULIANA AL LÍDER. DESPUÉS VOLVER A USAR LA LÍNEA DE ARRIBA PARA "...participants.map". BORRAR
